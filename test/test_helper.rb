@@ -9,3 +9,14 @@ require "i18n-alchemy"
 I18n.default_locale = :en
 I18n.locale = :en
 I18n.load_path << Dir[File.expand_path("../locale/*.yml", __FILE__)]
+
+ActiveRecord::Base.establish_connection(
+  :adapter  => "sqlite3",
+  :database => ":memory:"
+)
+ActiveRecord::Base.connection.create_table :products do |t|
+  t.decimal :price
+end
+
+class Product < ActiveRecord::Base
+end

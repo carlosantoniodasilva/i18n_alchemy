@@ -1,4 +1,8 @@
 source "http://rubygems.org"
 
-# Specify your gem's dependencies in i18n-alchemy.gemspec
 gemspec
+
+group :test do
+  gem "sqlite3-ruby", "~> 1.3.2"
+  gem "ruby-debug19"
+end
