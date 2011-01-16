@@ -1,10 +1,16 @@
 module I18n
   module Alchemy
     class NumericParser
-      def parse(number)
-        return number if number.is_a?(Numeric)
+      def parse(value)
+        return value if value.is_a?(Numeric)
 
-        number.gsub(delimiter, '_').gsub(separator, '.')
+        value.gsub(delimiter, '_').gsub(separator, '.')
+      end
+
+      def localize(value)
+        return value if value.is_a?(String)
+
+        value.to_s.gsub("_", "").gsub(".", separator)
       end
 
       private
