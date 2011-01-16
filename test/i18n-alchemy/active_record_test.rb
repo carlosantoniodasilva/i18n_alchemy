@@ -22,6 +22,18 @@ class ActiveRecordTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_raw_numeric_attribute
+    @product.price = 1.99
+    assert_equal 1.99, @product.raw_price
+  end
+
+  def test_raw_numeric_attribute_with_different_locale
+    I18n.with_locale :pt do
+      @product.price = 1.99
+      assert_equal 1.99, @product.raw_price
+    end
+  end
+
   def test_does_not_use_localization_on_primary_key_column
     @product.id = 123
     assert_equal 123, @product.id

@@ -10,12 +10,13 @@ module I18n
         base.columns_hash.each_pair do |column_name, column|
           next if column.primary || !column.number?
           define_method(column_name) { read_attribute(column_name) }
+          define_method("raw_#{column_name}") { read_attribute(column_name, true) }
         end
       end
 
-      def read_attribute(attribute_name)
-        value = super
-        value = localize_numeric_value(value) if numeric_column?(attribute_name)
+      def read_attribute(attribute_name, raw=false)
+        value = super(attribute_name)
+        value = localize_numeric_value(value) if !raw && numeric_column?(attribute_name)
         value
       end
 
