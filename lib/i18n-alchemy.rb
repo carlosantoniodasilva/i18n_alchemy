@@ -1,5 +1,2 @@
-module I18n
-  module Alchemy
-    # Your code goes here...
-  end
-end
+require "i18n"
+require "i18n-alchemy/numeric_parser"
