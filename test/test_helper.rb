@@ -19,4 +19,5 @@ ActiveRecord::Base.connection.create_table :products do |t|
 end
 
 class Product < ActiveRecord::Base
+  include I18n::Alchemy::ActiveRecord
 end

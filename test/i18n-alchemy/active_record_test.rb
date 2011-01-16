@@ -5,20 +5,25 @@ class ActiveRecordTest < MiniTest::Unit::TestCase
     @product = Product.new
   end
 
-  def test_numeric_columns_accept_numeric_values
+  def test_numeric_columns_accept_and_convert_numeric_values
     @product.price = 1.99
-    assert_equal 1.99, @product.price
+    assert_equal "1.99", @product.price
   end
 
-  def test_numeric_columns_accept_string_values
+  def test_numeric_columns_accept_and_convert_string_values
     @product.price = "1.2"
-    assert_equal 1.2, @product.price
+    assert_equal "1.2", @product.price
   end
 
-  def test_numeric_columns_accept_localized_values
+  def test_numeric_columns_accept_and_convert_localized_values
     I18n.with_locale :pt do
       @product.price = "1,2"
-      assert_equal 1.2, @product.price
+      assert_equal "1,2", @product.price
     end
+  end
+
+  def test_does_not_use_localization_on_primary_key_column
+    @product.id = 123
+    assert_equal 123, @product.id
   end
 end

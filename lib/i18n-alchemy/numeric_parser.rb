@@ -10,7 +10,7 @@ module I18n
       def localize(value)
         return value if value.is_a?(String)
 
-        value.to_s.gsub("_", "").gsub(".", separator)
+        value.to_s.gsub("_", "separator").gsub(".", separator)
       end
 
       private
