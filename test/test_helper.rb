@@ -15,9 +15,10 @@ ActiveRecord::Base.establish_connection(
   :database => ":memory:"
 )
 ActiveRecord::Base.connection.create_table :products do |t|
+  t.string  :name
   t.decimal :price
 end
 
 class Product < ActiveRecord::Base
-  include I18n::Alchemy::ActiveRecord
+  include I18n::Alchemy
 end
