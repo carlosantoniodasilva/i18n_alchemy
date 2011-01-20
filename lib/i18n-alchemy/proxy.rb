@@ -9,21 +9,19 @@ module I18n
         end.map { |column| column.name }
       end
 
-      def method_missing(method, *args)
+      def method_missing(method, *args, &block)
         attribute = method.to_s
         is_writer = attribute.ends_with?("=")
         attribute = attribute.delete("=")
+
         if @attributes.include?(attribute)
           if is_writer
-            value = parse_numeric_value(args.shift)
-            args.unshift(value)
-            @target.send(method, *args)
+            write_attribute(method, args.shift, *args, &block)
           else
-            value = @target.send(method, *args)
-            localize_numeric_value(value)
+            read_attribute(method, *args, &block)
           end
         else
-          @target.send(method, *args)
+          @target.send(method, *args, &block)
         end
       end
 
@@ -32,6 +30,16 @@ module I18n
       end
 
       private
+
+      def read_attribute(method, *args, &block)
+        value = @target.send(method, *args, &block)
+        localize_numeric_value(value)
+      end
+
+      def write_attribute(method, value, *args, &block)
+        value = parse_numeric_value(value)
+        @target.send(method, value, *args, &block)
+      end
 
       def localize_numeric_value(value)
         numeric_parser.localize(value)

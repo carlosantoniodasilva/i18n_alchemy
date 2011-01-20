@@ -21,4 +21,8 @@ end
 
 class Product < ActiveRecord::Base
   include I18n::Alchemy
+
+  def method_with_block
+    yield "called!"
+  end
 end

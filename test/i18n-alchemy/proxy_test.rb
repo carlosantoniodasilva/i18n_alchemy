@@ -32,10 +32,21 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal "foo", @localized.name
   end
 
+  def test_does_not_localize_primary_key
+    @product.id = 1
+    assert_equal 1, @localized.id
+  end
+
   def test_delegates_to_target_object
     assert @product.new_record?
     assert @localized.save!(:name => "foo", :price => 1.99)
     assert !@product.new_record?
+  end
+
+  def test_delegates_method_with_block_to_target_object
+    @localized.method_with_block do |attr|
+      assert_equal "called!", attr
+    end
   end
 
   def test_respond_to
