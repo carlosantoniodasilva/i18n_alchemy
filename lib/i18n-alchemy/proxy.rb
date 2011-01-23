@@ -1,12 +1,54 @@
 module I18n
   module Alchemy
     class Proxy
+      class BaseAttribute
+        attr_reader :attribute
+
+        # TODO: review: inject parser instead of having different classes?
+        # TODO: this is gonna create a parser for each attribute, is this
+        # really required?
+        def initialize(target, attribute)
+          @target    = target
+          @attribute = attribute
+        end
+
+        def read(method, *args, &block)
+          value = @target.send(method, *args, &block)
+          @parser.localize(value)
+        end
+
+        def write(method, value, *args, &block)
+          value = @parser.parse(value)
+          @target.send(method, value, *args, &block)
+        end
+      end
+
+      class DateAttribute < BaseAttribute
+        def initialize(*)
+          super
+          @parser = I18n::Alchemy::DateParser.new
+        end
+      end
+
+      class NumericAttribute < BaseAttribute
+        def initialize(*)
+          super
+          @parser = I18n::Alchemy::NumericParser.new
+        end
+      end
+
       def initialize(target)
         @target = target
 
-        @columns = @target.class.columns.select do |column|
-          !column.primary && (column.number? || column.type == :date)
-        end
+        @attributes = @target.class.columns.map do |column|
+          next if column.primary
+
+          if column.number?
+            NumericAttribute.new(@target, column.name)
+          elsif column.type == :date
+            DateAttribute.new(@target, column.name)
+          end
+        end.compact
       end
 
       def method_missing(method, *args, &block)
@@ -17,9 +59,9 @@ module I18n
 
         if column
           if is_writer
-            write_attribute(method, args.shift, *args, &block)
+            column.write(method, args.shift, *args, &block)
           else
-            read_attribute(method, *args, &block)
+            column.read(method, *args, &block)
           end
         else
           @target.send(method, *args, &block)
@@ -33,29 +75,7 @@ module I18n
       private
 
       def find_localized_column(attribute)
-        @columns.detect { |c| c.name == attribute }
-      end
-
-      def read_attribute(method, *args, &block)
-        value = @target.send(method, *args, &block)
-        localize_numeric_value(value)
-      end
-
-      def write_attribute(method, value, *args, &block)
-        value = parse_numeric_value(value)
-        @target.send(method, value, *args, &block)
-      end
-
-      def localize_numeric_value(value)
-        numeric_parser.localize(value)
-      end
-
-      def parse_numeric_value(value)
-        numeric_parser.parse(value)
-      end
-
-      def numeric_parser
-        @numeric_parser ||= I18n::Alchemy::NumericParser.new
+        @attributes.detect { |c| c.attribute == attribute }
       end
     end
   end
