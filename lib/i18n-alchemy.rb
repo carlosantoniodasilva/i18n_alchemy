@@ -1,5 +1,6 @@
 require "active_record"
 require "i18n"
+require "i18n-alchemy/date_parser"
 require "i18n-alchemy/numeric_parser"
 require "i18n-alchemy/proxy"
 

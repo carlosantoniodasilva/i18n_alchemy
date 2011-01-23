@@ -1,4 +1,9 @@
 en:
+
+  date:
+    formats:
+      default: "%m/%d/%Y"
+
   number:
     format:
       separator: '.'

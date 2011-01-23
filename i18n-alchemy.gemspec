@@ -20,5 +20,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "activerecord", "~> 3.0.3"
+  s.add_dependency "activesupport", "~> 3.0.3"
   s.add_dependency "i18n", "~> 0.5.0"
 end

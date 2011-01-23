@@ -1,4 +1,9 @@
 pt:
+
+  date:
+    formats:
+      default: "%d/%m/%Y"
+
   number:
     format:
       separator: ','
