@@ -21,6 +21,10 @@ module I18n
         end
       end
 
+      instance_methods.each do |method|
+        undef_method method unless method =~ /(^__|^send$|^object_id$)/
+      end
+
       def initialize(target)
         @target = target
 
@@ -60,10 +64,6 @@ module I18n
         else
           @target.send(method, *args, &block)
         end
-      end
-
-      def respond_to?(*args)
-        @target.respond_to?(*args)
       end
 
       private

@@ -12,7 +12,13 @@ class ProxyTest < MiniTest::Unit::TestCase
     I18n.locale = :en
   end
 
-  def test_delegates_to_target_object
+  def test_undefines_methods_to_delegate_to_target
+    assert @product.object_id != @localized.object_id
+    assert @product == @localized
+    assert_equal Product, @localized.class
+  end
+
+  def test_delegates_orm_methods_to_target_object
     assert @product.new_record?
     assert @localized.save!(:name => "foo", :price => 1.99)
     assert !@product.new_record?
