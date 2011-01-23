@@ -4,17 +4,18 @@ module I18n
       def initialize(target)
         @target = target
 
-        @attributes = @target.class.columns.select do |column|
-          !column.primary && column.number?
-        end.map { |column| column.name }
+        @columns = @target.class.columns.select do |column|
+          !column.primary && (column.number? || column.type == :date)
+        end
       end
 
       def method_missing(method, *args, &block)
         attribute = method.to_s
         is_writer = attribute.ends_with?("=")
         attribute = attribute.delete("=")
+        column    = find_localized_column(attribute)
 
-        if @attributes.include?(attribute)
+        if column
           if is_writer
             write_attribute(method, args.shift, *args, &block)
           else
@@ -30,6 +31,10 @@ module I18n
       end
 
       private
+
+      def find_localized_column(attribute)
+        @columns.detect { |c| c.name == attribute }
+      end
 
       def read_attribute(method, *args, &block)
         value = @target.send(method, *args, &block)

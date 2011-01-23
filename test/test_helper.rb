@@ -17,6 +17,7 @@ ActiveRecord::Base.establish_connection(
 ActiveRecord::Base.connection.create_table :products do |t|
   t.string  :name
   t.decimal :price
+  t.date    :released_at
 end
 
 class Product < ActiveRecord::Base
