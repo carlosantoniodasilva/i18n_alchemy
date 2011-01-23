@@ -43,17 +43,19 @@ module I18n
         end.compact
       end
 
+      # TODO: is it the best option to rely only in method_missing?
+      # Or should we define the right method when the proxy is created?
       def method_missing(method, *args, &block)
-        attribute = method.to_s
-        is_writer = attribute.ends_with?("=")
-        attribute = attribute.delete("=")
-        column    = find_localized_column(attribute)
+        attribute       = method.to_s
+        is_writer       = attribute.ends_with?("=")
+        attribute       = attribute.delete("=")
+        proxy_attribute = find_localized_attribute(attribute)
 
-        if column
+        if proxy_attribute
           if is_writer
-            column.write(method, args.shift, *args, &block)
+            proxy_attribute.write(method, args.shift, *args, &block)
           else
-            column.read(method, *args, &block)
+            proxy_attribute.read(method, *args, &block)
           end
         else
           @target.send(method, *args, &block)
@@ -66,7 +68,7 @@ module I18n
 
       private
 
-      def find_localized_column(attribute)
+      def find_localized_attribute(attribute)
         @attributes.detect { |c| c.attribute == attribute }
       end
     end
