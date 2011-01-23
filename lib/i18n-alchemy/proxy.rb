@@ -24,18 +24,22 @@ module I18n
       def initialize(target)
         @target = target
 
+        parsers = {}
         @attributes = @target.class.columns.map do |column|
           next if column.primary
 
           parser = if column.number?
-            I18n::Alchemy::NumericParser
+            :numeric
           elsif column.type == :date
-            I18n::Alchemy::DateParser
+            :date
           end
 
-          # TODO: this is gonna create a parser for each attribute, is this
-          # really required?
-          Attribute.new(@target, column.name, parser.new) if parser
+          if parser
+            parser = parsers[parser] ||=
+              I18n::Alchemy.const_get("#{parser.capitalize}Parser")
+
+            Attribute.new(@target, column.name, parser.new)
+          end
         end.compact
       end
 
