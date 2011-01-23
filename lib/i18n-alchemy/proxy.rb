@@ -1,15 +1,13 @@
 module I18n
   module Alchemy
     class Proxy
-      class BaseAttribute
+      class Attribute
         attr_reader :attribute
 
-        # TODO: review: inject parser instead of having different classes?
-        # TODO: this is gonna create a parser for each attribute, is this
-        # really required?
-        def initialize(target, attribute)
+        def initialize(target, attribute, parser)
           @target    = target
           @attribute = attribute
+          @parser    = parser
         end
 
         def read(method, *args, &block)
@@ -23,31 +21,21 @@ module I18n
         end
       end
 
-      class DateAttribute < BaseAttribute
-        def initialize(*)
-          super
-          @parser = I18n::Alchemy::DateParser.new
-        end
-      end
-
-      class NumericAttribute < BaseAttribute
-        def initialize(*)
-          super
-          @parser = I18n::Alchemy::NumericParser.new
-        end
-      end
-
       def initialize(target)
         @target = target
 
         @attributes = @target.class.columns.map do |column|
           next if column.primary
 
-          if column.number?
-            NumericAttribute.new(@target, column.name)
+          parser = if column.number?
+            I18n::Alchemy::NumericParser
           elsif column.type == :date
-            DateAttribute.new(@target, column.name)
+            I18n::Alchemy::DateParser
           end
+
+          # TODO: this is gonna create a parser for each attribute, is this
+          # really required?
+          Attribute.new(@target, column.name, parser.new) if parser
         end.compact
       end
 
