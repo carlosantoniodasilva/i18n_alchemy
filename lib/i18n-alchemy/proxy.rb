@@ -51,12 +51,10 @@ module I18n
       # Or should we define the right method when the proxy is created?
       def method_missing(method, *args, &block)
         attribute       = method.to_s
-        is_writer       = attribute.ends_with?("=")
-        attribute       = attribute.delete("=")
-        proxy_attribute = find_localized_attribute(attribute)
+        proxy_attribute = find_localized_attribute(attribute.delete("="))
 
         if proxy_attribute
-          if is_writer
+          if attribute.ends_with?("=")
             proxy_attribute.write(method, args.shift, *args, &block)
           else
             proxy_attribute.read(method, *args, &block)
