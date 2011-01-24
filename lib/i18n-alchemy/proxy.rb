@@ -40,9 +40,9 @@ module I18n
 
           if parser
             parser = parsers[parser] ||=
-              I18n::Alchemy.const_get("#{parser.capitalize}Parser")
+              I18n::Alchemy.const_get("#{parser.capitalize}Parser").new
 
-            Attribute.new(@target, column.name, parser.new)
+            Attribute.new(@target, column.name, parser)
           end
         end.compact
       end
