@@ -22,6 +22,7 @@ module I18n
       end
 
       PARSERS = { :date    => DateParser,
+                  :time    => TimeParser,
                   :numeric => NumericParser }
 
       # TODO: cannot assume _id is always a foreign key.
@@ -37,6 +38,8 @@ module I18n
             :numeric
           when column.type == :date
             :date
+          when column.type == :datetime
+            :time
           end
 
           if parser_type

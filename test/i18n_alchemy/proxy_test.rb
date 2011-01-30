@@ -72,4 +72,15 @@ class ProxyTest < MiniTest::Unit::TestCase
     @product.released_at = Date.civil(2011, 2, 28)
     assert_equal "28/02/2011", @localized.released_at
   end
+
+  # Time
+  def test_parses_datetime_attribute_input
+    @localized.updated_at = "28/02/2011 13:25:30"
+    assert_equal Time.mktime(2011, 2, 28, 13, 25, 30), @product.updated_at
+  end
+
+  def test_localizes_datetime_attribute_output
+    @product.updated_at = Time.mktime(2011, 2, 28, 13, 25, 30)
+    assert_equal "28/02/2011 13:25:30", @localized.updated_at
+  end
 end

@@ -18,6 +18,7 @@ ActiveRecord::Base.connection.create_table :products do |t|
   t.string     :name
   t.decimal    :price
   t.date       :released_at
+  t.datetime   :updated_at
   t.references :supplier
 end
 
