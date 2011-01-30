@@ -3,11 +3,16 @@ module I18n
     class DateParser
       # TODO: parse a list of possible input formats.
       # TODO: should the parse method return a string?
-      # The receives the value (from user input for instance) and try to convert it to a valid Date.
+      # The receives the value (from user input for instance) and try to
+      # convert it to a valid Date.
       def parse(value)
         return value if value.is_a?(Date)
 
-        Date.strptime(value, date_format).to_s rescue value
+        if parsed_date = Date._strptime(value, date_format)
+          Date.new(*parsed_date.values_at(:year, :mon, :mday)).to_s
+        else
+          value
+        end
       end
 
       def localize(value)
