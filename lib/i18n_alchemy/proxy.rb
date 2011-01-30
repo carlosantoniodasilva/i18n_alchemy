@@ -1,6 +1,8 @@
+require "delegate"
+
 module I18n
   module Alchemy
-    class Proxy
+    class Proxy < DelegateClass(ActiveRecord::Base)
       class Attribute
         attr_reader :attribute
 
@@ -10,28 +12,24 @@ module I18n
           @parser    = parser
         end
 
-        def read(method, *args, &block)
-          value = @target.send(method, *args, &block)
+        def read
+          value = @target.send(@attribute)
           @parser.localize(value)
         end
 
-        def write(method, value, *args, &block)
+        def write(value)
           value = @parser.parse(value)
-          @target.send(method, value, *args, &block)
+          @target.send(:"#{@attribute}=", value)
         end
-      end
-
-      instance_methods.each do |method|
-        undef_method method unless method =~ /(^__|^send$|^object_id$)/
       end
 
       PARSERS = { :date    => DateParser,
                   :numeric => NumericParser }
 
       def initialize(target)
-        @target = target
+        @localized_attributes = {}
 
-        @attributes = @target.class.columns.map do |column|
+        target.class.columns.each do |column|
           next if column.primary
 
           parser_type = case
@@ -42,32 +40,28 @@ module I18n
           end
 
           if parser_type
-            Attribute.new(@target, column.name, PARSERS[parser_type])
+            define_localized_method(target, column.name, parser_type)
           end
-        end.compact
-      end
-
-      # TODO: is it the best option to rely only in method_missing?
-      # Or should we define the right method when the proxy is created?
-      def method_missing(method, *args, &block)
-        attribute       = method.to_s
-        proxy_attribute = find_localized_attribute(attribute.delete("="))
-
-        if proxy_attribute
-          if attribute.ends_with?("=")
-            proxy_attribute.write(method, args.shift, *args, &block)
-          else
-            proxy_attribute.read(method, *args, &block)
-          end
-        else
-          @target.send(method, *args, &block)
         end
+
+        super(target)
       end
 
       private
 
-      def find_localized_attribute(attribute)
-        @attributes.detect { |c| c.attribute == attribute }
+      def define_localized_method(target, column_name, parser_type)
+        attribute = Attribute.new(target, column_name, PARSERS[parser_type])
+        @localized_attributes[column_name] = attribute
+
+        instance_eval <<-ATTRIBUTE
+          def #{column_name}
+            @localized_attributes[#{column_name.inspect}].read
+          end
+
+          def #{column_name}=(new_value)
+            @localized_attributes[#{column_name.inspect}].write(new_value)
+          end
+        ATTRIBUTE
       end
     end
   end
