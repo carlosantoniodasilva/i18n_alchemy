@@ -25,24 +25,24 @@ module I18n
         undef_method method unless method =~ /(^__|^send$|^object_id$)/
       end
 
+      PARSERS = { :date    => DateParser,
+                  :numeric => NumericParser }
+
       def initialize(target)
         @target = target
 
-        parsers = {}
         @attributes = @target.class.columns.map do |column|
           next if column.primary
 
-          parser = if column.number?
+          parser_type = case
+          when column.number?
             :numeric
-          elsif column.type == :date
+          when column.type == :date
             :date
           end
 
-          if parser
-            parser = parsers[parser] ||=
-              I18n::Alchemy.const_get("#{parser.capitalize}Parser")
-
-            Attribute.new(@target, column.name, parser)
+          if parser_type
+            Attribute.new(@target, column.name, PARSERS[parser_type])
           end
         end.compact
       end
