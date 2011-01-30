@@ -1,6 +1,8 @@
 module I18n
   module Alchemy
-    class DateParser
+    module DateParser
+      extend self
+
       # TODO: parse a list of possible input formats.
       # TODO: should the parse method return a string?
       # The receives the value (from user input for instance) and try to

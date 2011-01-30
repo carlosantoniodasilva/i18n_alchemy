@@ -2,7 +2,7 @@ require "test_helper"
 
 class DateParserTest < MiniTest::Unit::TestCase
   def setup
-    @parser = I18n::Alchemy::DateParser.new
+    @parser = I18n::Alchemy::DateParser
     @date   = Date.civil(2011, 12, 31)
   end
 

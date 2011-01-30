@@ -2,7 +2,7 @@ require "test_helper"
 
 class NumericParserTest < MiniTest::Unit::TestCase
   def setup
-    @parser = I18n::Alchemy::NumericParser.new
+    @parser = I18n::Alchemy::NumericParser
   end
 
   def test_does_not_convert_non_string_objects

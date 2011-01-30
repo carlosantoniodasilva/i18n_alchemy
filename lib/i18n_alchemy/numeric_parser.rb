@@ -1,6 +1,8 @@
 module I18n
   module Alchemy
-    class NumericParser
+    module NumericParser
+      extend self
+
       def parse(value)
         return value if value.is_a?(Numeric)
 
