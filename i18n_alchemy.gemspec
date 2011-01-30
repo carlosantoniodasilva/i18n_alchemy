@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "i18n-alchemy/version"
+require "i18n_alchemy/version"
 
 Gem::Specification.new do |s|
-  s.name        = "i18n-alchemy"
+  s.name        = "i18n_alchemy"
   s.version     = I18n::Alchemy::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Carlos Antonio da Silva"]
@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{I18n date/number parsing/localization}
   s.description = %q{I18n date/number parsing/localization}
 
-  s.rubyforge_project = "i18n-alchemy"
+  s.rubyforge_project = "i18n_alchemy"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
