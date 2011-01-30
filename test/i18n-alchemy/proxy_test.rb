@@ -36,6 +36,11 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal 1, @localized.id
   end
 
+  def test_does_not_localize_foreign_keys
+    @product.supplier_id = 1
+    assert_equal 1, @localized.supplier_id
+  end
+
   # Numeric
   def test_parses_numeric_attribute_input
     @localized.price = "1,99"

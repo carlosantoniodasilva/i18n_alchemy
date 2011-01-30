@@ -4,8 +4,6 @@ module I18n
   module Alchemy
     class Proxy < DelegateClass(ActiveRecord::Base)
       class Attribute
-        attr_reader :attribute
-
         def initialize(target, attribute, parser)
           @target    = target
           @attribute = attribute
@@ -26,11 +24,13 @@ module I18n
       PARSERS = { :date    => DateParser,
                   :numeric => NumericParser }
 
+      # TODO: cannot assume _id is always a foreign key.
+      # Find a better way to find that and skip these columns.
       def initialize(target)
         @localized_attributes = {}
 
         target.class.columns.each do |column|
-          next if column.primary
+          next if column.primary || column.name.ends_with?("_id")
 
           parser_type = case
           when column.number?
