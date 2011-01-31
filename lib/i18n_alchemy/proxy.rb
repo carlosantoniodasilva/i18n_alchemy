@@ -11,13 +11,11 @@ module I18n
         end
 
         def read
-          value = @target.send(@attribute)
-          @parser.localize(value)
+          @parser.localize(@target.send(@attribute))
         end
 
         def write(value)
-          value = @parser.parse(value)
-          @target.send(:"#{@attribute}=", value)
+          @target.send(:"#{@attribute}=", @parser.parse(value))
         end
       end
 
@@ -48,8 +46,8 @@ module I18n
       private
 
       def create_localized_attribute(target, column_name, parser)
-        attribute = Attribute.new(target, column_name, parser)
-        @localized_attributes[column_name] = attribute
+        @localized_attributes[column_name] =
+          Attribute.new(target, column_name, parser)
       end
 
       def define_localized_methods(column_name)
