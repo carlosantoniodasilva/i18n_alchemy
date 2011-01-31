@@ -1,0 +1,10 @@
+== I18n Alchemy TODO
+
+* Improve type check for date/time parsers
+* Create attribute proxies that handles localization only on :to_s, so it would
+  handle better situations where some calculation is required (for instance)
+* Parse a list of possible input formats for date/time parsing
+* Use different i18n keys than the defaults from Rails for date/time.
+* Test / changes to work on Ruby 1.8.7
+* Improve compatibility with AR and foreign keys.
+* Test and improvements to work with Mongoid.
