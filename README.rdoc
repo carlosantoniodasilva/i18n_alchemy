@@ -26,11 +26,13 @@ By mixing the module into your model, you get the `localized` method:
 Here are some examples on how to use it with numeric values:
 
   @localized.price = "1.99"
+
   @product.price # => 1.99
   @localized.price # => "1.99"
 
   I18n.with_locale :pt do
     @localized.price = "1,88"
+
     @product.price # => 1.88
     @localized.price # => "1,88"
   end
@@ -38,14 +40,21 @@ Here are some examples on how to use it with numeric values:
 And the same goes with date / time objects:
 
   @localized.released_at = "12/31/2011"
+
   @product.released_at # => Date.new(2011, 12, 31)
   @localized.released_at # => "12/31/2011"
 
   I18n.with_locale :pt do
     @localized.released_at = "31/12/2011"
+
     @product.released_at # => Date.new(2011, 12, 31)
     @localized.released_at # => "31/12/2011"
   end
+
+By default, it will make all numeric, date and time columns available for localization. If you want to select just some attributes to be localized, you can give the list to the *localized* call:
+
+  # This will not localize released_at and other attributes, only price.
+  @localized = @product.localized(:price)
 
 == I18n configuration
 
