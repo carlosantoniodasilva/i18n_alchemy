@@ -4,23 +4,39 @@ module I18n
       extend self
 
       def parse(value)
-        return value if value.is_a?(Date)
+        return value if !valid_for_parsing?(value)
 
-        if parsed_date = Date._strptime(value, date_format)
-          Date.new(*parsed_date.values_at(:year, :mon, :mday)).to_s
+        if parsed_date = Date._strptime(value, i18n_format)
+          build_object(parsed_date).to_s
         else
           value
         end
       end
 
       def localize(value)
-        value.is_a?(String) ? value : I18n.localize(value)
+        valid_for_localization?(value) ? I18n.localize(value) : value
       end
 
       private
 
-      def date_format
-        I18n.t :default, :scope => [:date, :formats]
+      def build_object(parsed_date)
+        Date.new(*parsed_date.values_at(:year, :mon, :mday))
+      end
+
+      def i18n_format
+        I18n.t(:default, :scope => [i18n_scope, :formats])
+      end
+
+      def i18n_scope
+        :date
+      end
+
+      def valid_for_localization?(value)
+        value.is_a?(Date)
+      end
+
+      def valid_for_parsing?(value)
+        !valid_for_localization?(value)
       end
     end
   end
