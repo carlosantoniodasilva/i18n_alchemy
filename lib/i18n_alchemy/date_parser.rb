@@ -3,10 +3,6 @@ module I18n
     module DateParser
       extend self
 
-      # TODO: parse a list of possible input formats.
-      # TODO: should the parse method return a string?
-      # The receives the value (from user input for instance) and try to
-      # convert it to a valid Date.
       def parse(value)
         return value if value.is_a?(Date)
 
@@ -18,9 +14,7 @@ module I18n
       end
 
       def localize(value)
-        return value if value.is_a?(String)
-
-        I18n.localize(value)
+        value.is_a?(String) ? value : I18n.localize(value)
       end
 
       private
