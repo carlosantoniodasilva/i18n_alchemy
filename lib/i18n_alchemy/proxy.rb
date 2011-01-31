@@ -47,15 +47,15 @@ module I18n
       end
 
       def define_localized_methods(column_name)
-        instance_eval <<-ATTRIBUTE, __FILE__, __LINE__ + 1
-          def #{column_name}
-            @localized_attributes[#{column_name.inspect}].read
+        singleton_class.instance_eval do
+          define_method(column_name) do
+            @localized_attributes[column_name].read
           end
 
-          def #{column_name}=(new_value)
-            @localized_attributes[#{column_name.inspect}].write(new_value)
+          define_method("#{column_name}=") do |value|
+            @localized_attributes[column_name].write(value)
           end
-        ATTRIBUTE
+        end
       end
 
       def detect_parser(column)
