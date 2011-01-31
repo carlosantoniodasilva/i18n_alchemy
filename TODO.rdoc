@@ -1,5 +1,6 @@
 == I18n Alchemy TODO
 
+* Add ability to pass in :only and :except attributes to the localized call
 * Improve type check for date/time parsers
 * Create attribute proxies that handles localization only on :to_s, so it would
   handle better situations where some calculation is required (for instance)
