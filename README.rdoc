@@ -1,14 +1,72 @@
-== I18n Alchemy
+== I18nAlchemy
 
 I18n date/number parsing/localization
 
-This is my RMU Project. It plans to create a lib for handling date, time and number parsing, based on current I18n locale format. The main idea is to have ORMs, such as ActiveRecord at first instance, to automatically accept dates/numbers given in the current locale format, and return these values localized as well.
+I18nAlchemy aims to handle date, time and number parsing, based on current I18n locale format. The main idea is to have ORMs, such as ActiveRecord for now, to automatically accept dates/numbers given in the current locale format, and return these values localized as well.
 
 === Why
 
 Almost all projects I've been working so far required some sort of input using dates and numbers, and it has always been a pain due to lack of this support in ActiveRecord itself. As I do most of my projects using different date/number formats than the English defaults (I live in Brazil), we've been adopting different ways to handle that in each application.
 
-I've already used the delocalize gem in some of these projects, and validates_timeliness parser in others, and both work pretty well actually. But I think it might work a bit different than delocalize, and mainly, I want to learn more about I18n and ActiveRecord internals.
+I've already used the delocalize gem in some of these projects, and validates_timeliness parser in others, and both work pretty well actually. But I think it might work a bit different than delocalize, and mainly, I wanted to learn more about I18n and ActiveRecord internals.
+
+== Usage
+
+I18nAlchemy is pretty straigthforward to use, you just need to include it in your ActiveRecord model. Lets say we are working with a Product model:
+
+  class Product < ActiveRecord::Base
+    include I18n::Alchemy
+  end
+
+By mixing the module into your model, you get the `localized` method:
+
+  @product   = Product.first
+  @localized = @product.localized
+
+Here are some examples on how to use it with numeric values:
+
+  @localized.price = "1.99"
+  @product.price # => 1.99
+  @localized.price # => "1.99"
+
+  I18n.with_locale :pt do
+    @localized.price = "1,88"
+    @product.price # => 1.88
+    @localized.price # => "1,88"
+  end
+
+And the same goes with date / time objects:
+
+  @localized.released_at = "12/31/2011"
+  @product.released_at # => Date.new(2011, 12, 31)
+  @localized.released_at # => "12/31/2011"
+
+  I18n.with_locale :pt do
+    @localized.released_at = "31/12/2011"
+    @product.released_at # => Date.new(2011, 12, 31)
+    @localized.released_at # => "31/12/2011"
+  end
+
+== I18n configuration
+
+Right now the lib uses the same configuration for numeric, date and time values from Rails:
+
+  en:
+
+    date:
+      formats:
+        default: "%m/%d/%Y"
+
+    time:
+      formats:
+        default: "%m/%d/%Y %H:%M:%S"
+
+    number:
+      format:
+        separator: '.'
+        delimiter: ','
+
+Please notice the default date and time format is considered for input values for now, and it will only accept valid values matching these formats. We plan to add specific formats and to parse a list of possible input formats for I18nAlchemy, to make it more flexible, please refer to TODO file for more info.
 
 == Contact
 
