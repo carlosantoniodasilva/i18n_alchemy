@@ -33,17 +33,10 @@ module I18n
         target.class.columns.each do |column|
           next if column.primary || column.name.ends_with?("_id")
 
-          parser_type = case
-          when column.number?
-            :numeric
-          when column.type == :date
-            :date
-          when column.type == :datetime || column.type == :timestamp
-            :time
-          end
-
+          parser_type = detect_parser_type(column)
           if parser_type
-            define_localized_method(target, column.name, parser_type)
+            create_localized_attribute(target, column.name, parser_type)
+            define_localized_methods(column.name)
           end
         end
 
@@ -52,10 +45,12 @@ module I18n
 
       private
 
-      def define_localized_method(target, column_name, parser_type)
+      def create_localized_attribute(target, column_name, parser_type)
         attribute = Attribute.new(target, column_name, PARSERS[parser_type])
         @localized_attributes[column_name] = attribute
+      end
 
+      def define_localized_methods(column_name)
         instance_eval <<-ATTRIBUTE
           def #{column_name}
             @localized_attributes[#{column_name.inspect}].read
@@ -65,6 +60,17 @@ module I18n
             @localized_attributes[#{column_name.inspect}].write(new_value)
           end
         ATTRIBUTE
+      end
+
+      def detect_parser_type(column)
+        case
+        when column.number?
+          :numeric
+        when column.type == :date
+          :date
+        when column.type == :datetime || column.type == :timestamp
+          :time
+        end
       end
     end
   end
