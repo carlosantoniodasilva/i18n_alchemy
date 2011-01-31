@@ -47,7 +47,7 @@ module I18n
       end
 
       def define_localized_methods(column_name)
-        instance_eval <<-ATTRIBUTE
+        instance_eval <<-ATTRIBUTE, __FILE__, __LINE__ + 1
           def #{column_name}
             @localized_attributes[#{column_name.inspect}].read
           end
