@@ -38,7 +38,7 @@ module I18n
             :numeric
           when column.type == :date
             :date
-          when column.type == :datetime
+          when column.type == :datetime || column.type == :timestamp
             :time
           end
 

@@ -73,7 +73,7 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal "28/02/2011", @localized.released_at
   end
 
-  # Time
+  # DateTime
   def test_parses_datetime_attribute_input
     @localized.updated_at = "28/02/2011 13:25:30"
     assert_equal Time.mktime(2011, 2, 28, 13, 25, 30), @product.updated_at
@@ -82,5 +82,16 @@ class ProxyTest < MiniTest::Unit::TestCase
   def test_localizes_datetime_attribute_output
     @product.updated_at = Time.mktime(2011, 2, 28, 13, 25, 30)
     assert_equal "28/02/2011 13:25:30", @localized.updated_at
+  end
+
+  # Timestamp
+  def test_parses_datetime_attribute_input
+    @localized.last_sale_at = "28/02/2011 13:25:30"
+    assert_equal Time.mktime(2011, 2, 28, 13, 25, 30), @product.last_sale_at
+  end
+
+  def test_localizes_datetime_attribute_output
+    @product.last_sale_at = Time.mktime(2011, 2, 28, 13, 25, 30)
+    assert_equal "28/02/2011 13:25:30", @localized.last_sale_at
   end
 end
