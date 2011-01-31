@@ -6,13 +6,13 @@ module BaseTimeParserTest
   end
 
   def test_parses_valid_string_times_with_default_i18n_locale
-    assert_equal "2011-12-31 12:15:45 -0200",
+    assert_equal "2011-12-31 12:15:45 UTC",
       @parser.parse("12/31/2011 12:15:45")
   end
 
   def test_parsers_string_times_on_current_i18n_locale
     I18n.with_locale :pt do
-      assert_equal "2011-12-31 12:15:45 -0200",
+      assert_equal "2011-12-31 12:15:45 UTC",
         @parser.parse("31/12/2011 12:15:45")
     end
   end

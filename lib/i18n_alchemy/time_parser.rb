@@ -7,7 +7,7 @@ module I18n
       private
 
       def build_object(parsed_date)
-        Time.new(*parsed_date.values_at(:year, :mon, :mday, :hour, :min, :sec))
+        Time.utc(*parsed_date.values_at(:year, :mon, :mday, :hour, :min, :sec))
       end
 
       def i18n_scope
