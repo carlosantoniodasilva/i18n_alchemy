@@ -35,9 +35,9 @@ module I18n
           next if column.primary || column.name.ends_with?("_id")
           next if attributes && !attributes.include?(column.name.to_sym)
 
-          parser_type = detect_parser_type(column)
-          if parser_type
-            create_localized_attribute(target, column.name, parser_type)
+          parser = detect_parser(column)
+          if parser
+            create_localized_attribute(target, column.name, parser)
             define_localized_methods(column.name)
           end
         end
@@ -47,8 +47,8 @@ module I18n
 
       private
 
-      def create_localized_attribute(target, column_name, parser_type)
-        attribute = Attribute.new(target, column_name, PARSERS[parser_type])
+      def create_localized_attribute(target, column_name, parser)
+        attribute = Attribute.new(target, column_name, parser)
         @localized_attributes[column_name] = attribute
       end
 
@@ -64,8 +64,8 @@ module I18n
         ATTRIBUTE
       end
 
-      def detect_parser_type(column)
-        case
+      def detect_parser(column)
+        parser_type = case
         when column.number?
           :numeric
         when column.type == :date
@@ -73,6 +73,8 @@ module I18n
         when column.type == :datetime || column.type == :timestamp
           :time
         end
+
+        PARSERS[parser_type] if parser_type
       end
     end
   end
