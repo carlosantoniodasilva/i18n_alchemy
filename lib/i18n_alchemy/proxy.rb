@@ -27,11 +27,13 @@ module I18n
 
       # TODO: cannot assume _id is always a foreign key.
       # Find a better way to find that and skip these columns.
-      def initialize(target)
+      def initialize(target, attributes = nil)
         @localized_attributes = {}
+        attributes = Array(attributes) if attributes
 
         target.class.columns.each do |column|
           next if column.primary || column.name.ends_with?("_id")
+          next if attributes && !attributes.include?(column.name.to_sym)
 
           parser_type = detect_parser_type(column)
           if parser_type

@@ -94,4 +94,17 @@ class ProxyTest < MiniTest::Unit::TestCase
     @product.last_sale_at = Time.mktime(2011, 2, 28, 13, 25, 30)
     assert_equal "28/02/2011 13:25:30", @localized.last_sale_at
   end
+
+  # Attributes
+  def test_proxy_only_the_given_attributes
+    @localized = @product.localized(:released_at)
+
+    @localized.price = "1,99"
+    assert_equal 1.00, @product.price
+    assert_equal 1.00, @localized.price
+
+    @localized.released_at = "28/02/2011"
+    assert_equal Date.new(2011, 2, 28), @product.released_at
+    assert_equal "28/02/2011", @localized.released_at
+  end
 end

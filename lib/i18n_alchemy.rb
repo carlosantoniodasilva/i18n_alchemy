@@ -8,8 +8,8 @@ require "i18n_alchemy/proxy"
 
 module I18n
   module Alchemy
-    def localized
-      @i18n_alchemy_proxy ||= I18n::Alchemy::Proxy.new(self)
+    def localized(attributes = nil)
+      I18n::Alchemy::Proxy.new(self, attributes)
     end
   end
 end
