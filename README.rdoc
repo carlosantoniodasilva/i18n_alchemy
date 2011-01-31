@@ -27,13 +27,13 @@ Here are some examples on how to use it with numeric values:
 
   @localized.price = "1.99"
 
-  @product.price # => 1.99
+  @product.price   # => 1.99
   @localized.price # => "1.99"
 
   I18n.with_locale :pt do
     @localized.price = "1,88"
 
-    @product.price # => 1.88
+    @product.price   # => 1.88
     @localized.price # => "1,88"
   end
 
@@ -41,13 +41,13 @@ And the same goes with date / time objects:
 
   @localized.released_at = "12/31/2011"
 
-  @product.released_at # => Date.new(2011, 12, 31)
+  @product.released_at   # => Date.new(2011, 12, 31)
   @localized.released_at # => "12/31/2011"
 
   I18n.with_locale :pt do
     @localized.released_at = "31/12/2011"
 
-    @product.released_at # => Date.new(2011, 12, 31)
+    @product.released_at   # => Date.new(2011, 12, 31)
     @localized.released_at # => "31/12/2011"
   end
 
