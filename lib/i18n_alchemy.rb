@@ -1,3 +1,4 @@
+require "date"
 require "active_record"
 require "i18n"
 require "i18n_alchemy/date_parser"

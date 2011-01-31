@@ -3,7 +3,7 @@ require "test_helper"
 class DateParserTest < MiniTest::Unit::TestCase
   def setup
     @parser = I18n::Alchemy::DateParser
-    @date   = Date.civil(2011, 12, 31)
+    @date   = Date.new(2011, 12, 31)
   end
 
   def test_does_not_convert_non_string_objects

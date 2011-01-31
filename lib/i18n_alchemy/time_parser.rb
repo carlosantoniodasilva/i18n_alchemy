@@ -8,10 +8,10 @@ module I18n
       # The receives the value (from user input for instance) and try to
       # convert it to a valid Time.
       def parse(value)
-        return value if value.is_a?(DateTime)
+        return value if value.is_a?(Time) || value.is_a?(DateTime)
 
-        if parsed_date = DateTime._strptime(value, date_format)
-          DateTime.new(*parsed_date.values_at(
+        if parsed_date = Date._strptime(value, time_format)
+          Time.new(*parsed_date.values_at(
             :year, :mon, :mday, :hour, :min, :sec)).to_s
         else
           value
@@ -26,7 +26,7 @@ module I18n
 
       private
 
-      def date_format
+      def time_format
         I18n.t :default, :scope => [:time, :formats]
       end
     end

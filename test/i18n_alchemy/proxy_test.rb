@@ -65,11 +65,11 @@ class ProxyTest < MiniTest::Unit::TestCase
   # Date
   def test_parses_date_attribute_input
     @localized.released_at = "28/02/2011"
-    assert_equal Date.civil(2011, 2, 28), @product.released_at
+    assert_equal Date.new(2011, 2, 28), @product.released_at
   end
 
   def test_localizes_date_attribute_output
-    @product.released_at = Date.civil(2011, 2, 28)
+    @product.released_at = Date.new(2011, 2, 28)
     assert_equal "28/02/2011", @localized.released_at
   end
 
