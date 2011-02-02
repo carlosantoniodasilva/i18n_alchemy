@@ -52,6 +52,16 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal "1,88", @localized.price
   end
 
+  def test_parsers_integer_attribute_input
+    @localized.quantity = "1,0"
+    assert_equal 1, @product.quantity
+  end
+
+  def test_localized_integer_attribute_output
+    @product.quantity = 1.0
+    assert_equal "1", @localized.quantity
+  end
+
   def test_does_not_localize_other_attribute_input
     @localized.name = "foo"
     assert_equal "foo", @product.name
