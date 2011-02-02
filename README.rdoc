@@ -10,6 +10,10 @@ Almost all projects I've been working so far required some sort of input using d
 
 I've already used the delocalize gem in some of these projects, and validates_timeliness parser in others, and both work pretty well actually. But I think it might work a bit different than delocalize, and mainly, I wanted to learn more about I18n and ActiveRecord internals.
 
+=== Compatibility: Important!
+
+Right now I18nAlchemy only works with Ruby 1.9. Compatibility with Ruby 1.8.7 is planned on our TODO, meanwhile you are free to help us getting it up and running.
+
 == Usage
 
 I18nAlchemy is pretty straigthforward to use, you just need to include it in your ActiveRecord model. Lets say we are working with a Product model:
