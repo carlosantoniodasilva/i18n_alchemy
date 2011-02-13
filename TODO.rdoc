@@ -1,5 +1,6 @@
 == I18n Alchemy TODO
 
+* Add ActionView integration tests
 * Add ability to pass in :only and :except attributes to the localized call
 * Allow localization of methods (not db columns)
 * Improve type check for date/time parsers
