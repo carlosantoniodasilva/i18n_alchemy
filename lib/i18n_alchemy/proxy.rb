@@ -39,6 +39,12 @@ module I18n
         super(target)
       end
 
+      # Override to_model to always return the proxy, otherwise it returns the
+      # target object (action view integration would not work).
+      def to_model
+        self
+      end
+
       private
 
       def create_localized_attribute(target, column_name, parser)
