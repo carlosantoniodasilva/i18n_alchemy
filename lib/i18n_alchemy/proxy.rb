@@ -52,6 +52,11 @@ module I18n
             @localized_attributes[column_name].read
           end
 
+          # Before type cast must be localized to integrate with action view.
+          define_method("#{column_name}_before_type_cast") do
+            @localized_attributes[column_name].read
+          end
+
           define_method("#{column_name}=") do |value|
             @localized_attributes[column_name].write(value)
           end

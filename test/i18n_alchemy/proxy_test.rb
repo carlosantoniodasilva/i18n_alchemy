@@ -52,6 +52,11 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal "1,88", @localized.price
   end
 
+  def test_localizes_numeric_attribute_before_type_cast_output
+    @product.price = 1.88
+    assert_equal "1,88", @localized.price_before_type_cast
+  end
+
   def test_parsers_integer_attribute_input
     @localized.quantity = "1,0"
     assert_equal 1, @product.quantity
@@ -83,6 +88,11 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal "28/02/2011", @localized.released_at
   end
 
+  def test_localizes_date_attribute_before_type_cast_output
+    @product.released_at = Date.new(2011, 2, 28)
+    assert_equal "28/02/2011", @localized.released_at_before_type_cast
+  end
+
   # DateTime
   def test_parses_datetime_attribute_input
     @localized.updated_at = "28/02/2011 13:25:30"
@@ -94,6 +104,11 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal "28/02/2011 13:25:30", @localized.updated_at
   end
 
+  def test_localizes_datetime_attribute_before_type_cast_output
+    @product.updated_at = Time.mktime(2011, 2, 28, 13, 25, 30)
+    assert_equal "28/02/2011 13:25:30", @localized.updated_at_before_type_cast
+  end
+
   # Timestamp
   def test_parses_datetime_attribute_input
     @localized.last_sale_at = "28/02/2011 13:25:30"
@@ -103,6 +118,11 @@ class ProxyTest < MiniTest::Unit::TestCase
   def test_localizes_datetime_attribute_output
     @product.last_sale_at = Time.mktime(2011, 2, 28, 13, 25, 30)
     assert_equal "28/02/2011 13:25:30", @localized.last_sale_at
+  end
+
+  def test_localizes_datetime_attribute_before_type_cast_output
+    @product.last_sale_at = Time.mktime(2011, 2, 28, 13, 25, 30)
+    assert_equal "28/02/2011 13:25:30", @localized.last_sale_at_before_type_cast
   end
 
   # Attributes
