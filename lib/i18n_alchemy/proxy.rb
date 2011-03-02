@@ -19,6 +19,9 @@ module I18n
         end
       end
 
+      # Ruby 1.8.7 compatibility.
+      undef_method :id if respond_to?(:id)
+
       # TODO: cannot assume _id is always a foreign key.
       # Find a better way to find that and skip these columns.
       def initialize(target, attributes=nil)
