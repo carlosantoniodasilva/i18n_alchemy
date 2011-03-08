@@ -25,13 +25,13 @@ module I18n
         @localized_attributes = {}
         attributes = Array(attributes) if attributes
 
-        target.class.columns.each do |column|
+        @target.class.columns.each do |column|
           next if column.primary || column.name.ends_with?("_id")
           next if attributes && !attributes.include?(column.name.to_sym)
 
           parser = detect_parser(column)
           if parser
-            create_localized_attribute(target, column.name, parser)
+            create_localized_attribute(column.name, parser)
             define_localized_methods(column.name)
           end
         end
@@ -56,9 +56,9 @@ module I18n
 
       private
 
-      def create_localized_attribute(target, column_name, parser)
+      def create_localized_attribute(column_name, parser)
         @localized_attributes[column_name] =
-          Attribute.new(target, column_name, parser)
+          Attribute.new(@target, column_name, parser)
       end
 
       def define_localized_methods(column_name)
