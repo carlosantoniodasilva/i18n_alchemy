@@ -1,8 +1,7 @@
-require "delegate"
-
 module I18n
   module Alchemy
-    class Proxy < DelegateClass(ActiveRecord::Base)
+    # Depend on AS::BasicObject which has a "blank slate" - no methods.
+    class Proxy < ActiveSupport::BasicObject
       class Attribute
         def initialize(target, attribute, parser)
           @target    = target
@@ -19,12 +18,10 @@ module I18n
         end
       end
 
-      # Ruby 1.8.7 compatibility.
-      undef_method :id if respond_to?(:id)
-
       # TODO: cannot assume _id is always a foreign key.
       # Find a better way to find that and skip these columns.
       def initialize(target, attributes=nil)
+        @target = target
         @localized_attributes = {}
         attributes = Array(attributes) if attributes
 
@@ -38,14 +35,23 @@ module I18n
             define_localized_methods(column.name)
           end
         end
-
-        super(target)
       end
 
       # Override to_model to always return the proxy, otherwise it returns the
-      # target object (action view integration would not work).
+      # target object. This allows us to integrate with action view.
       def to_model
         self
+      end
+
+      # Allow calling the localized methods with :send. This allows us to
+      # integrate with action view methods.
+      alias :send :__send__
+
+      # Delegate all method calls that are not translated to the target object.
+      # As the proxy does not have any other method, there is no need to
+      # override :respond_to, just delegate it to the target as well.
+      def method_missing(*args, &block)
+        @target.send *args, &block
       end
 
       private
@@ -56,7 +62,7 @@ module I18n
       end
 
       def define_localized_methods(column_name)
-        singleton_class.instance_eval do
+        class << self; self; end.instance_eval do
           define_method(column_name) do
             @localized_attributes[column_name].read
           end
