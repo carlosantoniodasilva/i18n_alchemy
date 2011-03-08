@@ -1,0 +1,3 @@
+== master
+
+* Basic localization for numeric, date and time attributes

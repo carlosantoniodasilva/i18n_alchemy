@@ -1,6 +1,5 @@
 == I18n Alchemy TODO
 
-* Test / changes to work on Ruby 1.8.7
 * Add ability to pass in :only and :except attributes to the localized call
 * Allow localization of methods (not db columns)
 * Improve type check for date/time parsers
