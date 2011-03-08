@@ -29,6 +29,7 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_respond_to @localized, :price=
     assert_respond_to @localized, :name
     assert_respond_to @localized, :save
+    assert_respond_to @localized, :method_with_block
   end
 
   def test_does_not_localize_primary_key
@@ -39,6 +40,15 @@ class ProxyTest < MiniTest::Unit::TestCase
   def test_does_not_localize_foreign_keys
     @product.supplier_id = 1
     assert_equal 1, @localized.supplier_id
+  end
+
+  def test_send
+    @product.name = "Potato"
+    assert_equal "Potato", @localized.send(:name)
+
+    @product.price = 1.88
+    assert_equal "1,88", @localized.send(:price)
+    assert_equal "1,88", @localized.send(:price_before_type_cast)
   end
 
   # Numeric
