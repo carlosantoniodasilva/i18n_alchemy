@@ -34,6 +34,7 @@ module I18n
             raise(::ActiveRecord::UnknownAttributeError, "unknown attribute: #{key}")
           end
         end
+        self
       end
     end
   end
