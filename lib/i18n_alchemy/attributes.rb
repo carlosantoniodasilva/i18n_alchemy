@@ -36,6 +36,17 @@ module I18n
         end
         self
       end
+      
+      # Updates the attributes of the model from the passed-in hash and saves the
+      # record, all wrapped in a transaction. If the object is invalid, the saving
+      # will fail and false will be returned.
+      #
+      def update_attributes(attributes, options = {})
+        with_transaction_returning_status do
+          self.localized.assign_attributes(attributes, options)
+          save
+        end
+      end
     end
   end
 end

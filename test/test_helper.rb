@@ -25,10 +25,14 @@ ActiveRecord::Base.connection.create_table :products do |t|
   t.string     :my_precious_attribute
 end
 
+# TODO: Change this when is decided to include this module in the gem. Or just keep there! #
+class I18n::Alchemy::Proxy
+  include ::I18n::Alchemy::Attributes
+end
+
 class Product < ActiveRecord::Base
   attr_protected :my_precious_attribute
   include I18n::Alchemy
-  include I18n::Alchemy::Attributes
 
   def method_with_block
     yield "called!"
