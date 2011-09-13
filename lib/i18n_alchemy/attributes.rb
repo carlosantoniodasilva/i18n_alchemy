@@ -3,7 +3,7 @@ module I18n
     # If you wanna override the Assign Attributes from ActiveRecord you can include 
     # this module. 
     #
-    # Maybe rename this methods to #alchemy_assign_attributes=
+    # Maybe rename this methods to #alchemy_assign_attributes= is a better idea
     #
     module Attributes
       # Allows you to set all the attributes for a particular mass-assignment
@@ -14,6 +14,8 @@ module I18n
       # To bypass mass-assignment security you can use the :without_protection => true
       # option.
       #      
+      # TODO: Handle multi parameters attributes
+      #
       def assign_attributes(attributes, options={})
         attributes = sanitize_for_mass_assignment(attributes, self.send(:mass_assignment_role)) unless options[:without_protection]
         attributes.each do |key, value|
