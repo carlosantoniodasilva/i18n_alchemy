@@ -6,6 +6,15 @@ module I18n
     # Maybe rename this methods to #alchemy_assign_attributes= is a better idea
     #
     module Attributes
+      # Allows you to set all the attributes at once by passing in a hash with keys
+      # matching the attribute names (which again matches the column names).
+      #
+      def attributes=(new_attributes)
+        return unless new_attributes.is_a?(Hash)
+
+        self.assign_attributes(new_attributes)
+      end
+      
       # Allows you to set all the attributes for a particular mass-assignment
       # security role by passing in a hash of attributes with keys matching
       # the attribute names (which again matches the column names) and the role

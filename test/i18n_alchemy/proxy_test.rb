@@ -153,11 +153,6 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal "1,99", @localized.price
   end
 
-  def test_assign_attributes_calling_attributes
-    @localized.attributes = {:price => '1,99'}
-    assert_equal "1,99", @localized.price
-  end
-
   def test_mass_assigning_invalid_attribute
     assert_raises(ActiveRecord::UnknownAttributeError) do
       @localized.assign_attributes('i_dont_even_exist' => 40)
@@ -175,6 +170,11 @@ class ProxyTest < MiniTest::Unit::TestCase
 
     assert_equal 'My Precious!', @localized.my_precious_attribute
     assert_equal '1', @localized.quantity
+  end
+  
+  def test_assign_attributes_calling_attributes
+    @localized.attributes = {:price => '1,99'}
+    assert_equal "1,99", @localized.price
   end
 
   def attributes_hash
