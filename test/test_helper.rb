@@ -22,10 +22,13 @@ ActiveRecord::Base.connection.create_table :products do |t|
   t.datetime   :updated_at
   t.timestamp  :last_sale_at
   t.references :supplier
+  t.string     :my_precious_attribute
 end
 
 class Product < ActiveRecord::Base
+  attr_protected :my_precious_attribute
   include I18n::Alchemy
+  include I18n::Alchemy::Attributes
 
   def method_with_block
     yield "called!"

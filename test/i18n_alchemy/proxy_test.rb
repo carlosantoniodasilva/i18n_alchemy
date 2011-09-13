@@ -147,4 +147,37 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal Date.new(2011, 2, 28), @product.released_at
     assert_equal "28/02/2011", @localized.released_at
   end
+
+  def test_assign_attributes
+    @localized.assign_attributes(:price => '1,99')
+    assert_equal "1,99", @localized.price
+  end
+
+  def test_assign_attributes_calling_attributes
+    @localized.attributes = {:price => '1,99'}
+    assert_equal "1,99", @localized.price
+  end
+
+  def test_mass_assigning_invalid_attribute
+    assert_raises(ActiveRecord::UnknownAttributeError) do
+      @localized.assign_attributes('i_dont_even_exist' => 40)
+    end
+  end
+
+  def test_new_with_attr_protected_attributes
+    @localized.assign_attributes(attributes_hash)
+    assert_nil @localized.my_precious_attribute
+    assert_equal "1", @localized.quantity
+  end
+
+  def test_assign_attributes_skips_mass_assignment_security_protection_when_without_protection_is_used
+    @localized.assign_attributes(attributes_hash, :without_protection => true)
+
+    assert_equal 'My Precious!', @localized.my_precious_attribute
+    assert_equal '1', @localized.quantity
+  end
+
+  def attributes_hash
+    {'my_precious_attribute' => 'My Precious!', 'quantity' => 1}
+  end
 end
