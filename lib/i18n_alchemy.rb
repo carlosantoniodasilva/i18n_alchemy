@@ -5,7 +5,6 @@ require "i18n_alchemy/date_parser"
 require "i18n_alchemy/time_parser"
 require "i18n_alchemy/numeric_parser"
 require "i18n_alchemy/proxy"
-require "i18n_alchemy/attributes"
 
 module I18n
   module Alchemy
