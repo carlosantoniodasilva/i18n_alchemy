@@ -51,16 +51,6 @@ module I18n
         @target.update_attributes(parse_attributes(attributes), options)
       end
 
-      def parse_attributes(attributes)
-        attributes.stringify_keys!
-
-        @localized_attributes.each do |column_name, attribute|
-          attributes[column_name] = attribute.parser.parse(attributes[column_name]) if attributes.key?(column_name)
-        end
-
-        attributes
-      end
-
       # Override to_model to always return the proxy, otherwise it returns the
       # target object. This allows us to integrate with action view.
       def to_model
@@ -111,6 +101,16 @@ module I18n
         when column.type == :datetime || column.type == :timestamp
           TimeParser
         end
+      end
+
+      def parse_attributes(attributes)
+        attributes.stringify_keys!
+
+        @localized_attributes.each do |column_name, attribute|
+          attributes[column_name] = attribute.parser.parse(attributes[column_name]) if attributes.key?(column_name)
+        end
+
+        attributes
       end
     end
   end

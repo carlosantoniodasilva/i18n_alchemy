@@ -161,14 +161,14 @@ class ProxyTest < MiniTest::Unit::TestCase
 
   def test_new_with_attr_protected_attributes
     @localized.assign_attributes(attributes_hash)
-    assert_nil @localized.my_precious_attribute
+    assert_nil @localized.my_precious
     assert_equal "1", @localized.quantity
   end
 
   def test_assign_attributes_skips_mass_assignment_security_protection_when_without_protection_is_used
     @localized.assign_attributes(attributes_hash, :without_protection => true)
 
-    assert_equal 'My Precious!', @localized.my_precious_attribute
+    assert_equal 'My Precious!', @localized.my_precious
     assert_equal '1', @localized.quantity
   end
 
@@ -183,7 +183,9 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal 2.88, @product.price.to_f
   end
 
+  private
+
   def attributes_hash
-    { 'my_precious_attribute' => 'My Precious!', 'quantity' => 1 }
+    { 'my_precious' => 'My Precious!', 'quantity' => 1 }
   end
 end
