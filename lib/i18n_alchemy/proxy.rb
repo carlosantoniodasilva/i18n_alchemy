@@ -3,6 +3,7 @@ module I18n
     # Depend on AS::BasicObject which has a "blank slate" - no methods.
     class Proxy < ActiveSupport::BasicObject
       class Attribute
+        attr_reader :parser
         def initialize(target, attribute, parser)
           @target    = target
           @attribute = attribute
@@ -35,6 +36,28 @@ module I18n
             define_localized_methods(column.name)
           end
         end
+      end
+
+      def attributes=(attributes)
+        @target.attributes = parse_attributes(attributes)
+      end
+
+      def assign_attributes(attributes, options = {})
+        @target.assign_attributes(parse_attributes(attributes), options)
+      end
+
+      def update_attributes(attributes, options = {})
+        @target.update_attributes(parse_attributes(attributes), options)
+      end
+
+      def parse_attributes(attributes)
+        attributes.stringify_keys!
+
+        @localized_attributes.each do |column_name, attribute|
+          attributes[column_name] = attribute.parser.parse(attributes[column_name]) if attributes.key?(column_name)
+        end
+
+        attributes
       end
 
       # Override to_model to always return the proxy, otherwise it returns the
