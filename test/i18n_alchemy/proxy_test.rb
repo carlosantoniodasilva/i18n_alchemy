@@ -172,15 +172,15 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal '1', @localized.quantity
   end
 
-  def test_assign_attributes_calling_attributes
+  def test_attributes_assignment
     @localized.attributes = {:price => '1,99'}
     assert_equal "1,99", @localized.price
   end
 
-  def test_update_attributes_should_persist_correctly
-    @localized.save
+  def test_update_attributes
     @localized.update_attributes(:price => '2,88')
-    assert_equal 2.88, @product.price.to_f
+    assert_equal '2,88', @localized.price
+    assert_equal 2.88, @product.reload.price
   end
 
   private
