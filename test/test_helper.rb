@@ -26,8 +26,9 @@ ActiveRecord::Base.connection.create_table :products do |t|
 end
 
 class Product < ActiveRecord::Base
-  attr_protected :my_precious_attribute
   include I18n::Alchemy
+
+  attr_protected :my_precious_attribute
 
   def method_with_block
     yield "called!"

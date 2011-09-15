@@ -171,12 +171,12 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal 'My Precious!', @localized.my_precious_attribute
     assert_equal '1', @localized.quantity
   end
-  
+
   def test_assign_attributes_calling_attributes
     @localized.attributes = {:price => '1,99'}
     assert_equal "1,99", @localized.price
   end
-  
+
   def test_update_attributes_should_persist_correctly
     @localized.save
     @localized.update_attributes(:price => '2,88')
@@ -184,6 +184,6 @@ class ProxyTest < MiniTest::Unit::TestCase
   end
 
   def attributes_hash
-    {'my_precious_attribute' => 'My Precious!', 'quantity' => 1}
+    { 'my_precious_attribute' => 'My Precious!', 'quantity' => 1 }
   end
 end

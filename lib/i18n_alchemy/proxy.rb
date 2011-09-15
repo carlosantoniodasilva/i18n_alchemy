@@ -4,6 +4,7 @@ module I18n
     class Proxy < ActiveSupport::BasicObject
       class Attribute
         attr_reader :parser
+
         def initialize(target, attribute, parser)
           @target    = target
           @attribute = attribute
