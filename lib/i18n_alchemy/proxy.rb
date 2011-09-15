@@ -55,6 +55,11 @@ module I18n
         @target.update_attributes!(parse_attributes(attributes), options)
       end
 
+      def update_attribute(attribute, value)
+        attributes = parse_attributes(attribute => value)
+        @target.update_attribute(attribute, attributes.values.first)
+      end
+
       # Override to_model to always return the proxy, otherwise it returns the
       # target object. This allows us to integrate with action view.
       def to_model
