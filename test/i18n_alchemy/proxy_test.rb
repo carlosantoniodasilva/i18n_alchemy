@@ -167,14 +167,25 @@ class ProxyTest < MiniTest::Unit::TestCase
 
   def test_assign_attributes_skips_mass_assignment_security_protection_when_without_protection_is_used
     @localized.assign_attributes(attributes_hash, :without_protection => true)
-
     assert_equal 'My Precious!', @localized.my_precious
     assert_equal '1', @localized.quantity
   end
 
+  def test_assign_attributes_does_not_change_given_attributes_hash
+    assert_attributes_hash_is_not_changed(attributes = attributes_hash) do
+      @localized.assign_attributes(attributes)
+    end
+  end
+
   def test_attributes_assignment
-    @localized.attributes = {:price => '1,99'}
+    @localized.attributes = { :price => '1,99' }
     assert_equal "1,99", @localized.price
+  end
+
+  def test_attributes_assignment_does_not_change_given_attributes_hash
+    assert_attributes_hash_is_not_changed(attributes = attributes_hash) do
+      @localized.attributes = attributes
+    end
   end
 
   def test_update_attributes
@@ -183,10 +194,22 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal 2.88, @product.reload.price
   end
 
+  def test_update_attributes_does_not_change_given_attributes_hash
+    assert_attributes_hash_is_not_changed(attributes = attributes_hash) do
+      @localized.update_attributes(attributes)
+    end
+  end
+
   def test_update_attributes!
     @localized.update_attributes!(:price => '2,88')
     assert_equal '2,88', @localized.price
     assert_equal 2.88, @product.reload.price
+  end
+
+  def test_update_attributes_bang_does_not_change_given_attributes_hash
+    assert_attributes_hash_is_not_changed(attributes = attributes_hash) do
+      @localized.update_attributes!(attributes)
+    end
   end
 
   def test_update_attribute
@@ -198,6 +221,12 @@ class ProxyTest < MiniTest::Unit::TestCase
   private
 
   def attributes_hash
-    { 'my_precious' => 'My Precious!', 'quantity' => 1 }
+    { :my_precious => 'My Precious!', :quantity => 1 }
+  end
+
+  def assert_attributes_hash_is_not_changed(attributes)
+    yield
+    assert_equal 1, attributes[:quantity]
+    assert_equal 'My Precious!', attributes[:my_precious]
   end
 end

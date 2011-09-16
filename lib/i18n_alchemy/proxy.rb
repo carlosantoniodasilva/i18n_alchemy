@@ -43,15 +43,15 @@ module I18n
         @target.attributes = parse_attributes(attributes)
       end
 
-      def assign_attributes(attributes, options = {})
+      def assign_attributes(attributes, options={})
         @target.assign_attributes(parse_attributes(attributes), options)
       end
 
-      def update_attributes(attributes, options = {})
+      def update_attributes(attributes, options={})
         @target.update_attributes(parse_attributes(attributes), options)
       end
 
-      def update_attributes!(attributes, options = {})
+      def update_attributes!(attributes, options={})
         @target.update_attributes!(parse_attributes(attributes), options)
       end
 
@@ -113,7 +113,7 @@ module I18n
       end
 
       def parse_attributes(attributes)
-        attributes.stringify_keys!
+        attributes = attributes.stringify_keys
 
         @localized_attributes.each do |column_name, attribute|
           attributes[column_name] = attribute.parser.parse(attributes[column_name]) if attributes.key?(column_name)
