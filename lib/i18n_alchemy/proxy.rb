@@ -24,14 +24,12 @@ module I18n
 
       # TODO: cannot assume _id is always a foreign key.
       # Find a better way to find that and skip these columns.
-      def initialize(target, attributes=nil)
+      def initialize(target, attributes=nil, *args)
         @target = target
         @localized_attributes = {}
-        attributes = Array(attributes) if attributes
 
         @target.class.columns.each do |column|
           next if column.primary || column.name.ends_with?("_id")
-          next if attributes && !attributes.include?(column.name.to_sym)
 
           parser = detect_parser(column)
           if parser
@@ -39,6 +37,8 @@ module I18n
             define_localized_methods(column.name)
           end
         end
+
+        assign_attributes(attributes, *args) if attributes
       end
 
       def attributes=(attributes)

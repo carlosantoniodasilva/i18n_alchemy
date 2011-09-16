@@ -136,16 +136,21 @@ class ProxyTest < MiniTest::Unit::TestCase
   end
 
   # Attributes
-  def test_proxy_only_the_given_attributes
-    @localized = @product.localized(:released_at)
+  def test_initializes_proxy_with_attributes
+    @localized = @product.localized(
+      :name => "Banana", :price => "0,99", :released_at => "28/02/2011")
 
-    @localized.price = "1,99"
-    assert_equal 1.00, @product.price
-    assert_equal 1.00, @localized.price
+    assert_equal 0.99, @product.price
+    assert_equal "0,99", @localized.price
 
-    @localized.released_at = "28/02/2011"
     assert_equal Date.new(2011, 2, 28), @product.released_at
     assert_equal "28/02/2011", @localized.released_at
+  end
+
+  def test_initializes_proxy_with_attributes_and_skips_mass_assignment_security_protection_when_without_protection_is_used
+    @localized = @product.localized(attributes_hash, :without_protection => true)
+    assert_equal 'My Precious!', @localized.my_precious
+    assert_equal '1', @localized.quantity
   end
 
   def test_assign_attributes
