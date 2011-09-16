@@ -51,10 +51,15 @@ And the same goes with date / time objects:
     @localized.released_at # => "31/12/2011"
   end
 
-By default, it will make all numeric, date and time columns available for localization. If you want to select just some attributes to be localized, you can give the list to the *localized* call:
+The localized method quacks like ActiveRecord: you can give a hash of attributes and extra options if you want, and it will delegate everything to the object, parsing the attributes before:
 
   # This will not localize released_at and other attributes, only price.
-  @localized = @product.localized(:price)
+  I18n.with_locale :pt do
+    @localized = @product.localized(:price => "1,88")
+
+    @product.price   # => 1.88
+    @localized.price # => "1,88"
+  end
 
 == I18n configuration
 
