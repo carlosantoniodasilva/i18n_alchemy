@@ -3,8 +3,6 @@ module I18n
     # Depend on AS::BasicObject which has a "blank slate" - no methods.
     class Proxy < ActiveSupport::BasicObject
       class Attribute
-        attr_reader :parser
-
         def initialize(target, attribute, parser)
           @target    = target
           @attribute = attribute
@@ -16,7 +14,11 @@ module I18n
         end
 
         def write(value)
-          @target.send(:"#{@attribute}=", @parser.parse(value))
+          @target.send(:"#{@attribute}=", parse(value))
+        end
+
+        def parse(value)
+          @parser.parse(value)
         end
       end
 
@@ -116,7 +118,8 @@ module I18n
         attributes = attributes.stringify_keys
 
         @localized_attributes.each do |column_name, attribute|
-          attributes[column_name] = attribute.parser.parse(attributes[column_name]) if attributes.key?(column_name)
+          next unless attributes.key?(column_name)
+          attributes[column_name] = attribute.parse(attributes[column_name])
         end
 
         attributes
