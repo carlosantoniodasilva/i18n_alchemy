@@ -4,6 +4,8 @@ class ProxyTest < MiniTest::Unit::TestCase
   def setup
     @product   = Product.new
     @localized = @product.localized
+    @supplier  = Supplier.new
+    @supplier_localized = @supplier.localized
 
     I18n.locale = :pt
   end
@@ -221,6 +223,37 @@ class ProxyTest < MiniTest::Unit::TestCase
     @localized.update_attribute(:price, '2,88')
     assert_equal '2,88', @localized.price
     assert_equal 2.88, @product.reload.price
+  end
+
+  # Nested Attributes
+  def test_should_assign_for_nested_attributes_for_collection_association
+    @supplier_localized.assign_attributes(:products_attributes => [{:price => '1,99'}, {:price => '2,93'}])
+    assert_equal 2, @supplier_localized.products.size
+    assert_equal '1,99', @supplier_localized.products.first.localized.price
+    assert_equal '2,93', @supplier_localized.products.last.localized.price
+  end
+
+  def test_should_assign_for_nested_attributes_passing_a_hash_for_collection_with_unique_keys
+    @supplier_localized.assign_attributes(:products_attributes => {"0" => {:price => '2,93', "_destroy"=>"false"}, "1" => {:price => '2,85', "_destroy" => "false"}})
+    assert_equal '2,93', @supplier_localized.products.first.localized.price
+    assert_equal '2,85', @supplier_localized.products.last.localized.price
+  end
+
+  def test_should_assign_for_nested_attributes_for_one_to_one_association
+    @supplier_localized.assign_attributes(:account_attributes => {:account_number => 10, :total_money => '100,87'})
+    account = @supplier_localized.account
+    assert_equal 10, account.account_number
+    assert_equal '100,87', account.localized.total_money
+  end
+
+  def test_update_attributes_for_nested_attributes
+    @supplier_localized.update_attributes(:account_attributes => {:total_money => '99,87'})
+    assert_equal '99,87', @supplier_localized.account.localized.total_money
+  end
+
+  def test_attributes_assignment_for_nested
+    @supplier_localized.attributes = {:account_attributes => {:total_money => '88,12'}}
+    assert_equal '88,12', @supplier_localized.account.localized.total_money
   end
 
   private
