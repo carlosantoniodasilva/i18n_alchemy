@@ -2,26 +2,6 @@ module I18n
   module Alchemy
     # Depend on AS::BasicObject which has a "blank slate" - no methods.
     class Proxy < ActiveSupport::BasicObject
-      class Attribute
-        def initialize(target, attribute, parser)
-          @target    = target
-          @attribute = attribute
-          @parser    = parser
-        end
-
-        def read
-          @parser.localize(@target.send(@attribute))
-        end
-
-        def write(value)
-          @target.send(:"#{@attribute}=", parse(value))
-        end
-
-        def parse(value)
-          @parser.parse(value)
-        end
-      end
-
       # TODO: cannot assume _id is always a foreign key.
       # Find a better way to find that and skip these columns.
       def initialize(target, attributes=nil, *args)
@@ -82,8 +62,7 @@ module I18n
       private
 
       def create_localized_attribute(column_name, parser)
-        @localized_attributes[column_name] =
-          Attribute.new(@target, column_name, parser)
+        @localized_attributes[column_name] = ::I18n::Alchemy::Attribute.new(@target, column_name, parser)
       end
 
       def define_localized_methods(column_name)
