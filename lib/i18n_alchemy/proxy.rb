@@ -18,6 +18,10 @@ module I18n
           end
         end
 
+        @localized_associations = @target.class.nested_attributes_options.map do |association_name, options|
+          ::I18n::Alchemy::AssociationParser.new(@target.class, association_name)
+        end
+
         assign_attributes(attributes, *args) if attributes
       end
 
@@ -93,12 +97,17 @@ module I18n
         end
       end
 
-      def parse_attributes(attributes)
+      def parse_attributes(attributes, options = {})
         attributes = attributes.stringify_keys
 
         @localized_attributes.each do |column_name, attribute|
           next unless attributes.key?(column_name)
           attributes[column_name] = attribute.parse(attributes[column_name])
+        end
+        @localized_associations.each do |association_parser|
+          association_attributes = association_parser.association_name_attributes
+          next unless attributes.key?(association_attributes)
+          attributes[association_attributes] = association_parser.parse(attributes[association_attributes])
         end
 
         attributes
