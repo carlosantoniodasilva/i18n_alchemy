@@ -233,6 +233,12 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal '2,93', @supplier_localized.products.last.localized.price
   end
 
+  def test_should_assign_for_nested_attributes_passing_a_hash_for_collection_with_unique_keys
+    @supplier_localized.assign_attributes(:products_attributes => {"0" => {:price => '2,93', "_destroy"=>"false"}, "1" => {:price => '2,85', "_destroy" => "false"}})
+    assert_equal '2,93', @supplier_localized.products.first.localized.price
+    assert_equal '2,85', @supplier_localized.products.last.localized.price
+  end
+
   def test_should_assign_for_nested_attributes_for_one_to_one_association
     @supplier_localized.assign_attributes(:account_attributes => {:account_number => 10, :total_money => '100,87'})
     account = @supplier_localized.account

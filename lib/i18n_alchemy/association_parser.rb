@@ -15,13 +15,20 @@ module I18n
       # ==== Examples
       #
       #  parse(:avatar_attributes => {:icon => 'sad_panda'})
-      #  parse(:posts_attributes => [{:title => 'Foo!'}, {:title => 'Bar!'}])
+      #  parse(:posts_attributes  => [{:title => 'Foo!'}, {:title => 'Bar!'}])
+      #  parse(:posts_attributes => { 0 => {:title => 'Foo!'}, 1 => {:title => 'Bar!'})
+      #  parse(:posts_attributes => { "81u21udjsndja" => {:title => 'Foo!'}, "akmsams" => {:title => 'Baz!'}})
       #
       def parse(attributes)
-        if attributes.is_a?(Hash)
-          @proxy.send(:parse_attributes, attributes)
+        if @association.macro == :has_many
+          attributes = if attributes.is_a?(Hash)
+            attributes.values
+          else
+            attributes
+          end
+          attributes.collect { |value_attributes| @proxy.send(:parse_attributes, value_attributes) }
         else
-          attributes.collect { |hash| @proxy.send(:parse_attributes, hash) }
+          @proxy.send(:parse_attributes, attributes)
         end
       end
 
