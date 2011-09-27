@@ -97,7 +97,7 @@ module I18n
         end
       end
 
-      def parse_attributes(attributes, options = {})
+      def parse_attributes(attributes)
         attributes = attributes.stringify_keys
 
         @localized_attributes.each do |column_name, attribute|
