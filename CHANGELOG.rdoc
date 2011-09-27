@@ -1,3 +1,6 @@
 == master
 
 * Basic localization for numeric, date and time attributes
+* Accept hash of attributes on localized call
+* Localize attributes=, assign_attributes, update_attribute, and update_attributes (by github.com/tomas-stefano)
+* Localize nested attributes (by github.com/tomas-stefano)

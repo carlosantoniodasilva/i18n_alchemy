@@ -66,7 +66,8 @@ module I18n
       private
 
       def create_localized_attribute(column_name, parser)
-        @localized_attributes[column_name] = ::I18n::Alchemy::Attribute.new(@target, column_name, parser)
+        @localized_attributes[column_name] =
+          ::I18n::Alchemy::Attribute.new(@target, column_name, parser)
       end
 
       def define_localized_methods(column_name)
