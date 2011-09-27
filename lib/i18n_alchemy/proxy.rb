@@ -2,26 +2,6 @@ module I18n
   module Alchemy
     # Depend on AS::BasicObject which has a "blank slate" - no methods.
     class Proxy < ActiveSupport::BasicObject
-      class Attribute
-        def initialize(target, attribute, parser)
-          @target    = target
-          @attribute = attribute
-          @parser    = parser
-        end
-
-        def read
-          @parser.localize(@target.send(@attribute))
-        end
-
-        def write(value)
-          @target.send(:"#{@attribute}=", parse(value))
-        end
-
-        def parse(value)
-          @parser.parse(value)
-        end
-      end
-
       # TODO: cannot assume _id is always a foreign key.
       # Find a better way to find that and skip these columns.
       def initialize(target, attributes=nil, *args)
@@ -36,6 +16,10 @@ module I18n
             create_localized_attribute(column.name, parser)
             define_localized_methods(column.name)
           end
+        end
+
+        @localized_associations = @target.class.nested_attributes_options.map do |association_name, options|
+          ::I18n::Alchemy::AssociationParser.new(@target.class, association_name)
         end
 
         assign_attributes(attributes, *args) if attributes
@@ -82,8 +66,7 @@ module I18n
       private
 
       def create_localized_attribute(column_name, parser)
-        @localized_attributes[column_name] =
-          Attribute.new(@target, column_name, parser)
+        @localized_attributes[column_name] = ::I18n::Alchemy::Attribute.new(@target, column_name, parser)
       end
 
       def define_localized_methods(column_name)
@@ -114,12 +97,17 @@ module I18n
         end
       end
 
-      def parse_attributes(attributes)
+      def parse_attributes(attributes, options = {})
         attributes = attributes.stringify_keys
 
         @localized_attributes.each do |column_name, attribute|
           next unless attributes.key?(column_name)
           attributes[column_name] = attribute.parse(attributes[column_name])
+        end
+        @localized_associations.each do |association_parser|
+          association_attributes = association_parser.association_name_attributes
+          next unless attributes.key?(association_attributes)
+          attributes[association_attributes] = association_parser.parse(attributes[association_attributes])
         end
 
         attributes
