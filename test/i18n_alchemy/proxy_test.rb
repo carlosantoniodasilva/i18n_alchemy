@@ -73,6 +73,14 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal "1,88", @localized.price_before_type_cast
   end
 
+  def test_formats_numeric_attribute_output_when_localizing
+    @product.price = 1.3
+    assert_equal "1,30", @localized.price
+
+    @product.price = 2
+    assert_equal "2,00", @localized.price
+  end
+
   def test_parsers_integer_attribute_input
     @localized.quantity = "1,0"
     assert_equal 1, @product.quantity
