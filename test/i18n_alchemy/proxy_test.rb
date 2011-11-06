@@ -73,6 +73,14 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal "1,88", @localized.price_before_type_cast
   end
 
+  def test_formats_numeric_attribute_output_when_localizing
+    @product.price = 1.3
+    assert_equal "1,30", @localized.price
+
+    @product.price = 2
+    assert_equal "2,00", @localized.price
+  end
+
   def test_parsers_integer_attribute_input
     @localized.quantity = "1,0"
     assert_equal 1, @product.quantity
@@ -80,7 +88,7 @@ class ProxyTest < MiniTest::Unit::TestCase
 
   def test_localized_integer_attribute_output
     @product.quantity = 1.0
-    assert_equal "1", @localized.quantity
+    assert_equal 1, @localized.quantity
   end
 
   def test_does_not_localize_other_attribute_input
@@ -156,7 +164,7 @@ class ProxyTest < MiniTest::Unit::TestCase
   def test_initializes_proxy_with_attributes_and_skips_mass_assignment_security_protection_when_without_protection_is_used
     @localized = @product.localized(attributes_hash, :without_protection => true)
     assert_equal 'My Precious!', @localized.my_precious
-    assert_equal '1', @localized.quantity
+    assert_equal 1, @localized.quantity
   end
 
   def test_assign_attributes
@@ -173,13 +181,13 @@ class ProxyTest < MiniTest::Unit::TestCase
   def test_new_with_attr_protected_attributes
     @localized.assign_attributes(attributes_hash)
     assert_nil @localized.my_precious
-    assert_equal "1", @localized.quantity
+    assert_equal 1, @localized.quantity
   end
 
   def test_assign_attributes_skips_mass_assignment_security_protection_when_without_protection_is_used
     @localized.assign_attributes(attributes_hash, :without_protection => true)
     assert_equal 'My Precious!', @localized.my_precious
-    assert_equal '1', @localized.quantity
+    assert_equal 1, @localized.quantity
   end
 
   def test_assign_attributes_does_not_change_given_attributes_hash

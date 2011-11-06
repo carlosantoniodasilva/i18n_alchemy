@@ -12,3 +12,4 @@ en:
     format:
       separator: '.'
       delimiter: ','
+      precision: 2
