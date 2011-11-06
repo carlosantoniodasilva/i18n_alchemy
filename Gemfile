@@ -1,12 +1,12 @@
 source "http://rubygems.org"
 
+# Specify your gem's dependencies in i18n_alchemy.gemspec
 gemspec
 
-gem "rake", "~> 0.9.2"
+platform :jruby do
+  gem "activerecord-jdbcsqlite3-adapter", "~> 1.2.0"
+end
 
-group :test do
-  gem "actionpack", "~> 3.0"
-  gem "sqlite3",    "~> 1.3.4"
-
-  gem "minitest",   "~> 2.6.0", :platform => :ruby_18
+platform :ruby do
+  gem "sqlite3", "~> 1.3.4"
 end
