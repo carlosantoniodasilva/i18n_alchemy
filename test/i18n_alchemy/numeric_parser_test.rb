@@ -19,6 +19,7 @@ class NumericParserTest < MiniTest::Unit::TestCase
   end
 
   def test_integers
+    assert_equal 999, @parser.parse(999)
     assert_equal "999", @parser.parse("999")
   end
 
