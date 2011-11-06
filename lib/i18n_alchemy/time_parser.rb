@@ -4,7 +4,7 @@ module I18n
       include DateParser
       extend  self
 
-      private
+      protected
 
       def build_object(parsed_date)
         Time.utc(*parsed_date.values_at(:year, :mon, :mday, :hour, :min, :sec))

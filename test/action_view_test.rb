@@ -1,5 +1,4 @@
 require "test_helper"
-require "action_view"
 
 class ActionViewTest < MiniTest::Unit::TestCase
   def setup

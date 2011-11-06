@@ -4,7 +4,7 @@ module I18n
       extend self
 
       def parse(value)
-        return value if !valid_for_parsing?(value)
+        return value unless valid_for_parsing?(value)
 
         if parsed_date = Date._strptime(value, i18n_format)
           build_object(parsed_date).to_s
@@ -17,7 +17,7 @@ module I18n
         valid_for_localization?(value) ? I18n.localize(value) : value
       end
 
-      private
+      protected
 
       def build_object(parsed_date)
         Date.new(*parsed_date.values_at(:year, :mon, :mday))

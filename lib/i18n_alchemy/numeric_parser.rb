@@ -12,13 +12,18 @@ module I18n
       def localize(value)
         return value if value.is_a?(String)
 
-        value.to_s.gsub(".", separator)
+        formatted_value = Integer === value ? value.to_s : format("%.#{precision}f", value)
+        formatted_value.gsub(".", separator)
       end
 
       private
 
       def delimiter
         translate :delimiter
+      end
+
+      def precision
+        translate :precision
       end
 
       def separator
