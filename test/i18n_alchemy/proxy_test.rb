@@ -39,6 +39,10 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal 1, @localized.id
   end
 
+  def test_to_param
+    assert_equal @product.to_param, @localized.to_param
+  end
+
   def test_does_not_localize_foreign_keys
     @product.supplier_id = 1
     assert_equal 1, @localized.supplier_id

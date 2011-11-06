@@ -46,6 +46,12 @@ module I18n
         @target.update_attribute(attribute, attributes.values.first)
       end
 
+      # Override to_param to always return the +proxy.to_param+. This allow us
+      # to integrate with action view.
+      def to_param
+        @target.to_param
+      end
+
       # Override to_model to always return the proxy, otherwise it returns the
       # target object. This allows us to integrate with action view.
       def to_model
