@@ -37,6 +37,11 @@ Here are some examples on how to use it with numeric values:
     @localized.price # => "1,88"
   end
 
+Please notice that the localized proxy also formats your numeric values based on the current precision in your I18n locale file:
+
+  @product.price = 1.3
+  @localized.price # => "1.30", considering a precision of 2
+
 And the same goes with date / time objects:
 
   @localized.released_at = "12/31/2011"
@@ -79,6 +84,7 @@ Right now the lib uses the same configuration for numeric, date and time values 
       format:
         separator: '.'
         delimiter: ','
+        precision: 2
 
 Please notice the default date and time format is considered for input values for now, and it will only accept valid values matching these formats. We plan to add specific formats and to parse a list of possible input formats for I18nAlchemy, to make it more flexible, please refer to TODO file for more info.
 

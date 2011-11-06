@@ -5,3 +5,4 @@
 * Localize attributes=, assign_attributes, update_attribute, and update_attributes (by github.com/tomas-stefano)
 * Localize nested attributes (by github.com/tomas-stefano)
 * JRuby compatibility (by github.com/sobrinho)
+* Format numeric values based on the current I18n number precision
