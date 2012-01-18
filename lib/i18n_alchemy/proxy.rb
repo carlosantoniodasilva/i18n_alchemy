@@ -11,10 +11,19 @@ module I18n
         @target.class.columns.each do |column|
           next if column.primary || column.name.ends_with?("_id")
 
-          parser = detect_parser(column)
+          parser = detect_parser_from_column(column)
           if parser
             create_localized_attribute(column.name, parser)
             define_localized_methods(column.name)
+          end
+        end
+
+        @target.localized_methods.each_pair do |method, parser_type|
+          method = method.to_s
+          parser = detect_parser(parser_type)
+          if parser
+            create_localized_attribute(method, parser)
+            define_localized_methods(method)
           end
         end
 
@@ -105,13 +114,17 @@ module I18n
         end
       end
 
-      def detect_parser(column)
-        case
-        when column.number?
+      def detect_parser_from_column(column)
+        detect_parser(column.number? ? :number : column.type)
+      end
+
+      def detect_parser(type)
+        case type
+        when :number
           NumericParser
-        when column.type == :date
+        when :date
           DateParser
-        when column.type == :datetime || column.type == :timestamp
+        when :datetime, :timestamp
           TimeParser
         end
       end
