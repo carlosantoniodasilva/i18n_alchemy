@@ -13,7 +13,8 @@ module I18n
         build_attributes
         build_methods
 
-        @localized_associations = build_associations
+        @localized_associations = []
+        build_associations
 
         assign_attributes(attributes, *args) if attributes
       end
@@ -67,8 +68,8 @@ module I18n
       end
 
       def build_associations
-        @target.class.nested_attributes_options.map do |association_name, options|
-          AssociationParser.new(@target.class, association_name)
+        @target.class.nested_attributes_options.each_key do |association_name|
+          create_localized_association(association_name)
         end
       end
 
@@ -78,9 +79,14 @@ module I18n
         define_localized_methods(name)
       end
 
+      def create_localized_association(association_name)
+        @localized_associations <<
+          AssociationParser.new(@target.class, association_name)
+      end
+
       def create_localized_attribute(column_name, parser)
         @localized_attributes[column_name] =
-          ::I18n::Alchemy::Attribute.new(@target, column_name, parser)
+          Attribute.new(@target, column_name, parser)
       end
 
       def define_localized_methods(column_name)
