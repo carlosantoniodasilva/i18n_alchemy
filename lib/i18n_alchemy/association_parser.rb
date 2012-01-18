@@ -21,12 +21,8 @@ module I18n
       #
       def parse(attributes)
         if @association.macro == :has_many
-          attributes = if attributes.is_a?(Hash)
-            attributes.values
-          else
-            attributes
-          end
-          attributes.collect { |value_attributes| @proxy.send(:parse_attributes, value_attributes) }
+          attributes = attributes.is_a?(Hash) ? attributes.values : attributes
+          attributes.map { |value_attributes| @proxy.send(:parse_attributes, value_attributes) }
         else
           @proxy.send(:parse_attributes, attributes)
         end
