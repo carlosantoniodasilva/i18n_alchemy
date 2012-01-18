@@ -47,7 +47,7 @@ module BaseTimeParserTest
   end
 end
 
-class TimeParserTest < MiniTest::Unit::TestCase
+class TimeParserTest < I18n::Alchemy::TestCase
   def setup
     @parser = I18n::Alchemy::TimeParser
     @time   = Time.mktime(2011, 12, 31, 12, 15, 45)
@@ -57,7 +57,7 @@ class TimeParserTest < MiniTest::Unit::TestCase
 end
 
 
-class DateTimeParserTest < MiniTest::Unit::TestCase
+class DateTimeParserTest < I18n::Alchemy::TestCase
   def setup
     @parser = I18n::Alchemy::TimeParser
     @time   = DateTime.new(2011, 12, 31, 12, 15, 45)

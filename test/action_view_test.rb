@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ActionViewTest < MiniTest::Unit::TestCase
+class ActionViewTest < I18n::Alchemy::TestCase
   def setup
     @template  = ActionView::Base.new
     @product   = Product.new(

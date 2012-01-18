@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ProxyTest < MiniTest::Unit::TestCase
+class ProxyTest < I18n::Alchemy::TestCase
   def setup
     @product   = Product.new
     @localized = @product.localized
