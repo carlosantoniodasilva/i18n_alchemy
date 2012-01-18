@@ -2,6 +2,8 @@ module I18n
   module Alchemy
     # Depend on AS::BasicObject which has a "blank slate" - no methods.
     class Proxy < ActiveSupport::BasicObject
+      include AttributesParsing
+
       # TODO: cannot assume _id is always a foreign key.
       # Find a better way to find that and skip these columns.
       def initialize(target, attributes=nil, *args)
@@ -22,37 +24,10 @@ module I18n
         end
 
         @localized_associations = @target.class.nested_attributes_options.map do |association_name, options|
-          ::I18n::Alchemy::AssociationParser.new(@target.class, association_name)
+          AssociationParser.new(@target.class, association_name)
         end
 
         assign_attributes(attributes, *args) if attributes
-      end
-
-      def attributes=(attributes)
-        @target.attributes = parse_attributes(attributes)
-      end
-
-      # This method is added to the proxy even thought it does not exist in
-      # Rails 3.0 (only >= 3.1).
-      def assign_attributes(attributes, *args)
-        if @target.respond_to?(:assign_attributes)
-          @target.assign_attributes(parse_attributes(attributes), *args)
-        else
-          self.attributes = attributes
-        end
-      end
-
-      def update_attributes(attributes, *args)
-        @target.update_attributes(parse_attributes(attributes), *args)
-      end
-
-      def update_attributes!(attributes, *args)
-        @target.update_attributes!(parse_attributes(attributes), *args)
-      end
-
-      def update_attribute(attribute, value)
-        attributes = parse_attributes(attribute => value)
-        @target.update_attribute(attribute, attributes.values.first)
       end
 
       # Override to_param to always return the +proxy.to_param+. This allow us
@@ -127,22 +102,6 @@ module I18n
         when :datetime, :timestamp
           TimeParser
         end
-      end
-
-      def parse_attributes(attributes)
-        attributes = attributes.stringify_keys
-
-        @localized_attributes.each do |column_name, attribute|
-          next unless attributes.key?(column_name)
-          attributes[column_name] = attribute.parse(attributes[column_name])
-        end
-        @localized_associations.each do |association_parser|
-          association_attributes = association_parser.association_name_attributes
-          next unless attributes.key?(association_attributes)
-          attributes[association_attributes] = association_parser.parse(attributes[association_attributes])
-        end
-
-        attributes
       end
     end
   end
