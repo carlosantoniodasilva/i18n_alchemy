@@ -25,4 +25,19 @@ module I18n::Alchemy
       @support_assign_attributes ||= ActiveRecord::VERSION::STRING >= "3.1.0"
     end
   end
+
+  class ProxyTestCase < TestCase
+    def setup
+      @product   = Product.new
+      @localized = @product.localized
+      @supplier  = Supplier.new
+      @supplier_localized = @supplier.localized
+
+      I18n.locale = :pt
+    end
+
+    def teardown
+      I18n.locale = :en
+    end
+  end
 end
