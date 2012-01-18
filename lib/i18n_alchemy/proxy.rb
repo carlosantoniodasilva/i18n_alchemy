@@ -12,19 +12,13 @@ module I18n
           next if column.primary || column.name.ends_with?("_id")
 
           parser = detect_parser_from_column(column)
-          if parser
-            create_localized_attribute(column.name, parser)
-            define_localized_methods(column.name)
-          end
+          build_attribute(column.name, parser)
         end
 
         @target.localized_methods.each_pair do |method, parser_type|
           method = method.to_s
           parser = detect_parser(parser_type)
-          if parser
-            create_localized_attribute(method, parser)
-            define_localized_methods(method)
-          end
+          build_attribute(method, parser)
         end
 
         @localized_associations = @target.class.nested_attributes_options.map do |association_name, options|
@@ -91,6 +85,12 @@ module I18n
       end
 
       private
+
+      def build_attribute(name, parser)
+        return unless parser
+        create_localized_attribute(name, parser)
+        define_localized_methods(name)
+      end
 
       def create_localized_attribute(column_name, parser)
         @localized_attributes[column_name] =
