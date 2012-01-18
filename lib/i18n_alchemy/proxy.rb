@@ -8,24 +8,12 @@ module I18n
       # Find a better way to find that and skip these columns.
       def initialize(target, attributes=nil, *args)
         @target = target
+
         @localized_attributes = {}
+        build_attributes
+        build_methods
 
-        @target.class.columns.each do |column|
-          next if column.primary || column.name.ends_with?("_id")
-
-          parser = detect_parser_from_column(column)
-          build_attribute(column.name, parser)
-        end
-
-        @target.localized_methods.each_pair do |method, parser_type|
-          method = method.to_s
-          parser = detect_parser(parser_type)
-          build_attribute(method, parser)
-        end
-
-        @localized_associations = @target.class.nested_attributes_options.map do |association_name, options|
-          AssociationParser.new(@target.class, association_name)
-        end
+        @localized_associations = build_associations
 
         assign_attributes(attributes, *args) if attributes
       end
@@ -60,6 +48,29 @@ module I18n
       end
 
       private
+
+      def build_attributes
+        @target.class.columns.each do |column|
+          next if column.primary || column.name.ends_with?("_id")
+
+          parser = detect_parser_from_column(column)
+          build_attribute(column.name, parser)
+        end
+      end
+
+      def build_methods
+        @target.localized_methods.each_pair do |method, parser_type|
+          method = method.to_s
+          parser = detect_parser(parser_type)
+          build_attribute(method, parser)
+        end
+      end
+
+      def build_associations
+        @target.class.nested_attributes_options.map do |association_name, options|
+          AssociationParser.new(@target.class, association_name)
+        end
+      end
 
       def build_attribute(name, parser)
         return unless parser
