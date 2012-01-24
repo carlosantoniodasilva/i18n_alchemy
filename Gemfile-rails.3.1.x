@@ -2,8 +2,8 @@ source "http://rubygems.org"
 
 gemspec
 
-gem "activerecord",  "~> 3.2.0"
-gem "activesupport", "~> 3.2.0"
+gem "activerecord",  "~> 3.1.0"
+gem "activesupport", "~> 3.1.0"
 
 platform :jruby do
   gem "activerecord-jdbcsqlite3-adapter", "~> 1.2.0"

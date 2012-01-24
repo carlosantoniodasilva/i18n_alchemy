@@ -15,9 +15,9 @@ I've already used the delocalize gem in some of these projects, and validates_ti
 I18nAlchemy is pretty straigthforward to use, you just need to include it in your ActiveRecord model. Lets say we are working with a Product model:
 
 ```ruby
-  class Product < ActiveRecord::Base
-    include I18n::Alchemy
-  end
+class Product < ActiveRecord::Base
+  include I18n::Alchemy
+end
 ```
 
 By mixing the module into your model, you get the *localized* method:
