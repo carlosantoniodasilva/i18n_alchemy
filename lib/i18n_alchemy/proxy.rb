@@ -72,7 +72,7 @@ module I18n
       # As the proxy does not have any other method, there is no need to
       # override :respond_to, just delegate it to the target as well.
       def method_missing(*args, &block)
-        @target.send *args, &block
+        @target.send(*args, &block)
       end
 
       private
