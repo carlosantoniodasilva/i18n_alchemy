@@ -3,3 +3,5 @@ rvm:
   - ree
   - 1.9.3
   - jruby
+before_install:
+  - gem update --system
