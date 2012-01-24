@@ -58,9 +58,15 @@ module I18n
         self
       end
 
-      # Allow calling the localized methods with :send. This allows us to
-      # integrate with action view methods.
+      # Allow calling localized methods with :send. This allows us to integrate
+      # with action view methods.
       alias :send :__send__
+
+      # Allow calling localized methods with :try. If the method is not declared
+      # here, it'll be delegated to the target, losing localization capabilities.
+      def try(*a, &b)
+        __send__(*a, &b)
+      end
 
       # Delegate all method calls that are not translated to the target object.
       # As the proxy does not have any other method, there is no need to

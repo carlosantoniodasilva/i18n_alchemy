@@ -57,6 +57,18 @@ class ProxyTest < MiniTest::Unit::TestCase
     assert_equal "1,88", @localized.send(:price_before_type_cast)
   end
 
+  def test_try
+    @product.price = 1.99
+    assert_equal "1,99", @localized.try(:price)
+    assert_equal "1,99", @localized.try(:price_before_type_cast)
+  end
+
+  def test_try_with_block
+    @localized.try :method_with_block do |attr|
+      assert_equal "called!", attr
+    end
+  end
+
   # Numeric
   def test_parses_numeric_attribute_input
     @localized.price = "1,99"
