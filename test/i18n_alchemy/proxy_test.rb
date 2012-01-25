@@ -175,7 +175,11 @@ class ProxyTest < MiniTest::Unit::TestCase
 
   def test_initializes_proxy_with_attributes_and_skips_mass_assignment_security_protection_when_without_protection_is_used
     @localized = @product.localized(attributes_hash, :without_protection => true)
-    assert_equal 'My Precious!', @localized.my_precious
+    if support_assign_attributes_without_protection?
+      assert_equal 'My Precious!', @localized.my_precious
+    else
+      assert_nil @localized.my_precious
+    end
     assert_equal 1, @localized.quantity
   end
 
@@ -198,7 +202,11 @@ class ProxyTest < MiniTest::Unit::TestCase
 
   def test_assign_attributes_skips_mass_assignment_security_protection_when_without_protection_is_used
     @localized.assign_attributes(attributes_hash, :without_protection => true)
-    assert_equal 'My Precious!', @localized.my_precious
+    if support_assign_attributes_without_protection?
+      assert_equal 'My Precious!', @localized.my_precious
+    else
+      assert_nil @localized.my_precious
+    end
     assert_equal 1, @localized.quantity
   end
 
