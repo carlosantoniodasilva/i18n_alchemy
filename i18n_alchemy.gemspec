@@ -14,9 +14,8 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "i18n_alchemy"
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
+  s.test_files    = Dir["test/**/*"]
   s.require_paths = ["lib"]
 
   s.add_dependency "activerecord", "~> 3.0"
