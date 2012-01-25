@@ -13,7 +13,7 @@ module I18n
 
       def localize(value)
         if valid_for_localization?(value)
-          format("%.#{precision}f", value).gsub(".", separator)
+          number_with_delimiter(format("%.#{precision}f", value))
         else
           value
         end
@@ -43,6 +43,14 @@ module I18n
 
       def valid_for_parsing?(value)
         value.respond_to?(:gsub)
+      end
+
+      # Logic extracted from Rails' number_with_delimiter helper.
+      NUMBER_WITH_DELIMITER = /(\d)(?=(\d\d\d)+(?!\d))/
+      def number_with_delimiter(number)
+        parts  = number.split('.')
+        parts[0].gsub!(NUMBER_WITH_DELIMITER, "\\1#{delimiter}")
+        parts.join(separator)
       end
     end
   end

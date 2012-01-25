@@ -50,7 +50,14 @@ Please notice that the localized proxy also formats your numeric values based on
 @localized.price # => "1.30", considering a precision of 2
 ```
 
-And the same goes with date / time objects:
+And with thousand separators as well:
+
+```ruby
+@product.price = 1840.32
+@localized.price # => "1,840.32", considering separator = "," and delimiter = "."
+```
+
+Some examples with date / time objects:
 
 ```ruby
 @localized.released_at = "12/31/2011"
@@ -69,7 +76,7 @@ end
 The localized method quacks like ActiveRecord: you can give a hash of attributes and extra options if you want, and it will delegate everything to the object, parsing the attributes before:
 
 ```ruby
-# This will not localize released_at and other attributes, only price.
+# This will parse the attributes in the given hash.
 I18n.with_locale :pt do
   @localized = @product.localized(:price => "1,88")
 
