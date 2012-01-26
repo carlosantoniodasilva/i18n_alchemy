@@ -90,19 +90,22 @@ module I18n
       end
 
       def define_localized_methods(column_name)
+        target = @target
         class << self; self; end.instance_eval do
           define_method(column_name) do
             @localized_attributes[column_name].read
           end
 
           # Before type cast must be localized to integrate with action view.
-          define_method("#{column_name}_before_type_cast") do
+          method_name = "#{column_name}_before_type_cast"
+          define_method(method_name) do
             @localized_attributes[column_name].read
-          end
+          end if target.respond_to?(method_name)
 
-          define_method("#{column_name}=") do |value|
+          method_name = "#{column_name}="
+          define_method(method_name) do |value|
             @localized_attributes[column_name].write(value)
-          end
+          end if target.respond_to?(method_name)
         end
       end
 
