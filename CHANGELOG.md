@@ -1,4 +1,4 @@
-## master
+## v0.0.1 - 2012-5-8
 
 * Basic localization for numeric, date and time attributes
 * Accept hash of attributes on localized call
