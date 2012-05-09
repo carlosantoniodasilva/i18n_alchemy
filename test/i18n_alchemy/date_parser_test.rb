@@ -20,6 +20,12 @@ class DateParserTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_parsers_string_dates_on_different_i18n_locale
+    I18n.with_locale :jp do
+      assert_equal "2011-12-01", @parser.parse("12/2011")
+    end
+  end
+
   def test_parsers_returns_the_given_string_when_invalid_date
     assert_equal "31/12/2011", @parser.parse("31/12/2011")
   end
@@ -35,6 +41,12 @@ class DateParserTest < MiniTest::Unit::TestCase
   def test_localizes_date_values_based_on_current_i18n_locale
     I18n.with_locale :pt do
       assert_equal "31/12/2011", @parser.localize(@date)
+    end
+  end
+
+  def test_localizes_date_values_based_on_different_i18n_locale
+    I18n.with_locale :jp do
+      assert_equal "12/2011", @parser.localize(@date)
     end
   end
 end

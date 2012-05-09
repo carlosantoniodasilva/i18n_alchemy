@@ -20,7 +20,11 @@ module I18n
       protected
 
       def build_object(parsed_date)
-        Date.new(*parsed_date.values_at(:year, :mon, :mday))
+        Date.new(*extract_date(parsed_date))
+      end
+
+      def extract_date(parsed_date)
+        [parsed_date[:year], parsed_date[:mon], parsed_date[:mday]].compact
       end
 
       def i18n_format
