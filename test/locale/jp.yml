@@ -1,0 +1,15 @@
+jp:
+
+  date:
+    formats:
+      default: "%m/%Y"
+
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M:%S"
+
+  number:
+    format:
+      separator: ','
+      delimiter: '.'
+      precision: 2
