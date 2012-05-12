@@ -1,19 +1,5 @@
 == I18n Alchemy TODO
 
-* Allow localization of methods (not db columns)
-  Possible APIs:
-    # All attributes localized by default
-    localize_methods :total => :number
-
-    # OR
-
-    localize :attributes => { :price => :numeric, :created_at => :datetime },
-      :methods => { :total => :number }
-    localize :attributes => [:price, :created_at], :methods => { :total => :number }
-    localize :attributes => :all, :methods => { :total => :number }
-    localize :methods => { :total => :number } # :attributes => :all by default?
-    localize :total => :number # :methods => {} by default?
-
 * Add currency parser/localization on top of numeric?
 * Localization for non AR classes (do not depend on AR::Base.columns)
 * Improve type check for date/time parsers
