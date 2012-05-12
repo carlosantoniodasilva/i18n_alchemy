@@ -92,7 +92,7 @@ Given a product model with a `total` method, that is a simple calculation of `qu
 ```ruby
 class Product < ActiveRecord::Base
   include I18n::Alchemy
-  localize :total => :number
+  localize_methods :total => :number
 
   def total
     quantity * price
