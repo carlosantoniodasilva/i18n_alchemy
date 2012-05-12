@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   include I18n::Alchemy
-  localize_methods :total => :number, :estimated_delivery_at => :date,
+  localize :total => :number, :estimated_delivery_at => :date,
     :estimated_last_comission_payment_at => :timestamp
 
   attr_protected :my_precious

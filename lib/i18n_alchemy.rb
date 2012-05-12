@@ -18,13 +18,13 @@ module I18n
     end
 
     included do
-      class_attribute :localized_methods, :instance_writer => false
-      self.localized_methods = {}
+      class_attribute :localized, :instance_reader => false, :instance_writer => false
+      self.localized = {}
     end
 
     module ClassMethods
-      def localize_methods(methods_hash)
-        self.localized_methods = self.localized_methods.merge(methods_hash)
+      def localize(methods_hash)
+        self.localized = self.localized.merge(methods_hash)
       end
     end
   end

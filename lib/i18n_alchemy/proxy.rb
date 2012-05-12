@@ -60,7 +60,7 @@ module I18n
       end
 
       def build_methods
-        @target.localized_methods.each_pair do |method, parser_type|
+        @target.class.localized.each_pair do |method, parser_type|
           method = method.to_s
           parser = detect_parser(parser_type)
           build_attribute(method, parser)
