@@ -1,6 +1,6 @@
 require "test_helper"
 
-class NumericParserTest < MiniTest::Unit::TestCase
+class NumericParserTest < I18n::Alchemy::TestCase
   def setup
     @parser = I18n::Alchemy::NumericParser
   end

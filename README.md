@@ -85,6 +85,30 @@ I18n.with_locale :pt do
 end
 ```
 
+### Localizing methods
+
+Given a product model with a `total` method, that is a simple calculation of `quantity * price`, you can tell **I18n::Alchemy** to localize that method for you together with the attributes:
+
+```ruby
+class Product < ActiveRecord::Base
+  include I18n::Alchemy
+  localize_methods :total => :number
+
+  def total
+    quantity * price
+  end
+end
+
+@product          = Product.first
+@product.price    = 1.99
+@product.quantity = 10
+
+@product.total   # => 19.90
+@localized.total # => "19,90"
+```
+
+If the method has a writer method, in this case `total=`, that'd get a parsed version for input values as well.
+
 ## I18n configuration
 
 Right now the lib uses the same configuration for numeric, date and time values from Rails:

@@ -4,10 +4,8 @@ module I18n
       attr_reader :target_class, :association_name
 
       def initialize(target_class, association_name)
-        @target_class = target_class
+        @target_class     = target_class
         @association_name = association_name
-        @association = @target_class.reflect_on_association(@association_name)
-        @proxy = @association.klass.new.localized
       end
 
       # Parse nested attributes for one-to-one and collection association
@@ -20,15 +18,11 @@ module I18n
       #  parse(:posts_attributes => { "81u21udjsndja" => {:title => 'Foo!'}, "akmsams" => {:title => 'Baz!'}})
       #
       def parse(attributes)
-        if @association.macro == :has_many
-          attributes = if attributes.is_a?(Hash)
-            attributes.values
-          else
-            attributes
-          end
-          attributes.collect { |value_attributes| @proxy.send(:parse_attributes, value_attributes) }
+        if association.macro == :has_many
+          attributes = attributes.is_a?(Hash) ? attributes.values : attributes
+          attributes.map { |value_attributes| proxy.send(:parse_attributes, value_attributes) }
         else
-          @proxy.send(:parse_attributes, attributes)
+          proxy.send(:parse_attributes, attributes)
         end
       end
 
@@ -43,6 +37,16 @@ module I18n
       #
       def association_name_attributes
         "#{association_name}_attributes"
+      end
+
+      private
+
+      def association
+        @association ||= @target_class.reflect_on_association(@association_name)
+      end
+
+      def proxy
+        @proxy ||= @association.klass.new.localized
       end
     end
   end

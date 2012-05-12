@@ -1,5 +1,7 @@
 class Product < ActiveRecord::Base
   include I18n::Alchemy
+  localize_methods :total => :number, :estimated_delivery_at => :date,
+    :estimated_last_comission_payment_at => :timestamp
 
   attr_protected :my_precious
 
@@ -7,5 +9,21 @@ class Product < ActiveRecord::Base
 
   def method_with_block
     yield "called!"
+  end
+
+  def estimated_last_comission_payment_at
+    (last_sale_at + 5.days).end_of_day if last_sale_at?
+  end
+
+  def estimated_delivery_at
+    released_at + 5.days if released_at?
+  end
+
+  def total
+    @total || (quantity * price if quantity? && price?)
+  end
+
+  def total=(new_total)
+    @total = new_total
   end
 end

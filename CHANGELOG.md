@@ -1,3 +1,7 @@
+## master
+
+* Add support for localizing methods.
+
 ## v0.0.1 - 2012-5-8
 
 * Basic localization for numeric, date and time attributes

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class DateParserTest < MiniTest::Unit::TestCase
+class DateParserTest < I18n::Alchemy::TestCase
   def setup
     @parser = I18n::Alchemy::DateParser
     @date   = Date.new(2011, 12, 31)

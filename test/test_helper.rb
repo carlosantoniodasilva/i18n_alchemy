@@ -17,10 +17,27 @@ I18n.load_path << Dir[File.expand_path("../locale/*.yml", __FILE__)]
 require "db/test_schema"
 Dir["test/models/*.rb"].each { |file| require File.expand_path(file) }
 
-class MiniTest::Unit::TestCase
-  # AR 3.0 does not have assign_attributes and without_protection option, so we
-  # are going to skip such tests in this version.
-  def support_assign_attributes_without_protection?
-    @support_assign_attributes ||= ActiveRecord::VERSION::STRING >= "3.1.0"
+module I18n::Alchemy
+  class TestCase < MiniTest::Unit::TestCase
+    # AR 3.0 does not have assign_attributes and without_protection option, so we
+    # are going to skip such tests in this version.
+    def support_assign_attributes_without_protection?
+      @support_assign_attributes ||= ActiveRecord::VERSION::STRING >= "3.1.0"
+    end
+  end
+
+  class ProxyTestCase < TestCase
+    def setup
+      @product   = Product.new
+      @localized = @product.localized
+      @supplier  = Supplier.new
+      @supplier_localized = @supplier.localized
+
+      I18n.locale = :pt
+    end
+
+    def teardown
+      I18n.locale = :en
+    end
   end
 end

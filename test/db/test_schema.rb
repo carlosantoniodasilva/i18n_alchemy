@@ -19,7 +19,6 @@ ActiveRecord::Schema.define do
 
   create_table :suppliers do |t|
     t.string     :name
-    t.decimal    :a_decimal
   end
 
   create_table :accounts do |t|
