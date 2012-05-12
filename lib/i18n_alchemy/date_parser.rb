@@ -24,7 +24,7 @@ module I18n
       end
 
       def extract_date(parsed_date)
-        [parsed_date[:year], parsed_date[:mon], parsed_date[:mday]].compact
+        parsed_date.values_at(:year, :mon, :mday).compact
       end
 
       def i18n_format

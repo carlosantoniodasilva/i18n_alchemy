@@ -20,7 +20,7 @@ class DateParserTest < I18n::Alchemy::TestCase
     end
   end
 
-  def test_parsers_string_dates_on_different_i18n_locale
+  def test_parsers_string_dates_with_implicit_day
     I18n.with_locale :jp do
       assert_equal "2011-12-01", @parser.parse("12/2011")
     end
@@ -44,7 +44,7 @@ class DateParserTest < I18n::Alchemy::TestCase
     end
   end
 
-  def test_localizes_date_values_based_on_different_i18n_locale
+  def test_localizes_date_values_with_implicit_day
     I18n.with_locale :jp do
       assert_equal "12/2011", @parser.localize(@date)
     end
