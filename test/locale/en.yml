@@ -3,6 +3,7 @@ en:
   date:
     formats:
       default: "%m/%d/%Y"
+      custom: "%m/%Y"
 
   time:
     formats:

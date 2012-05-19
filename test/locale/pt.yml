@@ -3,6 +3,7 @@ pt:
   date:
     formats:
       default: "%d/%m/%Y"
+      custom: "%m/%Y"
 
   time:
     formats:
