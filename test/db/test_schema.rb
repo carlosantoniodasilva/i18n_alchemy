@@ -11,6 +11,7 @@ ActiveRecord::Schema.define do
     t.decimal    :price
     t.integer    :quantity
     t.date       :released_at
+    t.date       :released_month
     t.datetime   :updated_at
     t.timestamp  :last_sale_at
     t.references :supplier

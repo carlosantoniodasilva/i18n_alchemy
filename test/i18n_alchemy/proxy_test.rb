@@ -116,6 +116,21 @@ class ProxyTest < I18n::Alchemy::ProxyTestCase
     assert_equal "28/02/2011", @localized.released_at_before_type_cast
   end
 
+  def test_parses_date_attribute_input_with_custom_parser
+    @localized.released_month = "02/2011"
+    assert_equal Date.new(2011, 2, 1), @product.released_month
+  end
+
+  def test_localizes_date_attribute_output_with_custom_parser
+    @product.released_month = Date.new(2011, 2, 1)
+    assert_equal "02/2011", @localized.released_month
+  end
+
+  def test_localizes_date_attribute_before_type_cast_output_with_custom_parser
+    @product.released_month = Date.new(2011, 2, 1)
+    assert_equal "02/2011", @localized.released_month_before_type_cast
+  end
+
   # DateTime
   def test_parses_datetime_attribute_input
     @localized.updated_at = "28/02/2011 13:25:30"

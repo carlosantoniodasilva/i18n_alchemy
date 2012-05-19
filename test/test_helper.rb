@@ -15,6 +15,7 @@ I18n.locale = :en
 I18n.load_path << Dir[File.expand_path("../locale/*.yml", __FILE__)]
 
 require "db/test_schema"
+Dir["test/custom_parsers/*.rb"].each { |file| require File.expand_path(file) }
 Dir["test/models/*.rb"].each { |file| require File.expand_path(file) }
 
 module I18n::Alchemy
