@@ -21,11 +21,19 @@ module I18n
       class_attribute :localized_methods,
         :instance_reader => false, :instance_writer => false
       self.localized_methods = {}
+
+      class_attribute :customized_parsers,
+        :instance_reader => false, :instance_writer => false
+      self.customized_parsers = {}
     end
 
     module ClassMethods
       def localize_methods(methods_hash)
         self.localized_methods = self.localized_methods.merge(methods_hash)
+      end
+
+      def custom_parsers(parsers_hash)
+        self.customized_parsers = self.customized_parsers.merge(parsers_hash)
       end
     end
   end

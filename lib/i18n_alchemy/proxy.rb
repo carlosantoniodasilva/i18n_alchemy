@@ -54,7 +54,7 @@ module I18n
         @target.class.columns.each do |column|
           next if column.primary || column.name.ends_with?("_id")
 
-          parser = detect_parser_from_column(column)
+          parser = @target.class.customized_parsers[column.name.to_sym] || detect_parser_from_column(column)
           build_attribute(column.name, parser)
         end
       end
