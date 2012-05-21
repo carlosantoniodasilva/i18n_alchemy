@@ -1,6 +1,7 @@
 ## master
 
-* Add support for localizing methods.
+* Add support for localizing methods
+* Add support for custom parsers ([@caironoleto][https://github.com/caironoleto])
 
 ## v0.0.1 - 2012-5-8
 

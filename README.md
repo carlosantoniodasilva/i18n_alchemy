@@ -109,6 +109,38 @@ end
 
 If the method has a writer method, in this case `total=`, that'd get a parsed version for input values as well.
 
+### Custom Parsers
+
+If you want to customize the way an attribute is parsed/localized, you can create a custom parser that looks like this:
+
+```ruby
+module MyCustomDateParser
+  include I18n::Alchemy::DateParser
+  extend self
+
+  def localize(value)
+    I18n.localize value, :format => :custom
+  end
+
+  protected
+
+  def i18n_format
+    I18n.t(:custom, :scope => [:date, :formats])
+  end
+end
+```
+
+And then just configure the attribute you want to use with this new parser:
+
+```ruby
+class Product < ActiveRecord::Base
+  include I18n::Alchemy
+  custom_parsers :released_month => MyCustomDateParser
+end
+```
+
+By doing this, **I18n::Alchemy** will be set up to use your custom parser for that particular attribute, which in this case will make use of the `:custom` date format in your i18n locale.
+
 ## I18n configuration
 
 Right now the lib uses the same configuration for numeric, date and time values from Rails:
