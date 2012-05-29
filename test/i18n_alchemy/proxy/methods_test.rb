@@ -44,4 +44,9 @@ class ProxyMethodsTest < I18n::Alchemy::ProxyTestCase
       @localized.estimated_last_comission_payment_at_before_type_cast
     end
   end
+
+  def test_localize_non_activerecord_models
+    @user.created_at = Date.new(2012, 2, 28)
+    assert_equal "28/02/2012", @user_localized.created_at
+  end
 end
