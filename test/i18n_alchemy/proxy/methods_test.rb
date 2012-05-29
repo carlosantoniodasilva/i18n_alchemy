@@ -11,7 +11,7 @@ class ProxyMethodsTest < I18n::Alchemy::ProxyTestCase
 
   def test_localizes_date_methods
     @product.released_at = Date.new(2011, 2, 28)
-    assert_equal "05/03/2011", @localized.estimated_delivery_at
+    assert_equal "03/2011", @localized.estimated_delivery_at
   end
 
   def test_localizes_time_methods

@@ -113,14 +113,16 @@ module I18n
         detect_parser(column.number? ? :number : column.type)
       end
 
-      def detect_parser(type)
-        case type
+      def detect_parser(type_or_parser)
+        case type_or_parser
         when :number
           NumericParser
         when :date
           DateParser
         when :datetime, :timestamp
           TimeParser
+        when ::Module
+          type_or_parser
         end
       end
     end
