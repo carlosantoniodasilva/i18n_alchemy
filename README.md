@@ -1,5 +1,7 @@
 ## I18nAlchemy
 
+[![Build Status](https://secure.travis-ci.org/carlosantoniodasilva/i18n_alchemy.png)](http://travis-ci.org/carlosantoniodasilva/i18n_alchemy)
+
 I18n date/number parsing/localization
 
 I18nAlchemy aims to handle date, time and number parsing, based on current I18n locale format. The main idea is to have ORMs, such as ActiveRecord for now, to automatically accept dates/numbers given in the current locale format, and return these values localized as well.
