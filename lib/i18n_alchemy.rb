@@ -28,7 +28,7 @@ module I18n
     end
 
     module ClassMethods
-      def localize_methods(methods_hash)
+      def localize(methods_hash)
         self.localized_methods = self.localized_methods.merge(methods_hash)
       end
 

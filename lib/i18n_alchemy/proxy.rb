@@ -10,13 +10,12 @@ module I18n
         @target = target
 
         @localized_attributes = {}
-        build_methods
-
         @localized_associations = []
 
+        build_methods
         if active_record_compatible?
-          build_associations
           build_attributes
+          build_associations
         end
 
         assign_attributes(attributes, *args) if attributes
