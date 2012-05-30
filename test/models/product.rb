@@ -1,7 +1,8 @@
 class Product < ActiveRecord::Base
   include I18n::Alchemy
-  localize :total => :number, :estimated_delivery_at => MyCustomDateParser,
-    :estimated_last_comission_payment_at => :timestamp
+  localize :total, :using => :number
+  localize :estimated_delivery_at, :using => MyCustomDateParser
+  localize :estimated_last_comission_payment_at, :using => :timestamp
   custom_parsers :released_month => MyCustomDateParser
 
   attr_protected :my_precious

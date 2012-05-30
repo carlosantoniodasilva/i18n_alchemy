@@ -28,8 +28,12 @@ module I18n
     end
 
     module ClassMethods
-      def localize(methods_hash)
-        self.localized_methods = self.localized_methods.merge(methods_hash)
+      def localize(*methods, options)
+        parser  = options[:using]
+        methods = methods.each_with_object(localized_methods) do |method_name, hash|
+          hash[method_name] = parser
+        end
+        self.localized_methods = methods
       end
 
       def custom_parsers(parsers_hash)

@@ -94,7 +94,7 @@ Given a product model with a `total` method, that is a simple calculation of `qu
 ```ruby
 class Product < ActiveRecord::Base
   include I18n::Alchemy
-  localize :total => :number
+  localize :total, :using => :number
 
   def total
     quantity * price
@@ -117,7 +117,7 @@ your class have both reader and writer methods available:
 ```ruby
 class Product
   include I18n::Alchemy
-  localize :released_at => :date
+  localize :released_at, :using => :date
 
   attr_accessor :released_at
 end
@@ -160,7 +160,7 @@ If you are using `localize`, you can mix the custom parsers with your existing c
 ```ruby
 class Product < ActiveRecord::Base
   include I18n::Alchemy
-  localize :total => MyCustomNumberParser
+  localize :total, :using => MyCustomNumberParser
 end
 ```
 
