@@ -111,6 +111,18 @@ end
 
 If the method has a writer method, in this case `total=`, that'd get a parsed version for input values as well.
 
+With `localize_methods` is possible to localize objects that aren't inheriting from `ActiveRecord::Base`, as long that
+your class have both reader and writer methods available:
+
+```ruby
+class Product
+  include I18n::Alchemy
+  localize_methods :released_at => :date
+
+  attr_accessor :released_at
+end
+```
+
 ### Custom Parsers
 
 If you want to customize the way an attribute is parsed/localized, you can create a custom parser that looks like this:
@@ -142,6 +154,15 @@ end
 ```
 
 By doing this, **I18n::Alchemy** will be set up to use your custom parser for that particular attribute, which in this case will make use of the `:custom` date format in your i18n locale.
+
+If you are using `localize_methods`, you can mix the custom parsers with your existing configuration:
+
+```ruby
+class Product < ActiveRecord::Base
+  include I18n::Alchemy
+  localize_methods :total => MyCustomNumberParser
+end
+```
 
 ## I18n configuration
 
