@@ -1,5 +1,6 @@
 require "date"
-require "active_record"
+require "active_support"
+require "active_support/core_ext/class/attribute"
 require "i18n"
 require "i18n_alchemy/date_parser"
 require "i18n_alchemy/time_parser"

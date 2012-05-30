@@ -18,11 +18,11 @@ Gem::Specification.new do |s|
   s.test_files    = Dir["test/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency "activerecord", "~> 3.0"
   s.add_dependency "activesupport", "~> 3.0"
   s.add_dependency "i18n", "~> 0.5"
 
-  s.add_development_dependency "rake", "~> 0.9.2"
   s.add_development_dependency "actionpack", "~> 3.0"
+  s.add_development_dependency "activerecord", "~> 3.0"
   s.add_development_dependency "minitest", "~> 2.10.0"
+  s.add_development_dependency "rake", "~> 0.9.2"
 end
