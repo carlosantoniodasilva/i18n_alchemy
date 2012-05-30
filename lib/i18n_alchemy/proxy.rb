@@ -10,11 +10,14 @@ module I18n
         @target = target
 
         @localized_attributes = {}
-        build_attributes
         build_methods
 
         @localized_associations = []
-        build_associations
+
+        if active_record_compatible?
+          build_associations
+          build_attributes
+        end
 
         assign_attributes(attributes, *args) if attributes
       end
@@ -49,6 +52,11 @@ module I18n
       end
 
       private
+
+      def active_record_compatible?
+        target_class = @target.class
+        target_class.respond_to?(:columns) && target_class.respond_to?(:nested_attributes_options)
+      end
 
       def build_attributes
         @target.class.columns.each do |column|
@@ -113,14 +121,16 @@ module I18n
         detect_parser(column.number? ? :number : column.type)
       end
 
-      def detect_parser(type)
-        case type
+      def detect_parser(type_or_parser)
+        case type_or_parser
         when :number
           NumericParser
         when :date
           DateParser
         when :datetime, :timestamp
           TimeParser
+        when ::Module
+          type_or_parser
         end
       end
     end

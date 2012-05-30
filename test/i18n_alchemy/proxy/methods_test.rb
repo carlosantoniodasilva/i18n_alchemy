@@ -11,7 +11,7 @@ class ProxyMethodsTest < I18n::Alchemy::ProxyTestCase
 
   def test_localizes_date_methods
     @product.released_at = Date.new(2011, 2, 28)
-    assert_equal "05/03/2011", @localized.estimated_delivery_at
+    assert_equal "03/2011", @localized.estimated_delivery_at
   end
 
   def test_localizes_time_methods
@@ -43,5 +43,10 @@ class ProxyMethodsTest < I18n::Alchemy::ProxyTestCase
     assert_raises NoMethodError do
       @localized.estimated_last_comission_payment_at_before_type_cast
     end
+  end
+
+  def test_localize_non_activerecord_models
+    @user.created_at = Date.new(2012, 2, 28)
+    assert_equal "28/02/2012", @user_localized.created_at
   end
 end

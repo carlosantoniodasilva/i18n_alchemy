@@ -33,6 +33,8 @@ module I18n::Alchemy
       @localized = @product.localized
       @supplier  = Supplier.new
       @supplier_localized = @supplier.localized
+      @user = User.new
+      @user_localized = @user.localized
 
       I18n.locale = :pt
     end
