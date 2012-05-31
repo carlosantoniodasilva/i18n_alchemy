@@ -7,6 +7,7 @@ MiniTest::Unit.autorun
 
 require "i18n_alchemy"
 require "action_view"
+require "active_record"
 
 # Setup I18n after other requires to make sure our locales will override any
 # ActiveSupport / ActionView defaults.
