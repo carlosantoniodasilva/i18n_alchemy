@@ -59,10 +59,11 @@ module I18n
 
       def build_attributes
         @target.class.columns.each do |column|
-          next if column.primary || column.name.ends_with?("_id")
+          column_name = column.name
+          next if column.primary || column_name.ends_with?("_id") || @localized_attributes.key?(column_name)
 
-          parser = @target.class.customized_parsers[column.name.to_sym] || detect_parser_from_column(column)
-          build_attribute(column.name, parser)
+          parser = detect_parser_from_column(column)
+          build_attribute(column_name, parser)
         end
       end
 
