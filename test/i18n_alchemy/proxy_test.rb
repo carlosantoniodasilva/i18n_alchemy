@@ -26,6 +26,11 @@ class ProxyTest < I18n::Alchemy::ProxyTestCase
     assert_equal 1, @localized.id
   end
 
+  def test_to_json
+    @supplier.products << @product
+    assert_equal @supplier.to_json, @supplier_localized.to_json
+  end
+
   def test_to_param
     assert_equal @product.to_param, @localized.to_param
   end
