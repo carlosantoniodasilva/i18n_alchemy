@@ -53,12 +53,11 @@ module I18n
       private
 
       def active_record_compatible?
-        target_class = @target.class
         target_class.respond_to?(:columns) && target_class.respond_to?(:nested_attributes_options)
       end
 
       def build_attributes
-        @target.class.columns.each do |column|
+        columns.each do |column|
           column_name = column.name
           next if column.primary || column_name.ends_with?("_id") || @localized_attributes.key?(column_name)
 
@@ -68,7 +67,7 @@ module I18n
       end
 
       def build_methods
-        @target.class.localized_methods.each_pair do |method, parser_type|
+        localized_methods.each_pair do |method, parser_type|
           method = method.to_s
           parser = detect_parser(parser_type)
           build_attribute(method, parser)
@@ -132,6 +131,18 @@ module I18n
         when ::Module
           type_or_parser
         end
+      end
+
+      def localized_methods
+        target_class.localized_methods
+      end
+
+      def columns
+        target_class.columns
+      end
+
+      def target_class
+        @target.class
       end
     end
   end
