@@ -29,6 +29,8 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
   end
 
   def test_mass_assigning_invalid_attribute
+    @person = Person.new
+    @person_localized = @person.localized
     assert_raises(ActiveRecord::UnknownAttributeError) do
       @localized.assign_attributes('i_dont_even_exist' => 40)
     end
@@ -126,6 +128,12 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
   def test_attributes_assignment_for_nested
     @supplier_localized.attributes = {:account_attributes => {:total_money => '88,12'}}
     assert_equal '88,12', @supplier_localized.account.localized.total_money
+  end
+
+  def test_should_assign_for_nested_attributes_for_polymorphic_association
+    @person_localized.assign_attributes(:personable_type => "Company", :personable_attributes => {:register => 10})
+    company = @person_localized.personable
+    assert_equal 10, company.register
   end
 
   private

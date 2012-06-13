@@ -75,8 +75,8 @@ module I18n
       end
 
       def build_associations
-        @target.class.nested_attributes_options.each_key do |association_name|
-          create_localized_association(association_name)
+        nested_attributes_options.each_key do |association_name|
+          create_localized_association(association_name, detect_parser_from_association(association_name))
         end
       end
 
@@ -86,9 +86,8 @@ module I18n
         define_localized_methods(name)
       end
 
-      def create_localized_association(association_name)
-        @localized_associations <<
-          AssociationParser.new(@target.class, association_name)
+      def create_localized_association(association_name, parser)
+        @localized_associations << parser.new(target_class, association_name)
       end
 
       def create_localized_attribute(column_name, parser)
@@ -120,6 +119,10 @@ module I18n
         detect_parser(column.number? ? :number : column.type)
       end
 
+      def detect_parser_from_association(association_name)
+        detect_parser(localized_methods[association_name] ? localized_methods[association_name] : :association)
+      end
+
       def detect_parser(type_or_parser)
         case type_or_parser
         when :number
@@ -128,6 +131,8 @@ module I18n
           DateParser
         when :datetime, :timestamp
           TimeParser
+        when :association
+          AssociationParser
         when ::Module
           type_or_parser
         end
@@ -139,6 +144,10 @@ module I18n
 
       def columns
         target_class.columns
+      end
+
+      def nested_attributes_options
+        target_class.nested_attributes_options
       end
 
       def target_class

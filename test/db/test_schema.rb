@@ -27,4 +27,14 @@ ActiveRecord::Schema.define do
     t.string     :account_number
     t.decimal    :total_money
   end
+
+  create_table :people do |t|
+    t.string :name
+    t.integer :personable_id
+    t.string :personable_type
+  end
+
+  create_table :companies do |t|
+    t.string :register
+  end
 end
