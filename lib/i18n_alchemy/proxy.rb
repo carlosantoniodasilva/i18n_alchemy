@@ -27,6 +27,12 @@ module I18n
         @target.to_param
       end
 
+      # Override to_json to always call +to_json+ on the target object, instead of
+      # serializing the proxy object, that may issue circular references on Ruby 1.8.
+      def to_json(options = nil)
+        @target.to_json(options)
+      end
+
       # Override to_model to always return the proxy, otherwise it returns the
       # target object. This allows us to integrate with action view.
       def to_model
