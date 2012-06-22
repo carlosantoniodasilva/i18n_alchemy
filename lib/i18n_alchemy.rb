@@ -28,10 +28,10 @@ module I18n
       def localize(*methods)
         options = methods.extract_options!
         parser  = options[:using]
-        methods = methods.each_with_object(localized_methods) do |method_name, hash|
+        methods = methods.each_with_object({}) do |method_name, hash|
           hash[method_name] = parser
         end
-        self.localized_methods = methods
+        self.localized_methods = self.localized_methods.merge(methods)
       end
     end
   end

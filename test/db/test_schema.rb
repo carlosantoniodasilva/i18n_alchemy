@@ -20,6 +20,7 @@ ActiveRecord::Schema.define do
 
   create_table :suppliers do |t|
     t.string     :name
+    t.timestamp  :created_at
   end
 
   create_table :accounts do |t|
