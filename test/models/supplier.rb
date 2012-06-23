@@ -7,3 +7,7 @@ class Supplier < ActiveRecord::Base
   accepts_nested_attributes_for :products
   accepts_nested_attributes_for :account
 end
+
+class AnotherSupplier < Supplier
+  localize :created_at, :using => :timestamp
+end
