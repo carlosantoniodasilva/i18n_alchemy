@@ -49,4 +49,21 @@ class DateParserTest < I18n::Alchemy::TestCase
       assert_equal "12/2011", @parser.localize(@date)
     end
   end
+
+  def test_valid_with_valid_dates
+    assert @parser.valid?(@date)
+    assert @parser.valid?("12/31/2011")
+
+    I18n.with_locale :pt do
+      assert @parser.valid?("31/12/2011")
+    end
+
+    I18n.with_locale :jp do
+      assert @parser.valid?("12/2011")
+    end
+  end
+
+  def test_valid_with_invalid_dates
+    assert !@parser.valid?("31/12/2011")
+  end
 end

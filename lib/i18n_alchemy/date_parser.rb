@@ -3,6 +3,10 @@ module I18n
     module DateParser
       extend self
 
+      def valid?(value)
+        value.is_a?(Date) || Date._strptime(value, i18n_format)
+      end
+
       def parse(value)
         return value unless valid_for_parsing?(value)
 
