@@ -9,6 +9,11 @@ class Product < ActiveRecord::Base
 
   belongs_to :supplier
 
+  def initialize(*)
+    super
+    @total = nil
+  end
+
   def method_with_block
     yield "called!"
   end
