@@ -1,5 +1,8 @@
-## master
+## v0.1.0 - 2013-2-27
 
+* Fix json serialization to delegate to the target object instead of the proxy
+* Improve localization for non-AR objects
+* Allow custom parsers to accept a parser module
 * Add support for localizing methods
 * Add support for custom parsers ([@caironoleto][https://github.com/caironoleto])
 
