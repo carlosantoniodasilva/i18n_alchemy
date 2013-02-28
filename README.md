@@ -1,6 +1,8 @@
 ## I18nAlchemy
 
-[![Build Status](https://secure.travis-ci.org/carlosantoniodasilva/i18n_alchemy.png)](http://travis-ci.org/carlosantoniodasilva/i18n_alchemy)
+[![Gem Version](https://badge.fury.io/rb/i18n_alchemy.png)](http://badge.fury.io/rb/i18n_alchemy)
+[![Build Status](https://secure.travis-ci.org/carlosantoniodasilva/i18n_alchemy.png?branch=master)](http://travis-ci.org/carlosantoniodasilva/i18n_alchemy)
+[![Code Climate](https://codeclimate.com/github/carlosantoniodasilva/i18n_alchemy.png)](https://codeclimate.com/github/carlosantoniodasilva/i18n_alchemy)
 
 I18n date/number parsing/localization
 
