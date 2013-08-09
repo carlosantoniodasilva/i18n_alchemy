@@ -124,32 +124,32 @@ class ProxyTest < I18n::Alchemy::ProxyTestCase
   # DateTime
   def test_parses_datetime_attribute_input
     @localized.updated_at = "28/02/2011 13:25:30"
-    assert_equal Time.mktime(2011, 2, 28, 13, 25, 30), @product.updated_at
+    assert_equal Time.utc(2011,"feb",28,13,25,30), @product.updated_at
   end
 
   def test_localizes_datetime_attribute_output
-    @product.updated_at = Time.mktime(2011, 2, 28, 13, 25, 30)
+    @product.updated_at = Time.utc(2011,"feb",28,13,25,30)
     assert_equal "28/02/2011 13:25:30", @localized.updated_at
   end
 
   def test_localizes_datetime_attribute_before_type_cast_output
-    @product.updated_at = Time.mktime(2011, 2, 28, 13, 25, 30)
+    @product.updated_at = Time.utc(2011,"feb",28,13,25,30)
     assert_equal "28/02/2011 13:25:30", @localized.updated_at_before_type_cast
   end
 
   # Timestamp
   def test_parses_timestamp_attribute_input
     @localized.last_sale_at = "28/02/2011 13:25:30"
-    assert_equal Time.mktime(2011, 2, 28, 13, 25, 30), @product.last_sale_at
+    assert_equal Time.utc(2011,"feb",28,13,25,30), @product.last_sale_at
   end
 
   def test_localizes_timestamp_attribute_output
-    @product.last_sale_at = Time.mktime(2011, 2, 28, 13, 25, 30)
+    @product.last_sale_at = Time.utc(2011,"feb",28,13,25,30)
     assert_equal "28/02/2011 13:25:30", @localized.last_sale_at
   end
 
   def test_localizes_timestamp_attribute_before_type_cast_output
-    @product.last_sale_at = Time.mktime(2011, 2, 28, 13, 25, 30)
+    @product.last_sale_at = Time.utc(2011,"feb",28,13,25,30)
     assert_equal "28/02/2011 13:25:30", @localized.last_sale_at_before_type_cast
   end
 
