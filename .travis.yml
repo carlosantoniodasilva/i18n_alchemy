@@ -5,7 +5,6 @@ gemfile:
   - Gemfile-rails.3.2.x
   - Gemfile
 rvm:
-  - ree
   - 1.9.3
   - jruby
   - 2.0.0
