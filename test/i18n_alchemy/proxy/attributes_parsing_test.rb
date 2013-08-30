@@ -13,12 +13,6 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     assert_equal "28/02/2011", @localized.released_at
   end
 
-  def test_initializes_proxy_with_attributes_and_skips_mass_assignment_security_protection_when_without_protection_is_used
-    @localized = @product.localized(attributes_hash, :without_protection => true)
-    assert_equal 'My Precious!', @localized.my_precious
-    assert_equal 1, @localized.quantity
-  end
-
   def test_assign_attributes
     @localized.assign_attributes(:price => '1,99')
     assert_equal "1,99", @localized.price
@@ -30,20 +24,8 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     end
   end
 
-  def test_new_with_attr_protected_attributes
-    @localized.assign_attributes(attributes_hash)
-    assert_nil @localized.my_precious
-    assert_equal 1, @localized.quantity
-  end
-
-  def test_assign_attributes_skips_mass_assignment_security_protection_when_without_protection_is_used
-    @localized.assign_attributes(attributes_hash, :without_protection => true)
-    assert_equal 'My Precious!', @localized.my_precious
-    assert_equal 1, @localized.quantity
-  end
-
   def test_assign_attributes_does_not_change_given_attributes_hash
-    assert_attributes_hash_is_not_changed(attributes = attributes_hash) do
+    assert_attributes_hash_is_unchanged do |attributes|
       @localized.assign_attributes(attributes)
     end
   end
@@ -54,7 +36,7 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
   end
 
   def test_attributes_assignment_does_not_change_given_attributes_hash
-    assert_attributes_hash_is_not_changed(attributes = attributes_hash) do
+    assert_attributes_hash_is_unchanged do |attributes|
       @localized.attributes = attributes
     end
   end
@@ -66,7 +48,7 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
   end
 
   def test_update_attributes_does_not_change_given_attributes_hash
-    assert_attributes_hash_is_not_changed(attributes = attributes_hash) do
+    assert_attributes_hash_is_unchanged do |attributes|
       @localized.update_attributes(attributes)
     end
   end
@@ -78,7 +60,7 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
   end
 
   def test_update_attributes_bang_does_not_change_given_attributes_hash
-    assert_attributes_hash_is_not_changed(attributes = attributes_hash) do
+    assert_attributes_hash_is_unchanged do |attributes|
       @localized.update_attributes!(attributes)
     end
   end
@@ -122,13 +104,9 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
 
   private
 
-  def attributes_hash
-    { :my_precious => 'My Precious!', :quantity => 1 }
-  end
-
-  def assert_attributes_hash_is_not_changed(attributes)
-    yield
-    assert_equal 1, attributes[:quantity]
-    assert_equal 'My Precious!', attributes[:my_precious]
+  def assert_attributes_hash_is_unchanged
+    attributes = { :quantity => 1 }
+    yield attributes
+    assert_equal({ :quantity => 1 }, attributes)
   end
 end

@@ -5,8 +5,6 @@ class Product < ActiveRecord::Base
   localize :estimated_last_comission_payment_at, :using => :timestamp
   localize :released_month, :using => MyCustomDateParser
 
-  attr_protected :my_precious
-
   belongs_to :supplier
 
   def initialize(*)

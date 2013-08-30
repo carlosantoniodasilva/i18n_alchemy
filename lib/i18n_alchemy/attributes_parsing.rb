@@ -5,16 +5,16 @@ module I18n
         @target.attributes = parse_attributes(attributes)
       end
 
-      def assign_attributes(attributes, *args)
-        @target.assign_attributes(parse_attributes(attributes), *args)
+      def assign_attributes(attributes)
+        @target.assign_attributes(parse_attributes(attributes))
       end
 
-      def update_attributes(attributes, *args)
-        @target.update_attributes(parse_attributes(attributes), *args)
+      def update_attributes(attributes)
+        @target.update_attributes(parse_attributes(attributes))
       end
 
-      def update_attributes!(attributes, *args)
-        @target.update_attributes!(parse_attributes(attributes), *args)
+      def update_attributes!(attributes)
+        @target.update_attributes!(parse_attributes(attributes))
       end
 
       def update_attribute(attribute, value)

@@ -2,6 +2,7 @@
 
 * Rails 4 integration
 * Drop support to Ruby 1.8.7 and Rails 3.0 / 3.1
+* Remove support to passing old mass assignment options to assign methods (:without_protection and friends)
 
 ## v0.1.0 - 2013-2-27
 
