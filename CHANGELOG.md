@@ -1,3 +1,8 @@
+## unreleased
+
+* Rails 4 integration
+* Drop support to Ruby 1.8.7 and Rails 3.0 / 3.1
+
 ## v0.1.0 - 2013-2-27
 
 * Fix json serialization to delegate to the target object instead of the proxy
