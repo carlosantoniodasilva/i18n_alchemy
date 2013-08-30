@@ -25,5 +25,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "activerecord", ">= 3.2.0", "< 4.1"
   s.add_development_dependency "minitest", "~> 4.3.2"
   s.add_development_dependency "rake", "~> 10.1"
-  s.add_development_dependency "protected_attributes"
 end

@@ -6,7 +6,6 @@ require "minitest/unit"
 MiniTest::Unit.autorun
 
 require "i18n_alchemy"
-require "protected_attributes"
 require "action_view"
 require "active_record"
 
