@@ -25,8 +25,7 @@ module I18n
     end
 
     module ClassMethods
-      def localize(*methods)
-        options = methods.extract_options!
+      def localize(*methods, options)
         parser  = options[:using]
         methods = methods.each_with_object({}) do |method_name, hash|
           hash[method_name] = parser
