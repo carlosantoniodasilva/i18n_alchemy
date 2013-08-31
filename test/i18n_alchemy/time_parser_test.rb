@@ -7,24 +7,12 @@ module BaseTimeParserTest
 
   # TODO: why so many time differences on the output?
   def test_parses_valid_string_times_with_default_i18n_locale
-    output_timestamp = if RUBY_VERSION < "1.9"
-                         "Sat Dec 31 12:15:45 UTC 2011"
-                       else
-                         "2011-12-31 12:15:45 UTC"
-                       end
-
-    assert_equal output_timestamp, @parser.parse("12/31/2011 12:15:45")
+    assert_equal "2011-12-31 12:15:45 UTC", @parser.parse("12/31/2011 12:15:45")
   end
 
   def test_parsers_string_times_on_current_i18n_locale
     I18n.with_locale :pt do
-      output_timestamp = if RUBY_VERSION < "1.9"
-                           "Sat Dec 31 12:15:45 UTC 2011"
-                         else
-                           "2011-12-31 12:15:45 UTC"
-                         end
-
-      assert_equal output_timestamp, @parser.parse("31/12/2011 12:15:45")
+      assert_equal "2011-12-31 12:15:45 UTC", @parser.parse("31/12/2011 12:15:45")
     end
   end
 

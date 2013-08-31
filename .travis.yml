@@ -1,10 +1,8 @@
 before_install: gem update --system
 gemfile:
-  - Gemfile-rails.3.0.x
-  - Gemfile-rails.3.1.x
+  - Gemfile-rails.3.2.x
   - Gemfile
 rvm:
-  - ree
   - 1.9.3
-  - jruby
+  - jruby-19mode
   - 2.0.0

@@ -21,11 +21,6 @@ Dir["test/models/*.rb"].each { |file| require File.expand_path(file) }
 
 module I18n::Alchemy
   class TestCase < MiniTest::Unit::TestCase
-    # AR 3.0 does not have assign_attributes and without_protection option, so we
-    # are going to skip such tests in this version.
-    def support_assign_attributes_without_protection?
-      @support_assign_attributes ||= ActiveRecord::VERSION::STRING >= "3.1.0"
-    end
   end
 
   class ProxyTestCase < TestCase
