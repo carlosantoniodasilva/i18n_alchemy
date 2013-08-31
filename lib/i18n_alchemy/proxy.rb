@@ -11,6 +11,7 @@ module I18n
       # Find a better way to find that and skip these columns.
       def initialize(target, attributes = nil)
         @target = target
+        @target_class = target.class
 
         @localized_attributes = {}
         @localized_associations = []
@@ -62,12 +63,11 @@ module I18n
       private
 
       def active_record_compatible?
-        target_class = @target.class
-        target_class.respond_to?(:columns) && target_class.respond_to?(:nested_attributes_options)
+        @target_class.respond_to?(:columns) && @target_class.respond_to?(:nested_attributes_options)
       end
 
       def build_attributes
-        @target.class.columns.each do |column|
+        @target_class.columns.each do |column|
           column_name = column.name
           next if column.primary || column_name.ends_with?("_id") || @localized_attributes.key?(column_name)
 
@@ -77,7 +77,7 @@ module I18n
       end
 
       def build_methods
-        @target.class.localized_methods.each_pair do |method, parser_type|
+        @target_class.localized_methods.each_pair do |method, parser_type|
           method = method.to_s
           parser = detect_parser(parser_type)
           build_attribute(method, parser)
@@ -85,7 +85,7 @@ module I18n
       end
 
       def build_associations
-        @target.class.nested_attributes_options.each_key do |association_name|
+        @target_class.nested_attributes_options.each_key do |association_name|
           create_localized_association(association_name)
         end
       end
@@ -98,7 +98,7 @@ module I18n
 
       def create_localized_association(association_name)
         @localized_associations <<
-          AssociationParser.new(@target.class, association_name)
+          AssociationParser.new(@target_class, association_name)
       end
 
       def create_localized_attribute(column_name, parser)
