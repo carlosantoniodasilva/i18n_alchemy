@@ -9,7 +9,7 @@ module I18n
 
       # TODO: cannot assume _id is always a foreign key.
       # Find a better way to find that and skip these columns.
-      def initialize(target, attributes=nil, *args)
+      def initialize(target, attributes = nil)
         @target = target
 
         @localized_attributes = {}
@@ -21,7 +21,7 @@ module I18n
           build_associations
         end
 
-        assign_attributes(attributes, *args) if attributes
+        assign_attributes(attributes) if attributes
       end
 
       # Override to_param to always return the +proxy.to_param+. This allow us

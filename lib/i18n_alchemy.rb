@@ -14,8 +14,8 @@ module I18n
   module Alchemy
     extend ActiveSupport::Concern
 
-    def localized(attributes=nil, *args)
-      I18n::Alchemy::Proxy.new(self, attributes, *args)
+    def localized(attributes = nil)
+      I18n::Alchemy::Proxy.new(self, attributes)
     end
 
     included do
