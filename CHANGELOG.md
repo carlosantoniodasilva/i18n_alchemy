@@ -1,4 +1,4 @@
-## unreleased
+## v0.2.0 - 2013-11-28
 
 * Rails 4 integration
 * Drop support to Ruby 1.8.7 and Rails 3.0 / 3.1
