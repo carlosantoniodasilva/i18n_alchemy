@@ -1,3 +1,7 @@
+## master
+
+* Rails 4.1 support ([@sobrinho][https://github.com/sobrinho])
+
 ## v0.2.0 - 2013-11-28
 
 * Rails 4 integration
