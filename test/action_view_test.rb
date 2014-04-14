@@ -1,4 +1,5 @@
 require "test_helper"
+require "action_pack"
 
 class ActionViewTest < I18n::Alchemy::TestCase
   def setup
