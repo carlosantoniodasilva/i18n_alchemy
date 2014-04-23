@@ -1,9 +1,9 @@
-before_install: gem update --system
 gemfile:
   - Gemfile-rails.3.2.x
   - Gemfile-rails.4.0.x
   - Gemfile
 rvm:
   - 1.9.3
-  - jruby-19mode
   - 2.0.0
+  - 2.1.1
+  - jruby
