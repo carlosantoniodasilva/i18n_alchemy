@@ -1,4 +1,4 @@
-## master
+## v0.2.1 - 2014-05-05
 
 * Rails 4.1 support ([@sobrinho][https://github.com/sobrinho])
 
