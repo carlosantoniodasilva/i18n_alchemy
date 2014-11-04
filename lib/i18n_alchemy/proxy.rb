@@ -69,7 +69,7 @@ module I18n
       def build_attributes
         @target_class.columns.each do |column|
           column_name = column.name
-          next if column.primary || column_name.ends_with?("_id") || @localized_attributes.key?(column_name)
+          next if skip_column?(column_name)
 
           parser = detect_parser_from_column(column)
           build_attribute(column_name, parser)
@@ -141,6 +141,12 @@ module I18n
         when ::Module
           type_or_parser
         end
+      end
+
+      def skip_column?(column_name)
+        column_name == @target_class.primary_key ||
+          column_name.ends_with?("_id") ||
+          @localized_attributes.key?(column_name)
       end
     end
   end
