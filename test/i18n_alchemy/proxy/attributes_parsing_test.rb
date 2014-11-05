@@ -88,7 +88,7 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
   def test_should_assign_for_nested_attributes_for_one_to_one_association
     @supplier_localized.assign_attributes(:account_attributes => {:account_number => 10, :total_money => '100,87'})
     account = @supplier_localized.account
-    assert_equal 10, account.account_number
+    assert_equal '10', account.account_number.to_s
     assert_equal '100,87', account.localized.total_money
   end
 
