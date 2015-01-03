@@ -1,3 +1,7 @@
+## master
+
+* Rails 4.2 and Ruby 2.2 support
+
 ## v0.2.1 - 2014-05-05
 
 * Rails 4.1 support ([@sobrinho][https://github.com/sobrinho])
