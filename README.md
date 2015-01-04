@@ -139,10 +139,9 @@ module MyCustomDateParser
   end
 
   protected
-
-  def i18n_format
-    I18n.t(:custom, :scope => [:date, :formats])
-  end
+    def i18n_format
+      I18n.t(:custom, :scope => [:date, :formats])
+    end
 end
 ```
 
