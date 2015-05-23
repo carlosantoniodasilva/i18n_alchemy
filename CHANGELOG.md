@@ -4,7 +4,7 @@
 
 ## v0.2.1 - 2014-05-05
 
-* Rails 4.1 support ([@sobrinho][https://github.com/sobrinho])
+* Rails 4.1 support ([@sobrinho](https://github.com/sobrinho))
 
 ## v0.2.0 - 2013-11-28
 
@@ -18,7 +18,7 @@
 * Improve localization for non-AR objects
 * Allow custom parsers to accept a parser module
 * Add support for localizing methods
-* Add support for custom parsers ([@caironoleto][https://github.com/caironoleto])
+* Add support for custom parsers ([@caironoleto](https://github.com/caironoleto))
 
 ## v0.0.1 - 2012-5-8
 
