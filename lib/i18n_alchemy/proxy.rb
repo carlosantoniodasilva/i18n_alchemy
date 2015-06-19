@@ -46,6 +46,7 @@ module I18n
       # Allow calling localized methods with :send. This allows us to integrate
       # with action view methods.
       alias :send :__send__
+      alias :public_send :__send__
 
       # Allow calling localized methods with :try. If the method is not declared
       # here, it'll be delegated to the target, losing localization capabilities.
