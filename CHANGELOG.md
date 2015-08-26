@@ -1,6 +1,6 @@
-## master
+## v0.2.2 - 2015-08-26
 
-* Rails 4.2 and Ruby 2.2 support
+* Rails 4.2 and Ruby 2.2 support (Rails 4.2.1+ support by [@Danielpk](https://github.com/Danielpk))
 
 ## v0.2.1 - 2014-05-05
 
