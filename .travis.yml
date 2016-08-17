@@ -15,3 +15,15 @@ matrix:
   exclude:
     - rvm: 2.2
       gemfile: Gemfile-rails.3.2.x
+    - rvm: 1.9.3
+      gemfile: Gemfile-rails.5.x
+      gemfile: Gemfile
+    - rvm: 2.0.0
+      gemfile: Gemfile-rails.5.x
+      gemfile: Gemfile
+    - rvm: 2.1
+      gemfile: Gemfile-rails.5.x
+      gemfile: Gemfile
+    - rvm: jruby
+      gemfile: Gemfile-rails.5.x
+      gemfile: Gemfile
