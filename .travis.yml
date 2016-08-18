@@ -19,13 +19,17 @@ matrix:
       gemfile: Gemfile-rails.3.2.x
     - rvm: 1.9.3
       gemfile: Gemfile-rails.5.x
+    - rvm: 1.9.3
       gemfile: Gemfile
     - rvm: 2.0.0
       gemfile: Gemfile-rails.5.x
+    - rvm: 2.0.0
       gemfile: Gemfile
     - rvm: 2.1
       gemfile: Gemfile-rails.5.x
+    - rvm: 2.1
       gemfile: Gemfile
     - rvm: jruby
       gemfile: Gemfile-rails.5.x
+    - rvm: jruby
       gemfile: Gemfile
