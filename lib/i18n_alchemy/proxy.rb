@@ -128,12 +128,12 @@ module I18n
       end
 
       def detect_parser_from_column(column)
-        detect_parser(column.number? ? :number : column.type)
+        detect_parser(column.type)
       end
 
       def detect_parser(type_or_parser)
         case type_or_parser
-        when :number
+        when :float, :decimal, :number
           NumericParser
         when :date
           DateParser
