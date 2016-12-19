@@ -32,6 +32,7 @@ class ProxyTest < I18n::Alchemy::ProxyTestCase
   end
 
   def test_to_param
+    @product.id = 1
     assert_equal @product.to_param, @localized.to_param
   end
 
