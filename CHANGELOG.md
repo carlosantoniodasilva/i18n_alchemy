@@ -1,3 +1,7 @@
+## v0.2.3 - 2016-12-19
+
+* Rails 5.0 support ([@rodrigoulisses](https://github.com/rodrigoulisses))
+
 ## v0.2.2 - 2015-08-26
 
 * Rails 4.2 and Ruby 2.2 support (Rails 4.2.1+ support by [@Danielpk](https://github.com/Danielpk))
