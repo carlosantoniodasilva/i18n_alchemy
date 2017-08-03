@@ -6,19 +6,20 @@ gemfile:
   - Gemfile-rails.4.0.x
   - Gemfile-rails.4.1.x
   - Gemfile-rails.4.2.x
+  - Gemfile-rails.5.0.x
   - Gemfile
 rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.10
-  - 2.2.6
-  - 2.3.3
+  - 2.2.7
+  - 2.3.4
   - jruby
 matrix:
   exclude:
-    - rvm: 2.2.6
+    - rvm: 2.2.7
       gemfile: Gemfile-rails.3.2.x
-    - rvm: 2.3.3
+    - rvm: 2.3.4
       gemfile: Gemfile-rails.3.2.x
     - rvm: 1.9.3
       gemfile: Gemfile
@@ -28,3 +29,11 @@ matrix:
       gemfile: Gemfile
     - rvm: jruby
       gemfile: Gemfile
+    - rvm: 1.9.3
+      gemfile: Gemfile-rails.5.0.x
+    - rvm: 2.0.0
+      gemfile: Gemfile-rails.5.0.x
+    - rvm: 2.1.10
+      gemfile: Gemfile-rails.5.0.x
+    - rvm: jruby
+      gemfile: Gemfile-rails.5.0.x
