@@ -1,5 +1,17 @@
 require "test_helper"
 
+class Something 
+  ATTRIBUTES = { :products_attributes => {"0" => {:price => '100,90', "_destroy"=>"false"} } }
+
+  def to_hash
+    ATTRIBUTES
+  end
+
+  def stringify_keys
+    ATTRIBUTES.stringify_keys
+  end
+end
+
 class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
   # Attributes
   def test_initializes_proxy_with_attributes
@@ -90,6 +102,13 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     account = @supplier_localized.account
     assert_equal '10', account.account_number.to_s
     assert_equal '100,87', account.localized.total_money
+  end
+
+  def test_should_assign_for_nested_attributes_for_one_to_one_association_with_any_object
+    supplier_localized = Supplier.new.localized(Something.new)
+    product = supplier_localized.products.first
+
+    assert_equal '100,90', product.localized.price
   end
 
   def test_update_attributes_for_nested_attributes
