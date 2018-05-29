@@ -64,3 +64,5 @@ matrix:
       gemfile: Gemfile-rails.5.1.x
     - rvm: jruby
       gemfile: Gemfile-rails.5.1.x
+  allow_failures:
+    - rvm: jruby
