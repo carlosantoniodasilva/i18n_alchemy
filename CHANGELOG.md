@@ -1,3 +1,7 @@
+## unreleased
+
+* Update I18n dependency to require >= 0.7, allowing to install more recent versions ([@nazarhussain](https://github.com/nazarhussain))
+
 ## v0.2.4 - 2017-08-03
 
 * Rails 5.1 and Ruby 2.4 support
