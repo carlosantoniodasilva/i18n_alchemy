@@ -9,7 +9,7 @@ begin
   Minitest.autorun
   MiniTestCase = Minitest::Test
 rescue LoadError
-  # Rails 4.0/3.2
+  # Rails 4.0
   require 'minitest/unit'
   MiniTest::Unit.autorun
   MiniTestCase = MiniTest::Unit::TestCase

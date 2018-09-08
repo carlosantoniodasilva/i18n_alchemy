@@ -1,6 +1,7 @@
 ## unreleased
 
 * Update I18n dependency to require >= 0.7, allowing to install more recent versions ([@nazarhussain](https://github.com/nazarhussain))
+* Drop support to Rails 3.2 and Ruby 1.9.3/2.0.x/2.1.x
 
 ## v0.2.4 - 2017-08-03
 
