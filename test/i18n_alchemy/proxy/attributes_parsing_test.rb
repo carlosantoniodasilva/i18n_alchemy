@@ -13,6 +13,14 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     assert_equal "28/02/2011", @localized.released_at
   end
 
+  def test_initializes_proxy_with_attributes_and_letters
+    I18n.with_locale :fr do
+      @localized = @product.localized(:price => "0,99 e per unit")
+      assert_equal 0.99, @product.price
+      assert_equal "0,990", @localized.price
+    end
+  end
+
   def test_assign_attributes
     @localized.assign_attributes(:price => '1,99')
     assert_equal "1,99", @localized.price

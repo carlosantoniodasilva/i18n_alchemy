@@ -4,11 +4,7 @@ module I18n
       extend self
 
       def parse(value)
-        if valid_for_parsing?(value)
-          value.gsub(delimiter, '_').gsub(separator, '.')
-        else
-          value
-        end
+        valid_for_parsing?(value) ? parsed(value) : value
       end
 
       def localize(value)
@@ -33,6 +29,10 @@ module I18n
         translate :separator
       end
 
+      def remove_letters
+        /[a-zA-Z]/
+      end
+
       def translate(key)
         I18n.t(key, :scope => :"number.format")
       end
@@ -43,6 +43,10 @@ module I18n
 
       def valid_for_parsing?(value)
         value.respond_to?(:gsub)
+      end
+
+      def parsed(value)
+        value.gsub(remove_letters, '').gsub(delimiter, '_').gsub(separator, '.')
       end
 
       # Logic extracted from Rails' number_with_delimiter helper.

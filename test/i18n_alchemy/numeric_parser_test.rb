@@ -70,4 +70,10 @@ class NumericParserTest < I18n::Alchemy::TestCase
       assert_equal "1.001,20", @parser.localize(1_001.2)
     end
   end
+
+  def test_localize_numbers_with_separators_in_blank_based_on_current_i18n_locale
+    I18n.with_locale :fr do
+      assert_equal "0,990", @parser.localize(0.99)
+    end
+  end
 end
