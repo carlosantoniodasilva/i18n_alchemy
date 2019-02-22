@@ -7,7 +7,7 @@ module I18n
         return value unless valid_for_parsing?(value)
 
         if parsed_date = Date._strptime(value, i18n_format)
-          build_object(parsed_date).to_s
+          build_object(parsed_date)
         else
           value
         end
