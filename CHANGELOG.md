@@ -1,3 +1,7 @@
+## master
+
+* Add unlocalize to get the original target ([@sobrinho](https://github.com/sobrinho))
+
 ## v0.3.0 - 2018-09-08
 
 * Update I18n dependency to require >= 0.7, allowing to install more recent versions ([@nazarhussain](https://github.com/nazarhussain))

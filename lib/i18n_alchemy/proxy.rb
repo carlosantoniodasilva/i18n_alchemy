@@ -25,6 +25,12 @@ module I18n
         assign_attributes(attributes) if attributes
       end
 
+      # Returns the original target. This is useful for action view helpers that
+      # expects the unlocalized value like a +Date+ or +Time+.
+      def unlocalize
+        @target
+      end
+
       # Override to_param to always return the +proxy.to_param+. This allow us
       # to integrate with action view.
       def to_param
