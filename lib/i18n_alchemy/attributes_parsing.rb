@@ -10,11 +10,19 @@ module I18n
       end
 
       def update_attributes(attributes)
-        @target.update_attributes(parse_attributes(attributes))
+        @target.update(parse_attributes(attributes))
       end
 
       def update_attributes!(attributes)
-        @target.update_attributes!(parse_attributes(attributes))
+        @target.update!(parse_attributes(attributes))
+      end
+
+      def update(attributes)
+        @target.update(parse_attributes(attributes))
+      end
+
+      def update!(attributes)
+        @target.update!(parse_attributes(attributes))
       end
 
       def update_attribute(attribute, value)

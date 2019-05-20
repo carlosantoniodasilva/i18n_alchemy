@@ -59,6 +59,18 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     assert_equal 2.88, @product.reload.price
   end
 
+  def test_update!
+    @localized.update!(:price => '2,88')
+    assert_equal '2,88', @localized.price
+    assert_equal 2.88, @product.reload.price
+  end
+
+  def test_update
+    @localized.update(:price => '2,88')
+    assert_equal '2,88', @localized.price
+    assert_equal 2.88, @product.reload.price
+  end
+
   def test_update_attributes_bang_does_not_change_given_attributes_hash
     assert_attributes_hash_is_unchanged do |attributes|
       @localized.update_attributes!(attributes)
