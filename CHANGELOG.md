@@ -1,6 +1,7 @@
 ## master / unreleased
 
 * Rails 6 support ([@mayordwells](https://github.com/mayordwells))
+* Ruby 2.6 support (no changes required)
 
 ## v0.3.0 - 2018-09-08
 
