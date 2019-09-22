@@ -3,7 +3,7 @@ require "action_pack"
 
 class ActionViewTest < I18n::Alchemy::TestCase
   def setup
-    @template  = ActionView::Base.new
+    @template  = ActionView::Base.respond_to?(:empty) ? ActionView::Base.empty : ActionView::Base.new
     @product   = Product.new(
       :name         => "Potato",
       :quantity     => 10,
