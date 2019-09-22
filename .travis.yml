@@ -7,6 +7,7 @@ gemfile:
   - Gemfile-rails.4.2.x
   - Gemfile-rails.5.0.x
   - Gemfile-rails.5.1.x
+  - Gemfile-rails.5.2.x
   - Gemfile
 rvm:
   - 2.2.10
@@ -30,5 +31,7 @@ matrix:
       gemfile: Gemfile-rails.5.0.x
     - rvm: jruby
       gemfile: Gemfile-rails.5.1.x
+    - rvm: jruby
+      gemfile: Gemfile-rails.5.2.x
   allow_failures:
     - rvm: jruby
