@@ -24,5 +24,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "actionpack", ">= 4.0.0", "< 6.1"
   s.add_development_dependency "activerecord", ">= 4.0.0", "< 6.1"
   s.add_development_dependency "minitest", ">= 4.3.2"
-  s.add_development_dependency "rake", "~> 10.1"
+  s.add_development_dependency "rake", ">= 10.1"
 end
