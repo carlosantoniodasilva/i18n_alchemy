@@ -41,20 +41,20 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     end
   end
 
-  def test_update_attributes
-    @localized.update_attributes(:price => '2,88')
+  def test_update
+    @localized.update(:price => '2,88')
     assert_equal '2,88', @localized.price
     assert_equal 2.88, @product.reload.price
   end
 
-  def test_update_attributes_does_not_change_given_attributes_hash
+  def test_update_does_not_change_given_attributes_hash
     assert_attributes_hash_is_unchanged do |attributes|
-      @localized.update_attributes(attributes)
+      @localized.update(attributes)
     end
   end
 
-  def test_update_attributes!
-    @localized.update_attributes!(:price => '2,88')
+  def test_update_attributes
+    @localized.update_attributes(:price => '2,88')
     assert_equal '2,88', @localized.price
     assert_equal 2.88, @product.reload.price
   end
@@ -65,16 +65,16 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     assert_equal 2.88, @product.reload.price
   end
 
-  def test_update
-    @localized.update(:price => '2,88')
-    assert_equal '2,88', @localized.price
-    assert_equal 2.88, @product.reload.price
+  def test_update_bang_does_not_change_given_attributes_hash
+    assert_attributes_hash_is_unchanged do |attributes|
+      @localized.update!(attributes)
+    end
   end
 
-  def test_update_attributes_bang_does_not_change_given_attributes_hash
-    assert_attributes_hash_is_unchanged do |attributes|
-      @localized.update_attributes!(attributes)
-    end
+  def test_update_attributes!
+    @localized.update_attributes!(:price => '2,88')
+    assert_equal '2,88', @localized.price
+    assert_equal 2.88, @product.reload.price
   end
 
   def test_update_attribute
@@ -104,8 +104,8 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     assert_equal '100,87', account.localized.total_money
   end
 
-  def test_update_attributes_for_nested_attributes
-    @supplier_localized.update_attributes(:account_attributes => {:total_money => '99,87'})
+  def test_update_for_nested_attributes
+    @supplier_localized.update(:account_attributes => {:total_money => '99,87'})
     assert_equal '99,87', @supplier_localized.account.localized.total_money
   end
 
