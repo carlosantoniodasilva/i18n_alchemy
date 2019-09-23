@@ -20,7 +20,7 @@ module I18n
 
     included do
       class_attribute :localized_methods,
-        :instance_reader => false, :instance_writer => false
+        instance_reader: false, instance_writer: false
       self.localized_methods = {}
     end
 

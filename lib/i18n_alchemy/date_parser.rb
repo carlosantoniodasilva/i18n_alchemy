@@ -28,7 +28,7 @@ module I18n
       end
 
       def i18n_format
-        I18n.t(:default, :scope => [i18n_scope, :formats])
+        I18n.t(:default, scope: [i18n_scope, :formats])
       end
 
       def i18n_scope

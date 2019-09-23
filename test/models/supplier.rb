@@ -9,5 +9,5 @@ class Supplier < ActiveRecord::Base
 end
 
 class AnotherSupplier < Supplier
-  localize :created_at, :using => :timestamp
+  localize :created_at, using: :timestamp
 end

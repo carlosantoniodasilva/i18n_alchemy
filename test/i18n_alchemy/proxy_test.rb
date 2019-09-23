@@ -3,7 +3,7 @@ require "test_helper"
 class ProxyTest < I18n::Alchemy::ProxyTestCase
   def test_delegates_orm_methods_to_target_object
     assert @product.new_record?
-    assert @localized.save!(:name => "foo", :price => 1.99)
+    assert @localized.save!(name: "foo", price: 1.99)
     assert !@product.new_record?
   end
 
