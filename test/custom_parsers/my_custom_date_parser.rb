@@ -3,12 +3,12 @@ module MyCustomDateParser
   extend self
 
   def localize(value)
-    I18n.localize value, :format => :custom
+    I18n.localize value, format: :custom
   end
 
   protected
 
   def i18n_format
-    I18n.t(:custom, :scope => [:date, :formats])
+    I18n.t(:custom, scope: [:date, :formats])
   end
 end

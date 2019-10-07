@@ -34,7 +34,7 @@ module I18n
       end
 
       def translate(key)
-        I18n.t(key, :scope => :"number.format")
+        I18n.t(key, scope: :"number.format")
       end
 
       def valid_for_localization?(value)

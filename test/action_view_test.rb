@@ -3,13 +3,13 @@ require "action_pack"
 
 class ActionViewTest < I18n::Alchemy::TestCase
   def setup
-    @template  = ActionView::Base.new
+    @template  = ActionView::Base.respond_to?(:empty) ? ActionView::Base.empty : ActionView::Base.new
     @product   = Product.new(
-      :name         => "Potato",
-      :quantity     => 10,
-      :price        => 1.99,
-      :released_at  => Date.new(2011, 2, 28),
-      :last_sale_at => Time.mktime(2011, 2, 28, 13, 25, 30)
+      name: "Potato",
+      quantity: 10,
+      price: 1.99,
+      released_at: Date.new(2011, 2, 28),
+      last_sale_at: Time.mktime(2011, 2, 28, 13, 25, 30)
     )
     @localized = @product.localized
 
@@ -48,7 +48,7 @@ class ActionViewTest < I18n::Alchemy::TestCase
     assert_includes [
       text_input_sorted_attributes(attribute, value),
       text_input_unsorted_attributes(attribute, value)
-    ], @template.text_field(:product, attribute, :object => @localized)
+    ], @template.text_field(:product, attribute, object: @localized)
   end
 
   def text_input_sorted_attributes(attribute_name, value)

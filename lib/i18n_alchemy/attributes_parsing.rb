@@ -17,6 +17,14 @@ module I18n
         @target.update_attributes!(parse_attributes(attributes))
       end
 
+      def update(attributes)
+        @target.update(parse_attributes(attributes))
+      end
+
+      def update!(attributes)
+        @target.update!(parse_attributes(attributes))
+      end
+
       def update_attribute(attribute, value)
         attributes = parse_attributes(attribute => value)
         @target.update_attribute(attribute, attributes.values.first)
