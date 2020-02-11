@@ -12,8 +12,6 @@ Gem::Specification.new do |s|
   s.summary     = %q{I18n date/number parsing/localization}
   s.description = %q{I18n date/number parsing/localization}
 
-  s.rubyforge_project = "i18n_alchemy"
-
   s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
   s.test_files    = Dir["test/**/*"]
   s.require_paths = ["lib"]
