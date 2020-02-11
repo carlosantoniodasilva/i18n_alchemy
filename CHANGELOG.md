@@ -1,4 +1,4 @@
-## master / unreleased
+## v0.3.1 - 2020-02-11
 
 * Ruby 2.6 & 2.7 support (no changes required)
 * Rails 6 support ([@mayordwells](https://github.com/mayordwells))
