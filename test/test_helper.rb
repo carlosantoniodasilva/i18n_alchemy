@@ -49,5 +49,15 @@ module I18n::Alchemy
     def teardown
       I18n.locale = :en
     end
+
+    private
+
+    def silence_deprecations
+      old_silenced = ActiveSupport::Deprecation.silenced
+      ActiveSupport::Deprecation.silenced = true
+      yield
+    ensure
+      ActiveSupport::Deprecation.silenced = old_silenced
+    end
   end
 end
