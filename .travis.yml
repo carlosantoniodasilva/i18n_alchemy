@@ -1,6 +1,5 @@
 language: ruby
 cache: bundler
-sudo: false
 gemfile:
   - Gemfile-rails.4.0.x
   - Gemfile-rails.4.1.x
