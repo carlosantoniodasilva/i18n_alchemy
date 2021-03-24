@@ -1,3 +1,8 @@
+## unreleased
+
+* Ruby 3.0 support
+* Rails 6.1 support
+
 ## v0.3.1 - 2020-02-11
 
 * Ruby 2.6 & 2.7 support (no changes required)
