@@ -1,5 +1,10 @@
 module I18n
   module Alchemy
+    def self.support_update_attributes?
+      # `update_attributes` and `update_attributes!` were removed in Rails 6.1.
+      ActiveSupport.version < Gem::Version.new("6.1")
+    end
+
     module AttributesParsing
       def attributes=(attributes)
         @target.attributes = parse_attributes(attributes)
@@ -9,12 +14,14 @@ module I18n
         @target.assign_attributes(parse_attributes(attributes))
       end
 
-      def update_attributes(attributes)
-        @target.update_attributes(parse_attributes(attributes))
-      end
+      if I18n::Alchemy.support_update_attributes?
+        def update_attributes(attributes)
+          @target.update_attributes(parse_attributes(attributes))
+        end
 
-      def update_attributes!(attributes)
-        @target.update_attributes!(parse_attributes(attributes))
+        def update_attributes!(attributes)
+          @target.update_attributes!(parse_attributes(attributes))
+        end
       end
 
       def update(attributes)

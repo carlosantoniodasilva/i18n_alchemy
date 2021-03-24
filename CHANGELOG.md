@@ -2,6 +2,7 @@
 
 * Ruby 3.0 support
 * Rails 6.1 support
+* `update_attributes` and `update_attributes!` are not available through the localized proxy in Rails 6.1, following their removal from Rails.
 
 ## v0.3.1 - 2020-02-11
 

@@ -65,8 +65,7 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     end
   end
 
-  # `update_attributes` and `update_attributes!` were removed in Rails 6.1.
-  if ActiveSupport.version < Gem::Version.new("6.1")
+  if I18n::Alchemy.support_update_attributes?
     def test_update_attributes
       silence_deprecations {
         @localized.update_attributes(price: '2,88')
