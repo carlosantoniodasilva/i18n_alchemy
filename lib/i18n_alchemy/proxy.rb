@@ -146,7 +146,7 @@ module I18n
 
       def skip_column?(column_name)
         column_name == @target_class.primary_key ||
-          column_name.ends_with?("_id") ||
+          column_name.end_with?("_id") ||
           @localized_attributes.key?(column_name)
       end
     end
