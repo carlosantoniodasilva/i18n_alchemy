@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "i18n_alchemy"
   s.version     = I18n::Alchemy::VERSION
   s.platform    = Gem::Platform::RUBY
+  s.licenses    = ["MIT"]
   s.authors     = ["Carlos Antonio da Silva"]
   s.email       = ["carlosantoniodasilva@gmail.com"]
   s.homepage    = ""
@@ -15,6 +16,8 @@ Gem::Specification.new do |s|
   s.files         = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
   s.test_files    = Dir["test/**/*"]
   s.require_paths = ["lib"]
+
+  s.required_ruby_version = '>= 2.2.0'
 
   s.add_dependency "activesupport", ">= 4.0.0", "< 7.0"
   s.add_dependency "i18n", ">= 0.7"
