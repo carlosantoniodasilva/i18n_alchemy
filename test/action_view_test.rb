@@ -45,22 +45,9 @@ class ActionViewTest < I18n::Alchemy::TestCase
   # Since we do not want to rely on Rails dom-assertions (neither from the
   # framework nor from the extracted gem), we build our own :).
   def assert_same_text_input(attribute, value)
-    assert_includes [
-      text_input_sorted_attributes(attribute, value),
-      text_input_unsorted_attributes(attribute, value)
-    ], @template.text_field(:product, attribute, object: @localized)
-  end
-
-  def text_input_sorted_attributes(attribute_name, value)
-    size = rails4? ? ' ' : ' size="30" '
-    %Q[<input id="product_#{attribute_name}" name="product[#{attribute_name}]"#{size}type="text" value="#{value}" />]
-  end
-
-  def text_input_unsorted_attributes(attribute_name, value)
-    %Q[<input type="text" value="#{value}" name="product[#{attribute_name}]" id="product_#{attribute_name}" />]
-  end
-
-  def rails4?
-    ActionPack::VERSION::STRING.start_with? "4"
+    assert_equal(
+      %Q[<input type="text" value="#{value}" name="product[#{attribute}]" id="product_#{attribute}" />],
+      @template.text_field(:product, attribute, object: @localized)
+    )
   end
 end

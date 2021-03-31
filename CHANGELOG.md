@@ -1,3 +1,9 @@
+## unreleased
+
+* Drop support for Ruby < 2.5
+* Drop support for Rails < 5.2
+* Move CI to GitHub Actions
+
 ## v0.4.0 - 2020-03-30
 
 * Ruby 3.0 support
