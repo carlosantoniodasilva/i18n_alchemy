@@ -2,18 +2,9 @@ require "rubygems"
 require "bundler/setup"
 Bundler.require :test
 
-begin
-  # Rails 4.1
-  require 'minitest'
-  require 'minitest/unit'
-  Minitest.autorun
-  MiniTestCase = Minitest::Test
-rescue LoadError
-  # Rails 4.0
-  require 'minitest/unit'
-  MiniTest::Unit.autorun
-  MiniTestCase = MiniTest::Unit::TestCase
-end
+require 'minitest'
+require 'minitest/unit'
+Minitest.autorun
 
 require "i18n_alchemy"
 require "action_view"
@@ -31,7 +22,7 @@ Dir["test/custom_parsers/*.rb"].each { |file| require File.expand_path(file) }
 Dir["test/models/*.rb"].each { |file| require File.expand_path(file) }
 
 module I18n::Alchemy
-  class TestCase < MiniTestCase
+  class TestCase < Minitest::Test
   end
 
   class ProxyTestCase < TestCase

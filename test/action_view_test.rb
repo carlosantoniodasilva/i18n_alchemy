@@ -52,15 +52,10 @@ class ActionViewTest < I18n::Alchemy::TestCase
   end
 
   def text_input_sorted_attributes(attribute_name, value)
-    size = rails4? ? ' ' : ' size="30" '
-    %Q[<input id="product_#{attribute_name}" name="product[#{attribute_name}]"#{size}type="text" value="#{value}" />]
+    %Q[<input id="product_#{attribute_name}" name="product[#{attribute_name}]" size="30" type="text" value="#{value}" />]
   end
 
   def text_input_unsorted_attributes(attribute_name, value)
     %Q[<input type="text" value="#{value}" name="product[#{attribute_name}]" id="product_#{attribute_name}" />]
-  end
-
-  def rails4?
-    ActionPack::VERSION::STRING.start_with? "4"
   end
 end
