@@ -151,7 +151,7 @@ And then just configure the attribute you want to use with this new parser:
 ```ruby
 class Product < ActiveRecord::Base
   include I18n::Alchemy
-  custom_parsers :released_month => MyCustomDateParser
+  localize :released_month, :using => MyCustomDateParser
 end
 ```
 
