@@ -2,6 +2,7 @@
 
 * Drop support for Ruby < 2.5
 * Drop support for Rails < 5.2
+* Add support for Rails 7 ([@JonathanFerreira](https://github.com/JonathanFerreira))
 * Move CI to GitHub Actions
 
 ## v0.4.0 - 2020-03-30
