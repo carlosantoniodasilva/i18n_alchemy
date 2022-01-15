@@ -8,6 +8,7 @@ jobs:
         gemfile:
           - Gemfile-rails.5.2.x
           - Gemfile-rails.6.0.x
+          - Gemfile-rails.6.1.x
           - Gemfile
         ruby:
           - 2.5
@@ -19,6 +20,11 @@ jobs:
             gemfile: Gemfile-rails.5.2.x
           - ruby: 3.0
             gemfile: Gemfile-rails.5.2.x
+          - ruby: 2.5
+            gemfile: Gemfile
+          - ruby: 2.6
+            gemfile: Gemfile
+
     runs-on: ubuntu-latest
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
