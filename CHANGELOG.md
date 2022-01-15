@@ -1,4 +1,4 @@
-## unreleased
+## v0.5.0 - 2022-01-15
 
 * Drop support for Ruby < 2.5
 * Drop support for Rails < 5.2
