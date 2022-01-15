@@ -8,7 +8,7 @@ jobs:
         gemfile:
           - Gemfile-rails.5.2.x
           - Gemfile-rails.6.0.x
-          - Gemfile-rails.7.0.x
+          - Gemfile-rails.6.1.x
           - Gemfile
         ruby:
           - 2.5
