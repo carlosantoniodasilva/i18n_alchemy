@@ -19,7 +19,7 @@ module I18n
       #
       def parse(attributes)
         if association.macro == :has_many
-          attributes = attributes.is_a?(Hash) ? attributes.values : attributes
+          attributes = attributes.is_a?(Hash) || attributes.is_a?(ActionController::Parameters) ? attributes.values : attributes
           attributes.map { |value_attributes| proxy.send(:parse_attributes, value_attributes) }
         else
           proxy.send(:parse_attributes, attributes)
