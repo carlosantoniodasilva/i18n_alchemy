@@ -1,0 +1,21 @@
+fr:
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      long: "%e %B %Y"
+      short: "%e %b"
+
+  number:
+    format:
+      delimiter: " "
+      precision: 3
+      separator: ","
+      significant: false
+
+  time:
+    am: am
+    formats:
+      default: "%d %B %Y %Hh %Mmin %Ss"
+      long: "%A %d %B %Y %Hh%M"
+      short: "%d %b %Hh%M"
+    pm: pm
