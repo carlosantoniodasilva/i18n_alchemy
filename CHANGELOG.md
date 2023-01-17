@@ -17,6 +17,7 @@
 * Ruby 2.6 & 2.7 support (no changes required)
 * Rails 6 support ([@mayordwells](https://github.com/mayordwells))
 * Add support for `update`/`update!` Active Record methods ([@tbk303](https://github.com/tbk303))
+* Add unlocalize to get the original target ([@sobrinho](https://github.com/sobrinho))
 
 ## v0.3.0 - 2018-09-08
 
