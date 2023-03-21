@@ -57,8 +57,15 @@ module I18n
       # Delegate all method calls that are not translated to the target object.
       # As the proxy does not have any other method, there is no need to
       # override :respond_to, just delegate it to the target as well.
-      def method_missing(*args, &block)
-        @target.send(*args, &block)
+      if ::RUBY_VERSION >= "2.7"
+        def method_missing(*args, **kwargs, &block)
+          @target.send(*args, **kwargs, &block)
+        end
+        ruby2_keywords :method_missing
+      else
+        def method_missing(*args, &block)
+          @target.send(*args, &block)
+        end
       end
 
       private
@@ -146,7 +153,7 @@ module I18n
 
       def skip_column?(column_name)
         column_name == @target_class.primary_key ||
-          column_name.ends_with?("_id") ||
+          column_name.end_with?("_id") ||
           @localized_attributes.key?(column_name)
       end
     end

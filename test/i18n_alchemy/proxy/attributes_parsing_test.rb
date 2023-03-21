@@ -53,14 +53,6 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     end
   end
 
-  def test_update_attributes
-    silence_deprecations {
-      @localized.update_attributes(price: '2,88')
-    }
-    assert_equal '2,88', @localized.price
-    assert_equal 2.88, @product.reload.price
-  end
-
   def test_update!
     @localized.update!(price: '2,88')
     assert_equal '2,88', @localized.price
@@ -73,12 +65,22 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     end
   end
 
-  def test_update_attributes!
-    silence_deprecations {
-      @localized.update_attributes!(price: '2,88')
-    }
-    assert_equal '2,88', @localized.price
-    assert_equal 2.88, @product.reload.price
+  if I18n::Alchemy.support_update_attributes?
+    def test_update_attributes
+      silence_deprecations {
+        @localized.update_attributes(price: '2,88')
+      }
+      assert_equal '2,88', @localized.price
+      assert_equal 2.88, @product.reload.price
+    end
+
+    def test_update_attributes!
+      silence_deprecations {
+        @localized.update_attributes!(price: '2,88')
+      }
+      assert_equal '2,88', @localized.price
+      assert_equal 2.88, @product.reload.price
+    end
   end
 
   def test_update_attribute

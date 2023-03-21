@@ -1,5 +1,5 @@
 module I18n
   module Alchemy
-    VERSION = "0.3.1"
+    VERSION = "0.5.0"
   end
 end
