@@ -61,7 +61,6 @@ module I18n
         def method_missing(*args, **kwargs, &block)
           @target.send(*args, **kwargs, &block)
         end
-        ruby2_keywords :method_missing
       else
         def method_missing(*args, &block)
           @target.send(*args, &block)

@@ -6,6 +6,10 @@ class DateParserTest < I18n::Alchemy::TestCase
     @date   = Date.new(2011, 12, 31)
   end
 
+  def test_does_not_convert_nil
+    assert_nil @parser.parse(nil)
+  end
+
   def test_does_not_convert_non_string_objects
     assert_equal @date, @parser.parse(@date)
   end
