@@ -1,7 +1,9 @@
-## unreleased
+## v0.5.0 - 2022-01-15
 
 * Drop support for Ruby < 2.5
 * Drop support for Rails < 5.2
+* Rails 7 support (no changes required) ([@JonathanFerreira](https://github.com/JonathanFerreira))
+* Ruby 3.1 support (no changes required)
 * Move CI to GitHub Actions
 
 ## v0.4.0 - 2020-03-30

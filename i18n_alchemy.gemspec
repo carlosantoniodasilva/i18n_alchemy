@@ -19,11 +19,11 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.5.0'
 
-  s.add_dependency "activesupport", ">= 4.0.0", "< 7.0"
+  s.add_dependency "activesupport", ">= 4.0.0", "< 8.0"
   s.add_dependency "i18n", ">= 0.7"
 
-  s.add_development_dependency "actionpack", ">= 4.0.0", "< 7.0"
-  s.add_development_dependency "activerecord", ">= 4.0.0", "< 7.0"
+  s.add_development_dependency "actionpack", ">= 4.0.0", "< 8.0"
+  s.add_development_dependency "activerecord", ">= 4.0.0", "< 8.0"
   s.add_development_dependency "minitest", ">= 4.3.2"
   s.add_development_dependency "rake", ">= 10.1"
 end
