@@ -34,7 +34,7 @@ module I18n
 
       def update_attribute(attribute, value)
         attributes = parse_attributes(attribute => value)
-        @target.update_attribute(attribute, attributes.values.first)
+        @target.update(attribute, attributes.values.first)
       end
 
       private
