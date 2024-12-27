@@ -1,3 +1,7 @@
+## v0.6.0 - 2024-12-25
+
++ Rails 7.2 support
+
 ## v0.5.0 - 2022-01-15
 
 * Drop support for Ruby < 2.5
