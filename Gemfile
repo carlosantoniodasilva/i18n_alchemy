@@ -4,6 +4,7 @@ gemspec
 
 gem 'activerecord',  '~> 7.0.0'
 gem 'activesupport', '~> 7.0.0'
+gem 'concurrent-ruby', '1.3.4'    
 
 platform :jruby do
   gem 'activerecord-jdbcsqlite3-adapter', '~> 1.3.0'
