@@ -63,12 +63,14 @@ module I18n
       # Delegate all method calls that are not translated to the target object.
       # As the proxy does not have any other method, there is no need to
       # override :respond_to, just delegate it to the target as well.
-      def method_missing(*args, &block)
-        @target.send(*args, &block)
-      end
-
       if ::RUBY_VERSION >= "2.7"
-        ruby2_keywords :method_missing
+        def method_missing(*args, **kwargs, &block)
+          @target.send(*args, **kwargs, &block)
+        end
+      else
+        def method_missing(*args, &block)
+          @target.send(*args, &block)
+        end
       end
 
       private
