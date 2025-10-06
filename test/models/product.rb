@@ -16,6 +16,10 @@ class Product < ActiveRecord::Base
     yield "called!"
   end
 
+  def method_with_options(*args, **options)
+    yield(*args, **options)
+  end
+
   def estimated_last_comission_payment_at
     (last_sale_at + 5.days).end_of_day if last_sale_at?
   end
