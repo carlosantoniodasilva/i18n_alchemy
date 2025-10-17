@@ -13,6 +13,22 @@ class ProxyTest < I18n::Alchemy::ProxyTestCase
     end
   end
 
+  def test_delegates_method_with_options_to_target_object
+    @localized.method_with_options(:argument, option: :option) do |argument, option:|
+      assert_equal :argument, argument
+      assert_equal :option, option
+    end
+  end
+
+  if ::RUBY_VERSION < "3.0"
+    def test_delegates_method_with_ruby_pre3_options_to_target_object
+      @localized.method_with_options(:argument, { option: :option }) do |argument, option:|
+        assert_equal :argument, argument
+        assert_equal :option, option
+      end
+    end
+  end
+
   def test_respond_to
     assert_respond_to @localized, :price
     assert_respond_to @localized, :price=
