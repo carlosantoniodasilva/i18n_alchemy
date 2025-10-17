@@ -1,3 +1,10 @@
+## Unreleased
+
+* Drop support for Ruby < 2.7
+* Drop support for Rails < 7.0
+* Rails 8+ support: inherit from `BasicObject` when available, `ActiveSupport::ProxyObject` was deprecated / removed ([#64](https://github.com/carlosantoniodasilva/i18n_alchemy/pull/64))
+* Remove `ruby2_keywords` warning ([#64](https://github.com/carlosantoniodasilva/i18n_alchemy/pull/64))
+
 ## v0.5.0 - 2022-01-15
 
 * Drop support for Ruby < 2.5

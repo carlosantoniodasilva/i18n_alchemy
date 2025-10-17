@@ -1,0 +1,15 @@
+source 'https://rubygems.org'
+
+gemspec path: '..'
+
+gem 'activesupport', github: 'rails/rails', branch: 'main'
+gem 'activerecord', github: 'rails/rails', branch: 'main'
+gem 'actionpack', github: 'rails/rails', branch: 'main'
+
+platform :jruby do
+  gem 'activerecord-jdbcsqlite3-adapter'
+end
+
+platform :ruby do
+  gem 'sqlite3'
+end

@@ -17,13 +17,13 @@ Gem::Specification.new do |s|
   s.test_files    = Dir["test/**/*"]
   s.require_paths = ["lib"]
 
-  s.required_ruby_version = '>= 2.5.0'
+  s.required_ruby_version = '>= 2.7.0'
 
-  s.add_dependency "activesupport", ">= 4.0.0", "< 8.0"
+  s.add_dependency "activesupport", ">= 7.0.0", "< 9.0"
   s.add_dependency "i18n", ">= 0.7"
 
-  s.add_development_dependency "actionpack", ">= 4.0.0", "< 8.0"
-  s.add_development_dependency "activerecord", ">= 4.0.0", "< 8.0"
+  s.add_development_dependency "actionpack", ">= 7.0.0", "< 9.0"
+  s.add_development_dependency "activerecord", ">= 7.0.0", "< 9.0"
   s.add_development_dependency "minitest", ">= 4.3.2"
   s.add_development_dependency "rake", ">= 10.1"
 end
