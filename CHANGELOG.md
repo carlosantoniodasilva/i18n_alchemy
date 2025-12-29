@@ -1,3 +1,7 @@
+## Unreleased
+
+* Ruby 4.0 support (no changes needed)
+
 ## v0.6.0 - 2025-10-17
 
 * Drop support for Ruby < 2.7
