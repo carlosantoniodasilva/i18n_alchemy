@@ -3,8 +3,7 @@ require "bundler/setup"
 Bundler.require :test
 
 require 'minitest'
-require 'minitest/unit'
-Minitest.autorun
+require 'minitest/autorun'
 
 require "i18n_alchemy"
 require "action_view"
