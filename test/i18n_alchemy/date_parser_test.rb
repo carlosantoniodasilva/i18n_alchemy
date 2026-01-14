@@ -26,8 +26,10 @@ class DateParserTest < I18n::Alchemy::TestCase
     end
   end
 
-  def test_parsers_returns_the_given_string_when_invalid_date
+  def test_parsers_returns_the_given_value_when_invalid_date
     assert_equal "31/12/2011", @parser.parse("31/12/2011")
+    assert_equal "", @parser.parse("")
+    assert_nil @parser.parse(nil)
   end
 
   def test_does_not_localize_string_values
