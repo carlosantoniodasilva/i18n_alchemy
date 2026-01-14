@@ -80,7 +80,7 @@ The localized method quacks like ActiveRecord: you can give a hash of attributes
 ```ruby
 # This will parse the attributes in the given hash.
 I18n.with_locale :pt do
-  @localized = @product.localized(:price => "1,88")
+  @localized = @product.localized(price: "1,88")
 
   @product.price   # => 1.88
   @localized.price # => "1,88"
@@ -94,7 +94,7 @@ Given a product model with a `total` method, that is a simple calculation of `qu
 ```ruby
 class Product < ActiveRecord::Base
   include I18n::Alchemy
-  localize :total, :using => :number
+  localize :total, using: :number
 
   def total
     quantity * price
@@ -117,7 +117,7 @@ your class have both reader and writer methods available:
 ```ruby
 class Product
   include I18n::Alchemy
-  localize :released_at, :using => :date
+  localize :released_at, using: :date
 
   attr_accessor :released_at
 end
@@ -133,13 +133,13 @@ module MyCustomDateParser
   extend self
 
   def localize(value)
-    I18n.localize value, :format => :custom
+    I18n.localize value, format: :custom
   end
 
   protected
 
   def i18n_format
-    I18n.t(:custom, :scope => [:date, :formats])
+    I18n.t(:custom, scope: [:date, :formats])
   end
 end
 ```
@@ -149,7 +149,7 @@ And then just configure the attribute you want to use with this new parser:
 ```ruby
 class Product < ActiveRecord::Base
   include I18n::Alchemy
-  localize :released_month, :using => MyCustomDateParser
+  localize :released_month, using: MyCustomDateParser
 end
 ```
 
@@ -160,7 +160,7 @@ If you are using `localize`, you can mix the custom parsers with your existing c
 ```ruby
 class Product < ActiveRecord::Base
   include I18n::Alchemy
-  localize :total, :using => MyCustomNumberParser
+  localize :total, using: MyCustomNumberParser
 end
 ```
 

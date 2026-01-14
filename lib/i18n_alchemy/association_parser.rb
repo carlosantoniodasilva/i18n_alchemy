@@ -12,10 +12,10 @@ module I18n
       #
       # ==== Examples
       #
-      #  parse(:avatar_attributes => {:icon => 'sad_panda'})
-      #  parse(:posts_attributes  => [{:title => 'Foo!'}, {:title => 'Bar!'}])
-      #  parse(:posts_attributes => { 0 => {:title => 'Foo!'}, 1 => {:title => 'Bar!'})
-      #  parse(:posts_attributes => { "81u21udjsndja" => {:title => 'Foo!'}, "akmsams" => {:title => 'Baz!'}})
+      #  parse(avatar_attributes: {icon: 'sad_panda'})
+      #  parse(posts_attributes: [{title: 'Foo!'}, {title: 'Bar!'}])
+      #  parse(posts_attributes: { 0 => {title: 'Foo!'}, 1 => {title: 'Bar!'})
+      #  parse(posts_attributes: { "81u21udjsndja" => {title: 'Foo!'}, "akmsams" => {title: 'Baz!'}})
       #
       def parse(attributes)
         if association.macro == :has_many
