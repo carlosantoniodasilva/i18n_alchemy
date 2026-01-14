@@ -65,24 +65,6 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
     end
   end
 
-  if I18n::Alchemy.support_update_attributes?
-    def test_update_attributes
-      silence_deprecations {
-        @localized.update_attributes(price: '2,88')
-      }
-      assert_equal '2,88', @localized.price
-      assert_equal 2.88, @product.reload.price
-    end
-
-    def test_update_attributes!
-      silence_deprecations {
-        @localized.update_attributes!(price: '2,88')
-      }
-      assert_equal '2,88', @localized.price
-      assert_equal 2.88, @product.reload.price
-    end
-  end
-
   def test_update_attribute
     @localized.update_attribute(:price, '2,88')
     assert_equal '2,88', @localized.price
