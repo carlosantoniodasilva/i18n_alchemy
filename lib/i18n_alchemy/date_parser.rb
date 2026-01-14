@@ -40,7 +40,7 @@ module I18n
       end
 
       def valid_for_parsing?(value)
-        !valid_for_localization?(value)
+        !value.nil? && !valid_for_localization?(value)
       end
     end
   end

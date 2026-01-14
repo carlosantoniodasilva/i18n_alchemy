@@ -23,6 +23,11 @@ class NumericParserTest < I18n::Alchemy::TestCase
     assert_equal "999", @parser.parse("999")
   end
 
+  def test_parsers_returns_the_given_value_when_invalid_number
+    assert_equal "", @parser.parse("")
+    assert_nil @parser.parse(nil)
+  end
+
   def test_parses_string_numbers_based_on_current_i18n_locale
     I18n.with_locale :pt do
       assert_equal "1.2", @parser.parse("1,2")
