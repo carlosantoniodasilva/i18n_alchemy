@@ -72,20 +72,20 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
   end
 
   # Nested Attributes
-  def test_should_assign_for_nested_attributes_for_collection_association
+  def test_assign_attributes_for_nested_attributes_for_collection_association
     @supplier_localized.assign_attributes(products_attributes: [{ price: '1,99' }, { price: '2,93' }])
     assert_equal 2, @supplier_localized.products.size
     assert_equal '1,99', @supplier_localized.products.first.localized.price
     assert_equal '2,93', @supplier_localized.products.last.localized.price
   end
 
-  def test_should_assign_for_nested_attributes_passing_a_hash_for_collection_with_unique_keys
+  def test_assign_attributes_for_nested_attributes_passing_a_hash_for_collection_with_unique_keys
     @supplier_localized.assign_attributes(products_attributes: { '0' => { price: '2,93', _destroy: 'false' }, '1' => { price: '2,85', _destroy: 'false' }})
     prices = @supplier.products.map { |p| p.localized.price }.sort
     assert_equal ['2,85', '2,93'], prices
   end
 
-  def test_should_assign_for_nested_attributes_for_one_to_one_association
+  def test_assign_attributes_for_nested_attributes_for_one_to_one_association
     @supplier_localized.assign_attributes(account_attributes: { account_number: 10, total_money: '100,87' })
     account = @supplier_localized.account
     assert_equal '10', account.account_number.to_s
