@@ -19,10 +19,13 @@ module I18n
       #
       def parse(attributes)
         if association.macro == :has_many
-          attributes = attributes.is_a?(Hash) ? attributes.values : attributes
-          attributes.map { |value_attributes| proxy.send(:parse_attributes, value_attributes) }
+          if attributes.respond_to?(:transform_values)
+            attributes.transform_values { |value_attributes| parse_attributes(value_attributes) }
+          else
+            attributes.map { |value_attributes| parse_attributes(value_attributes) }
+          end
         else
-          proxy.send(:parse_attributes, attributes)
+          parse_attributes(attributes)
         end
       end
 
@@ -47,6 +50,10 @@ module I18n
 
       def proxy
         @proxy ||= @association.klass.new.localized
+      end
+
+      def parse_attributes(attributes)
+        proxy.send(:parse_attributes, attributes)
       end
     end
   end

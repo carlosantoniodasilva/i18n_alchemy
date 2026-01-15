@@ -80,7 +80,18 @@ class ProxyAttributesParsingTest < I18n::Alchemy::ProxyTestCase
   end
 
   def test_assign_attributes_for_nested_attributes_passing_a_hash_for_collection_with_unique_keys
-    @supplier_localized.assign_attributes(products_attributes: { '0' => { price: '2,93', _destroy: 'false' }, '1' => { price: '2,85', _destroy: 'false' }})
+    @supplier_localized.assign_attributes(
+      products_attributes: { '0' => { price: '2,93', _destroy: 'false' }, '1' => { price: '2,85', _destroy: 'false' }}
+    )
+    prices = @supplier.products.map { |p| p.localized.price }.sort
+    assert_equal ['2,85', '2,93'], prices
+  end
+
+  def test_assign_attributes_for_nested_attributes_passing_a_hash_for_collection_with_unique_keys_using_ac_parameters
+    parameters = ActionController::Parameters.new(
+      products_attributes: { '0' => { price: '2,93', _destroy: 'false' }, '1' => { price: '2,85', _destroy: 'false' }}
+    )
+    @supplier_localized.assign_attributes(parameters.permit!)
     prices = @supplier.products.map { |p| p.localized.price }.sort
     assert_equal ['2,85', '2,93'], prices
   end

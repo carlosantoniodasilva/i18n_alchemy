@@ -6,6 +6,7 @@ require 'minitest'
 require 'minitest/autorun'
 
 require "i18n_alchemy"
+require "action_controller"
 require "action_view"
 require "active_record"
 
