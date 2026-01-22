@@ -3,6 +3,7 @@
 * Ruby 4.0 support (no changes needed)
 * Handle `nil` date/time input on parsing ([#66](https://github.com/carlosantoniodasilva/i18n_alchemy/pull/66))
 * Fix association parser with `ActionController::Parameters` for nested attributes ([#67](https://github.com/carlosantoniodasilva/i18n_alchemy/pull/67))
+* Add target method to retrieve original object ([#50](https://github.com/carlosantoniodasilva/i18n_alchemy/pull/50))
 
 ## v0.6.0 - 2025-10-17
 
