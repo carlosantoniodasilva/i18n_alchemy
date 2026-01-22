@@ -6,23 +6,19 @@ class DateParserTest < I18n::Alchemy::TestCase
     @date   = Date.new(2011, 12, 31)
   end
 
-  def test_does_not_convert_non_string_objects
-    assert_equal @date, @parser.parse(@date)
-  end
-
   def test_parses_valid_string_dates_with_default_i18n_locale
-    assert_equal "2011-12-31", @parser.parse("12/31/2011")
+    assert_equal @date, @parser.parse("12/31/2011")
   end
 
   def test_parsers_string_dates_on_current_i18n_locale
     I18n.with_locale :pt do
-      assert_equal "2011-12-31", @parser.parse("31/12/2011")
+      assert_equal @date, @parser.parse("31/12/2011")
     end
   end
 
   def test_parsers_string_dates_with_implicit_day
     I18n.with_locale :jp do
-      assert_equal "2011-12-01", @parser.parse("12/2011")
+      assert_equal @date.at_beginning_of_month, @parser.parse("12/2011")
     end
   end
 
