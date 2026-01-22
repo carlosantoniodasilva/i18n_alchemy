@@ -13,6 +13,8 @@ module I18n
     class Proxy < base_proxy
       include AttributesParsing
 
+      attr_reader :target
+
       # TODO: cannot assume _id is always a foreign key.
       # Find a better way to find that and skip these columns.
       def initialize(target, attributes = nil)
