@@ -87,14 +87,14 @@ I18n.with_locale :pt do
 end
 ```
 
-Keep in mind that `product.localized` is a proxy object and if you need the original value, you need either to use the original object or unlocalize the proxy for action view helpers like `date_select`:
+Keep in mind that `product.localized` is a proxy object and if you need the original value, you need either to use the original object or target the proxy for action view helpers like `date_select`:
 
 ```ruby
 # In case you have the original target.
 f.date_select :released_at, selected: @product.released_at
 
-# In case you don't have the original target, you can use `unlocalize` to get it back.
-f.date_select :released_at, selected: @localized.unlocalize.released_at
+# In case you don't have the original target, you can use `target` to get it back.
+f.date_select :released_at, selected: @localized.target.released_at
 ```
 
 This is necessary because such Rails helpers expects a Date/Time object and not a localized string.

@@ -1,8 +1,8 @@
 require "test_helper"
 
 class ProxyTest < I18n::Alchemy::ProxyTestCase
-  def test_unlocalize
-    assert_equal @product, @localized.unlocalize
+  def test_target
+    assert_equal @product, @localized.target
   end
 
   def test_delegates_orm_methods_to_target_object

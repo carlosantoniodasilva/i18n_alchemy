@@ -13,6 +13,8 @@ module I18n
     class Proxy < base_proxy
       include AttributesParsing
 
+      attr_reader :target
+
       # TODO: cannot assume _id is always a foreign key.
       # Find a better way to find that and skip these columns.
       def initialize(target, attributes = nil)
@@ -29,12 +31,6 @@ module I18n
         end
 
         assign_attributes(attributes) if attributes
-      end
-
-      # Returns the original target. This is useful for action view helpers that
-      # expects the unlocalized value like a +Date+ or +Time+.
-      def unlocalize
-        @target
       end
 
       # Override to_param to always return the +proxy.to_param+. This allow us
